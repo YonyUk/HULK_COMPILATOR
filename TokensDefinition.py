@@ -272,7 +272,7 @@ class SimbolToken(Token,ISimbolToken):
 class VariableToken(Token,IVariableToken):
     
     def __init__(self,Text):
-        super.__init__(Text)
+        super().__init__(Text)
         pass
     
     @property
