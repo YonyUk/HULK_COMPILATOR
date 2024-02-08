@@ -4,7 +4,7 @@ lexer = Lexer()
 
 # Ciclo principal del compilador
 
-lexer.LoadCode('let a = 10 in print(a);')
+lexer.LoadCode('let a = 1e+100 in print(a);')
 for token in lexer.Tokenize():
     print(f'{token} ----> {token.Type}')
     pass

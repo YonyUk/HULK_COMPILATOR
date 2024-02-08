@@ -103,7 +103,7 @@ class Lexer:
                 self.TextReaded = str(self.Code[self.CurrentPosition])
                 self.CurrentPosition += 1
                 pass
-            if self.TextReaded == "\n":
+            elif self.TextReaded == "\n":
                 yield self._CreateToken(self.TextReaded)
                 self.TextReaded = str(self.Code[self.CurrentPosition])
                 self.CurrentPosition += 1
@@ -215,7 +215,7 @@ class Lexer:
                     self.TextReaded += self.Code[self.CurrentPosition]
                     self.CurrentPosition += 1
                     pass
-                
+                    
                 pass
             else:
                 self.TextReaded += self.Code[self.CurrentPosition]
