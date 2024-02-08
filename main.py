@@ -2,8 +2,19 @@ from Lexer import Lexer
 
 lexer = Lexer()
 
-lexer.LoadCode('a = 123;')
+# Ciclo principal del compilador
 
+lexer.LoadCode('let a = 10 in print(a);')
 for token in lexer.Tokenize():
-    print(token)
+    print(f'{token} ----> {token.Type}')
     pass
+
+# while True:
+    #     # leemos la instruccion
+#     print('\r')
+#     instruction = input('>>> ')
+#     lexer.LoadCode(instruction)
+#     # imprimimos todos los tokens
+#     pass
+
+

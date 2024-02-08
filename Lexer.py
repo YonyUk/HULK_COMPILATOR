@@ -121,7 +121,7 @@ class Lexer:
                 
                 length = 0
                 if self.Code.count("\"",self.CurrentPosition) > 0:
-                    length = self.Code.index("\"",self.CurrentPosition + 1) - self.CurrentPosition - 1
+                    length = self.Code.index("\"",self.CurrentPosition) - self.CurrentPosition
                     pass
                 
                 if length == 0:
@@ -132,7 +132,7 @@ class Lexer:
                     break
                 
                 # terminamos el procesamiento del string
-                self.TextReaded = self.Code[self.CurrentPosition + 1:length]
+                self.TextReaded = self.Code[self.CurrentPosition:self.CurrentPosition + length]
                 yield LiteralToken(self.TextReaded)
                 self.CurrentPosition += len(self.TextReaded)
                 self.TextReaded = "\""
