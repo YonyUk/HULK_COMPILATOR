@@ -90,6 +90,9 @@ class Lexer:
                 yield self._CreateToken(self.TextReaded)
                 self.TextReaded = str(self.Code[self.CurrentPosition])
                 self.CurrentPosition += 1
+                yield self._CreateToken(self.TextReaded)
+                self.TextReaded = str(self.Code[self.CurrentPosition])
+                self.CurrentPosition += 1
                 pass
             elif self.Code[self.CurrentPosition] == '.':
                 # mismo caso anterios
@@ -110,6 +113,9 @@ class Lexer:
                 pass
             elif self.Code[self.CurrentPosition] == "\n":
                 # lo que sea que se haya leido es un token
+                yield self._CreateToken(self.TextReaded)
+                self.TextReaded = str(self.Code[self.CurrentPosition])
+                self.CurrentPosition += 1
                 yield self._CreateToken(self.TextReaded)
                 self.TextReaded = str(self.Code[self.CurrentPosition])
                 self.CurrentPosition += 1
@@ -148,7 +154,7 @@ class Lexer:
                     pass
                 
                 pass
-            elif self._IsOperatorPrefix(self.TextReaded) and not self.TextReaded == 'a':
+            elif self._IsOperatorPrefix(self.TextReaded) and not self.TextReaded == 'a' and not self.TextReaded == 'i':
                 # detectamos el prefijo de un operador
                 
                 if not self._IsOperatorSufix(str(self.Code[self.CurrentPosition])) and not self._IsSimbolSufix(str(self.Code[self.CurrentPosition])):
@@ -169,7 +175,7 @@ class Lexer:
                     self.CurrentPosition += 1
                     pass
                 pass
-            elif self._IsOperatorPrefix(self.Code[self.CurrentPosition]) and not self.Code[self.CurrentPosition] == 'a':
+            elif self._IsOperatorPrefix(self.Code[self.CurrentPosition]) and not self.Code[self.CurrentPosition] == 'a' and not self.Code[self.CurrentPosition] == 'i':
                 
                 if not self._IsTextualOperatorPrefix(self.Code[self.CurrentPosition]):
                     # lo que sea que se haya leido es un token
@@ -250,13 +256,14 @@ class Lexer:
                 if not str(str(token)[0]).isalpha():
                     error = LexicalError('El nombre de una variable debe comenzar con una letra',column,line)
                     return CompilationStateERROR(error)
-                column += token.Length
                 pass
             elif token.Type == TokenType.Simbol:
-                if token.SimbolType == Simbol.JumpLine:
+                if token.Simbol == Simbol.JumpLine:
                     line += 1
+                    column = 0
                     pass
                 pass
+            column += token.Length
             pass
         
         return CompilationStateOK()
