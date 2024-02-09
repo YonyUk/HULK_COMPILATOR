@@ -248,7 +248,7 @@ class Lexer:
         for token in tokens_sequence:
             if token.Type == TokenType.Variable:
                 if not str(str(token)[0]).isalpha():
-                    error = LexicalError('El nombre de una variable debe ser una letra',column,line)
+                    error = LexicalError('El nombre de una variable debe comenzar con una letra',column,line)
                     return CompilationStateERROR(error)
                 column += token.Length
                 pass

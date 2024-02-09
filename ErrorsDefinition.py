@@ -30,7 +30,7 @@ class ERROR:
         raise NotImplementedError()
     
     def __str__(self):
-        return f'{self.Type} ERROR en la linea {self.Line} columna {self.Column}'
+        return f'{self.Type} ERROR en la linea {self.Line} columna {self.Column}: {self._message}'
     
     pass
 

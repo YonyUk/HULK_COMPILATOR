@@ -10,9 +10,8 @@ while True:
     instruction = input('>>> ')
     lexer.LoadCode(instruction)
     # imprimimos todos los tokens
-    for token in lexer.Tokenize():
-        print(f'{token} ----> {token.Type}')
-        pass
+    state = lexer.LexicalAnalisys(lexer.Tokenize())
+    print(state)
     pass
 
 
