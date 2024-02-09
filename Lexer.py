@@ -163,7 +163,11 @@ class Lexer:
                         self.TextReaded += self.Code[self.CurrentPosition]
                         self.CurrentPosition += 1
                         pass
-                    
+                    pass
+                else:
+                    self.TextReaded += self.Code[self.CurrentPosition]
+                    self.CurrentPosition += 1
+                    pass
                 pass
             elif self._IsOperatorPrefix(self.Code[self.CurrentPosition]) and not self.Code[self.CurrentPosition] == 'a':
                 
