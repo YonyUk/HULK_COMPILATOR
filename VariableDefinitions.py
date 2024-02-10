@@ -56,6 +56,10 @@ class NumberVariable(IVariable,NumberExpression):
         pass
     
     @property
+    def Name(self):
+        return self._name
+    
+    @property
     def Value(self):
         if not self._isassignated:
             raise UnassignatedVariableException('No se ha asignado un valor a esta variable')
