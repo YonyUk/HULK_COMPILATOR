@@ -1,9 +1,8 @@
 from Lexer import Lexer
-from Parser import NumberExpression,NumberLiteral,NumberVariable,BooleanExpression,BooleanLiteral,BooleanVariable
+from Parser import NumberExpression,NumberLiteral,NumberVariable,BooleanExpression,BooleanLiteral,BooleanVariable,StringExpression,StringVariable,StringLiteral
 from TokensDefinition import OperatorToken
 
-a = BooleanLiteral(False)
-b = BooleanVariable('yony',True)
-
-c = BooleanExpression([a,b],[OperatorToken('|')])
+a = StringLiteral('')
+b = StringVariable('yony','h')
+c = StringExpression([a,a,b],[OperatorToken('@'),OperatorToken('@')])
 print(c)

@@ -86,7 +86,6 @@ class NumberVariable(IVariable,NumberExpression):
         return str(self.Value)
     
     pass
-
 class BooleanVariable(IVariable,BooleanExpression):
     
     def __init__(self,name,value=None):
@@ -120,6 +119,49 @@ class BooleanVariable(IVariable,BooleanExpression):
     def setValue(self,value):
         if not type(value) == bool:
             raise Exception('El valor asignado debe ser un valor booleano')
+        self._value = value
+        
+    def Resolve(self):
+        pass
+    
+    def __str__(self):
+        return str(self.Value)
+    
+    pass
+
+class StringVariable(IVariable,NumberExpression):
+    
+    def __init__(self,name,value=None):
+        self._name = name
+        if value == None:
+            self._isassignated = False
+            self._value = ''
+            pass
+        else:
+            if not type(value) == str:
+                raise Exception('El valor asignado debe ser un string')
+            self._value = value
+            self._isassignated = True
+            pass
+        pass
+    
+    @property
+    def Name(self):
+        return self._name
+    
+    @property
+    def Value(self):
+        if not self._isassignated:
+            raise UnassignatedVariableException('No se ha asignado un valor a esta variable')
+        return self._value
+    
+    @property
+    def IsAssignated(self):
+        return self._isassignated
+    
+    def setValue(self,value):
+        if not type(value) == str:
+            raise Exception('El valor asignado debe ser un string')
         self._value = value
         
     def Resolve(self):

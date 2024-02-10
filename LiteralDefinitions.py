@@ -1,4 +1,4 @@
-from ExpressionDefinitions import NumberExpression,BooleanExpression
+from ExpressionDefinitions import NumberExpression,BooleanExpression,StringExpression
 
 class ILiteral:
     
@@ -48,5 +48,24 @@ class BooleanLiteral(ILiteral,BooleanExpression):
     
     def __str__(self):
         return str(self._value)
+    
+    pass
+class StringLiteral(ILiteral,StringExpression):
+    
+    def __init__(self,value):
+        if not type(value) == str:
+            raise Exception('El valor asignado debe ser un string')
+        self._value = value
+        pass
+    
+    @property
+    def Value(self):
+        return self._value
+    
+    def Resolve(self):
+        pass
+    
+    def __str__(self):
+        return str(self.Value)
     
     pass
