@@ -248,24 +248,53 @@ class Lexer:
 
     def LexicalAnalisys(self,tokens_sequence):
         
-        column = 0
-        line = 0
+        column = 1
+        line = 1
+        
+        # donde guardaremos los tokens y sus posiciones
+        tokens = []
         
         for token in tokens_sequence:
             if token.Type == TokenType.Variable:
                 if not str(str(token)[0]).isalpha() or not token.Text.isalnum():
                     error = LexicalError('El nombre de una variable debe comenzar con una letra y no debe contener caracteres de escape',column,line)
-                    return CompilationStateERROR(error)
+                    yield CompilationStateERROR(error)
                 pass
             elif token.Type == TokenType.Simbol:
+                # si es un salto de linea podemos devolver esa cadena para procesarla
                 if token.Simbol == Simbol.JumpLine:
+                    yield CompilationStateOK(tokens)
+                    tokens.clear()
                     line += 1
                     column = 0
                     pass
                 pass
+            # seguimos leyendo la cadena de tokens
+            tokens.append((token,line,column))
             column += token.Length
             pass
         
-        return CompilationStateOK()
+        yield CompilationStateOK(tokens)
+    
+    def LexicalAnalisysFiltered(self,tokens_sequence,filter):
+        # filtraremos los tokens innecesarios a la hora de parsear las instrucciones
+        for state in self.LexicalAnalisys(tokens_sequence):
+            #  si no hay ningun error lexico
+            if not state.Error == None:
+                yield state
+                break
+            
+            # extraemos la secuencia y la filtramos
+            tokens = state.TokensSequence
+            result = []
+            for element in tokens:
+                if filter(element[0]):
+                    result.append(element)
+                    pass
+                pass
+            # la devolvemos para ser procesada
+            yield CompilationStateOK(result)
+            pass
+        pass
     
     pass
