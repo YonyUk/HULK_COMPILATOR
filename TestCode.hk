@@ -1,4 +1,4 @@
-let a = 10 in print(a);
+let a: number = 10 in print(a);
 for (let i = 0; i < 100; i++)
-    if a is 100 "hello";
-    else 1ala;
+    if a\b is 100 "hello";
+    else (ala & 7);

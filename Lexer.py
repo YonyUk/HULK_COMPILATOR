@@ -1,4 +1,4 @@
-from HULK_LANGUAGE_DEFINITION import SIMBOL_VALUES,SIMBOL_TEXTUALS,OPERATOR_VALUES,OPERATOR_TEXTUALS,KEYWORD_VALUES
+from HULK_LANGUAGE_DEFINITION import SIMBOL_VALUES,SIMBOL_TEXTUALS,OPERATOR_VALUES,OPERATOR_TEXTUALS,KEYWORD_VALUES,TYPES_DEFINED
 from TokensDefinition import OperatorToken,SimbolToken,KeywordToken,LiteralToken,VariableToken,EndToken
 from Utils import isNumeric
 from EnumsTokensDefinition import TokenType,Simbol
@@ -75,7 +75,7 @@ class Lexer:
             return OperatorToken(text)
         if SIMBOL_VALUES.__contains__(text):
             return SimbolToken(text)
-        if KEYWORD_VALUES.__contains__(text):
+        if KEYWORD_VALUES.__contains__(text) or TYPES_DEFINED.__contains__(text):
             return KeywordToken(text)
         if text == 'true' or text == 'false' or isNumeric(text):
             return LiteralToken(text)
@@ -253,8 +253,8 @@ class Lexer:
         
         for token in tokens_sequence:
             if token.Type == TokenType.Variable:
-                if not str(str(token)[0]).isalpha():
-                    error = LexicalError('El nombre de una variable debe comenzar con una letra',column,line)
+                if not str(str(token)[0]).isalpha() or not token.Text.isalnum():
+                    error = LexicalError('El nombre de una variable debe comenzar con una letra y no debe contener caracteres de escape',column,line)
                     return CompilationStateERROR(error)
                 pass
             elif token.Type == TokenType.Simbol:

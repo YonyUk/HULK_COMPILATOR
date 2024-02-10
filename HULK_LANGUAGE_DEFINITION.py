@@ -74,6 +74,9 @@ OPERATOR_VALUES = [
     ':=',
     '!',
     '?',
+    '&',
+    '|',
+    '~',
     'is',
     'as'
 ]
@@ -101,4 +104,11 @@ SIMBOL_VALUES = [
 
 SIMBOL_TEXTUALS = [
     'self'
+]
+
+TYPES_DEFINED = [
+    'object',
+    'number',
+    'boolean',
+    'string'
 ]
