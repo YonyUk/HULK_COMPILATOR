@@ -29,6 +29,7 @@ class NumberExpression(IExpression,Expression):
     def Value(self):
         if not self._resolved:
             self.Resolve()
+            self._resolved = True
             return self._value
         return self._value
     
@@ -88,4 +89,53 @@ class NumberExpression(IExpression,Expression):
     def __str__(self):
         return str(self.Value)
     
+    pass
+
+class BooleanExpression(IExpression,Expression):
+    
+    def __init__(self,expressions,operators):
+        self._expressions = expressions
+        self._operators = operators
+        self._resolved = False
+        self._value = False
+        pass
+    
+    @property
+    def _Expressions(self):
+        return self._expressions
+
+    @property
+    def Type(self):
+        return ExpressionType.Boolean
+    
+    @property
+    def Operators(self):
+        return self._operators
+    
+    @property
+    def Value(self):
+        if not self._resolved:
+            self.Resolve()
+            self._resolved = True
+            return self._value
+        return self._value
+    
+    def _resolve(self,left_value,right_expression,operator):
+        if operator.Operator == Operator.And:
+            return left_value and right_expression.Value
+        if operator.Operator == Operator.Or:
+            return left_value or right_expression.Value
+        raise ResolveExpressionException(f'No se puede aplicar el operador {operator} al tipo {right_expression.Value}')
+    
+    def Resolve(self):
+        self._expressions[0].Resolve()
+        self._value = self._expressions[0].Value
+        for i in range(len(self._operators)):
+            self._value = self._resolve(self._value,self._expressions[i + 1],self._operators[i])
+            pass
+        pass
+
+    def __str__(self):
+        return str(self.Value)
+        
     pass

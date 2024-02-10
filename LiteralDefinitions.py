@@ -1,4 +1,4 @@
-from ExpressionDefinitions import NumberExpression
+from ExpressionDefinitions import NumberExpression,BooleanExpression
 
 class ILiteral:
     
@@ -14,6 +14,28 @@ class ILiteral:
 class NumberLiteral(ILiteral,NumberExpression):
     
     def __init__(self,value):
+        if not type(value) == float or not type(value) == int:
+            raise Exception('El valor asignado debe ser un valor numerico')
+        self._value = value
+        pass
+    
+    @property
+    def Value(self):
+        return self._value
+    
+    def Resolve(self):
+        pass
+    
+    def __str__(self):
+        return str(self._value)
+    
+    pass
+
+class BooleanLiteral(ILiteral,BooleanExpression):
+    
+    def __init__(self,value):
+        if not type(value) == bool:
+            raise Exception('El valor asignado debe ser un valor booleano')
         self._value = value
         pass
     

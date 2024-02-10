@@ -1,22 +1,9 @@
 from Lexer import Lexer
+from Parser import NumberExpression,NumberLiteral,NumberVariable,BooleanExpression,BooleanLiteral,BooleanVariable
+from TokensDefinition import OperatorToken
 
-lexer = Lexer()
+a = BooleanLiteral(False)
+b = BooleanVariable('yony',True)
 
-# Ciclo principal del compilador
-reader = open('TestCode.hk','r')
-code = reader.read()
-
-lexer.LoadCode(code)
-state = lexer.LexicalAnalisys(lexer.Tokenize())
-print(state)
-
-# while True:
-#     # leemos la instruccion
-#     instruction = input('>>> ')
-#     lexer.LoadCode(instruction)
-#     # imprimimos todos los tokens
-#     state = lexer.LexicalAnalisys(lexer.Tokenize())
-#     print(state)
-#     pass
-
-
+c = BooleanExpression([a,b],[OperatorToken('|')])
+print(c)

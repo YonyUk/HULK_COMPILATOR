@@ -1,3 +1,3 @@
-from ExpressionDefinitions import NumberExpression
-from VariableDefinitions import NumberVariable
-from LiteralDefinitions import NumberLiteral
+from ExpressionDefinitions import NumberExpression,BooleanExpression
+from VariableDefinitions import NumberVariable,BooleanVariable
+from LiteralDefinitions import NumberLiteral,BooleanLiteral

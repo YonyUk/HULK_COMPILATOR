@@ -1,5 +1,5 @@
 from ExpressionInterfaces import IExpression,Expression
-from ExpressionDefinitions import NumberExpression
+from ExpressionDefinitions import NumberExpression,BooleanExpression
 
 class UnassignatedVariableException(Exception):
     
@@ -33,7 +33,7 @@ class IVariable:
         """
         raise NotImplementedError()
     
-    def setValue(self):
+    def setValue(self,value):
         """
         cambia el valor de la variable
         """
@@ -50,6 +50,8 @@ class NumberVariable(IVariable,NumberExpression):
             self._value = 0
             pass
         else:
+            if not type(value) == float and not type(value) == int:
+                raise Exception('El valor pasado debe ser un valor numerico')
             self._isassignated = True
             self._value = value
             pass
@@ -65,6 +67,61 @@ class NumberVariable(IVariable,NumberExpression):
             raise UnassignatedVariableException('No se ha asignado un valor a esta variable')
         return self._value
     
+    @property
+    def IsAssignated(self):
+        return self._isassignated
+    
+    
+    def setValue(self,value):
+        if not type(value) == float and not type(value) == int:
+            raise Exception('El valor pasado debe ser un valor numerico')
+        self._isassignated = True
+        self._value = value
+        pass
+    
+    def Resolve(self):
+        pass
+    
+    def __str__(self):
+        return str(self.Value)
+    
+    pass
+
+class BooleanVariable(IVariable,BooleanExpression):
+    
+    def __init__(self,name,value=None):
+        self._name = name
+        if value == None:
+            self._value = False
+            self._isassignated = False
+            pass
+        else:
+            if not type(value) == bool:
+                raise Exception('El valor pasado debe ser un valor booleano')
+            self._isassignated = True
+            self._value = value
+            pass
+        pass
+    
+    @property
+    def Name(self):
+        return self._name
+    
+    @property
+    def Value(self):
+        if not self._isassignated:
+            raise UnassignatedVariableException('No se ha asignado un valor a la variable')
+        return self._value
+    
+    @property
+    def IsAssignated(self):
+        return self._isassignated
+    
+    def setValue(self,value):
+        if not type(value) == bool:
+            raise Exception('El valor asignado debe ser un valor booleano')
+        self._value = value
+        
     def Resolve(self):
         pass
     
