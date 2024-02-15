@@ -46,11 +46,13 @@ class NumberExpression(IExpression,Expression):
             return left_value ** right_expression.Value
         if operator.Operator == Operator.Rest:
             return left_value % right_expression.Value
-        raise ResolveExpressionException(f'No se puede aplicar el operador {operator} al tipo {right_expression.Type}')
+        raise ResolveExpressionException(f'No se puede aplicar el operador \'{operator}\' al tipo {right_expression.Type}')
     
     def Resolve(self):
         self._expressions[0].Resolve()
         self._value = self._expressions[0].Value
+        if not type(self._value) == int and not type(self._value) == float:
+            raise ResolveExpressionException(f'No se puede aplicar el operador \'{self._operators[0]}\' al tipo {self._expressions[0].Type}')
         for i in range(len(self._operators)):
             self._value = self._resolve(self._value,self._expressions[i + 1],self._operators[i])
             pass
@@ -125,11 +127,13 @@ class BooleanExpression(IExpression,Expression):
             return left_value and right_expression.Value
         if operator.Operator == Operator.Or:
             return left_value or right_expression.Value
-        raise ResolveExpressionException(f'No se puede aplicar el operador {operator} al tipo {right_expression.Value}')
+        raise ResolveExpressionException(f'No se puede aplicar el operador \'{operator}\' al tipo {right_expression.Value}')
     
     def Resolve(self):
         self._expressions[0].Resolve()
         self._value = self._expressions[0].Value
+        if not type(self._value) == bool:
+            raise ResolveExpressionException(f'No se puede aplicar el operador \'{self._operators[0]}\' al tipo {self._expressions[0].Type}')
         for i in range(len(self._operators)):
             self._value = self._resolve(self._value,self._expressions[i + 1],self._operators[i])
             pass
@@ -178,6 +182,9 @@ class StringExpression(IExpression,Expression):
     def Resolve(self):
         self._expressions[0].Resolve()
         self._value = self._expressions[0].Value
+        if not type(self._value) == str:
+            raise ResolveExpressionException(f'No se puede aplicar el operador \'@\' al tipo {self._expressions[0].Type}')
+        
         for i in range(len(self._operators)):
             self._value = self._resolve(self._value,self._expressions[i + 1],self._operators[i])
             pass
