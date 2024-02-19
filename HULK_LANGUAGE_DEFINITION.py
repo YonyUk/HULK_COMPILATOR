@@ -1,3 +1,5 @@
+from EnumsTokensDefinition import TokenType,Simbol,Operator,Keyword
+
 KEYWORD_VALUES = [
     'new',
     'print',
@@ -23,6 +25,32 @@ KEYWORD_VALUES = [
     'range',
     'inherits'
 ]
+
+KEYWORD_DICT = {
+    'new' : Keyword.New,
+    'print' : Keyword.Print,
+    'function' : Keyword.Function,
+    'let' : Keyword.Let,
+    'in' : Keyword.In,
+    'protocol' : Keyword.Protocol,
+    'type' : Keyword.Type,
+    'while' : Keyword.While,
+    'for' : Keyword.For,
+    'if' : Keyword.If,
+    'else' : Keyword.Else,
+    'elif' : Keyword.Elif,
+    'cos' : Keyword.Cos,
+    'sin' : Keyword.Sin,
+    'tan' : Keyword.Tan,
+    'log' : Keyword.Log,
+    'E' : Keyword.Euler,
+    'PI' : Keyword.PI,
+    'exp' : Keyword.Exp,
+    'sqrt' : Keyword.Sqrt,
+    'rand' : Keyword.Rand,
+    'range' : Keyword.Range,
+    'inherits' : Keyword.Inherits
+}
 
 KEYWORD_FUNCTIONS = [
     'cos',
@@ -81,6 +109,32 @@ OPERATOR_VALUES = [
     'as'
 ]
 
+OPERATOR_DICT = {
+    '+' : Operator.Plus,
+    '-' : Operator.Minus,
+    '*' : Operator.Mul,
+    '/' : Operator.Div,
+    '^' : Operator.Exp,
+    '%' : Operator.Rest,
+    '<' : Operator.LessThan,
+    '>' : Operator.GreatherThan,
+    '<=' : Operator.LessEqThan,
+    '>=' : Operator.GreatherEqThan,
+    '=' : Operator.Eq,
+    '==' : Operator.DoubleEq,
+    '@': Operator.Concat,
+    '++' : Operator.PPlus,
+    '--' : Operator.MMinus,
+    ':=' : Operator.DoublePointEq,
+    '!' : Operator.Distint,
+    '?' : Operator.Ask,
+    '&' : Operator.And,
+    '|' : Operator.Or,
+    '~' : Operator.Not,
+    'is' : Operator.Is,
+    'as' : Operator.As
+}
+
 OPERATOR_TEXTUALS = [
     'is',
     'as'
@@ -101,6 +155,22 @@ SIMBOL_VALUES = [
     "self",
     ":"
 ]
+
+SIMBOL_DICT = {
+    "(" : Simbol.LeftP,
+    ")" : Simbol.RightP, 
+    "{" : Simbol.LeftB,
+    "}" : Simbol.RightB,
+    "." : Simbol.Point,
+    "=>" : Simbol.RightArrow,
+    "\"" : Simbol.DoubleCom,
+    " " : Simbol.WhiteSpace,
+    ";" : Simbol.PointCom,
+    "," : Simbol.Com,
+    "\n" : Simbol.JumpLine,
+    "self" : Simbol.Self,
+    ":" : Simbol.DoublePoint
+}
 
 SIMBOL_TEXTUALS = [
     'self'

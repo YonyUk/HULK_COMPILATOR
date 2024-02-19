@@ -22,7 +22,7 @@ for state in lexer.LexicalAnalisysFiltered(lexer.Tokenize(),Filter):
 
     secuence = ''
     for token in state.TokensSequence:
-        secuence += 'token:' + str(token[0]) + ' (' + str(token[1]) + ' ' + str(token[2]) + ') '
+        secuence += 'token:' + str(token[0]) + ' : ' + str(token[0].Type) + ' (' + str(token[1]) + ' ' + str(token[2]) + ') '
         pass
 
     print(secuence)

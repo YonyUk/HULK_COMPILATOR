@@ -34,7 +34,8 @@ class Keyword(Enum):
     Range = 19,
     Euler = 20,
     PI = 21,
-    NONE = 22
+    Inherits = 22,
+    NONE = 23
 
     pass
 
