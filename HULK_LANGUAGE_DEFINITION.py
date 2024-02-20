@@ -1,3 +1,5 @@
+import json
+
 KEYWORD_VALUES = [
     'new',
     'print',
