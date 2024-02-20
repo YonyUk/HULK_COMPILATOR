@@ -126,3 +126,85 @@ class Type(Enum):
     NONE = 5
 
     pass
+
+# Variables staticas locales
+KEYWORDS_DICT = {
+    'print' : Keyword.Print,
+    'let' : Keyword.Let,
+    'function' : Keyword.Function,
+    'in' : Keyword.In,
+    'protocol' : Keyword.Protocol,
+    'type' : Keyword.Type,
+    'new' : Keyword.New,
+    'if' : Keyword.If,
+    'else' : Keyword.Else,
+    'elif' : Keyword.Elif,
+    'while' : Keyword.While,
+    'for' : Keyword.For,
+    'cos' : Keyword.Cos,
+    'sin' : Keyword.Sin,
+    'tan' : Keyword.Tan,
+    'log' : Keyword.Log,
+    'exp' : Keyword.Exp,
+    'sqrt' : Keyword.Sqrt,
+    'rand' : Keyword.Rand,
+    'range' : Keyword.Range,
+    'E' : Keyword.Euler,
+    'PI' : Keyword.PI,
+    '' : Keyword.NONE,
+}
+
+SIMBOLS_DICT = {
+    '(' : Simbol.LeftP,
+    ')' : Simbol.RightP,
+    '{' : Simbol.LeftB,
+    '}' : Simbol.RightB,
+    ',' : Simbol.Com,
+    '.' : Simbol.Point,
+    ';' : Simbol.PointCom,
+    ':' : Simbol.DoublePoint,
+    '=>' : Simbol.RightArrow,
+    '\"' : Simbol.DoubleCom,
+    '\'' : Simbol.SimpleCom,
+    ' ' : Simbol.WhiteSpace,
+    '❎' : Simbol.End,
+    '' : Simbol.Start,
+    'self' : Simbol.Self,
+    '\n' : Simbol.JumpLine,
+    '❌' : Simbol.NONE
+}
+
+OPERATORS_DICT = {
+    '+' : Operator.Plus,
+    '++' : Operator.PPlus,
+    '-' : Operator.Minus,
+    '--' : Operator.MMinus,
+    '*' : Operator.Mul,
+    '/' : Operator.Div,
+    '^' : Operator.Exp,
+    '%' : Operator.Rest,
+    '<' : Operator.LessThan,
+    '>' : Operator.GreatherThan,
+    '=' : Operator.Eq,
+    '==' : Operator.DoubleEq,
+    ':=' : Operator.DoublePointEq,
+    '<=' : Operator.LessEqThan,
+    '>=' : Operator.GreatherEqThan,
+    '!=' : Operator.Distint,
+    '&' : Operator.And,
+    '|' : Operator.Or,
+    '!' : Operator.Not,
+    '?' : Operator.Ask,
+    '@' : Operator.Concat,
+    'is' : Operator.Is,
+    'as' : Operator.As,
+    '' : Operator.NONE
+}
+
+TYPES_DICT = {
+    'number' :Type.Number,
+    'string' :Type.String,
+    'boolean' :Type.Boolean,
+    'object' :Type.Object,
+    '' :Type.NONE
+}

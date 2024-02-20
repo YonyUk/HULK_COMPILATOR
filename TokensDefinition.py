@@ -1,8 +1,8 @@
 from Token import Token
 from Utils import isNumeric
 from TokenInterfaces import IKeywordToken,ILiteralToken,ISimbolToken,IOperatorToken,IVariableToken
-from EnumsTokensDefinition import Keyword,KeywordType,Type,Operator,OperatorType,TokenType,Simbol,SimbolType
-from HULK_LANGUAGE_DEFINITION import KEYWORD_CONDITIONALS,KEYWORD_DECLARATORS,KEYWORD_FUNCTIONS,KEYWORD_LOOPS,KEYWORD_VALUES
+from EnumsTokensDefinition import Keyword,KeywordType,Type,Operator,OperatorType,TokenType,Simbol,SimbolType,OPERATORS_DICT,KEYWORDS_DICT,SIMBOLS_DICT
+from HULK_LANGUAGE_DEFINITION import KEYWORD_CONDITIONALS,KEYWORD_DECLARATORS,KEYWORD_FUNCTIONS,KEYWORD_LOOPS,KEYWORD_VALUES,OPERATORS_UNARY,OPERATORS_TERNARY,SIMBOL_AGRUPATORS,SIMBOL_ACCESORS,SIMBOL_DECLARATORS
 
 class KeywordToken(Token,IKeywordToken):
     
@@ -26,51 +26,7 @@ class KeywordToken(Token,IKeywordToken):
         devuelve la palabra reservada que representa
         """
         
-        if self.Text == 'print':
-            return Keyword.Print
-        if self.Text == 'function':
-            return Keyword.Function
-        if self.Text == 'let':
-            return Keyword.Let
-        if self.Text == 'in':
-            return Keyword.In
-        if self.Text == 'protocol':
-            return Keyword.Protocol
-        if self.Text == 'type':
-            return Keyword.Type
-        if self.Text == 'new':
-            return Keyword.New
-        if self.Text == 'if':
-            return Keyword.If
-        if self.Text == 'else':
-            return Keyword.Else
-        if self.Text == 'if':
-            return Keyword.Elif
-        if self.Text == 'while':
-            return Keyword.While
-        if self.Text == 'for':
-            return Keyword.For
-        if self.Text == 'cos':
-            return Keyword.Cos
-        if self.Text == 'sin':
-            return Keyword.Sin
-        if self.Text == 'tan':
-            return Keyword.Tan
-        if self.Text == 'exp':
-            return Keyword.Exp
-        if self.Text == 'sqrt':
-            return Keyword.Sqrt
-        if self.Text == 'rand':
-            return Keyword.Rand
-        if self.Text == 'range':
-            return Keyword.Range
-        if self.Text == 'E':
-            return Keyword.Euler
-        if self.Text == 'PI':
-            return Keyword.PI
-        if self.Text == 'log':
-            return Keyword.Log
-        return Keyword.NONE
+        return KEYWORDS_DICT[self.Text]
     
     @property
     def KeywordType(self):
@@ -93,8 +49,9 @@ class KeywordToken(Token,IKeywordToken):
 
 class LiteralToken(Token,ILiteralToken):
     
-    def __init__(self,Text):
+    def __init__(self,Text,self_type):
         super().__init__(Text)
+        self._self_type = self_type
         pass
     
     @property
@@ -113,11 +70,7 @@ class LiteralToken(Token,ILiteralToken):
         devuelve el tipo del valor del token que representa
         """
         
-        if self.Text == 'true' or self.Text == 'false':
-            return Type.Boolean
-        if self.Text.isnumeric() or isNumeric(self.Text):
-            return Type.Number
-        return Type.String
+        return self._self_type
     
     pass
 
@@ -143,51 +96,7 @@ class OperatorToken(Token,IOperatorToken):
         devuelve el operador que representa
         """
         
-        if self.Text == '+':
-            return Operator.Plus
-        if self.Text == '++':
-            return Operator.PPlus
-        if self.Text == '-':
-            return Operator.Minus
-        if self.Text == '--':
-            return Operator.MMinus
-        if self.Text == '*':
-            return Operator.Mul
-        if self.Text == '/':
-            return Operator.Div
-        if self.Text == '^':
-            return Operator.Exp
-        if self.Text == '%':
-            return Operator.Rest
-        if self.Text == '<':
-            return Operator.LessThan
-        if self.Text == '>':
-            return Operator.GreatherThan
-        if self.Text == '<=':
-            return Operator.LessEqThan
-        if self.Text == '>=':
-            return Operator.GreatherEqThan
-        if self.Text == '=':
-            return Operator.Eq
-        if self.Text == '==':
-            return Operator.DoubleEq
-        if self.Text == '!=':
-            return Operator.Distint
-        if self.Text == ':=':
-            return Operator.DoublePointEq
-        if self.Text == '&':
-            return Operator.And
-        if self.Text == '|':
-            return Operator.Or
-        if self.Text == '!':
-            return Operator.Not
-        if self.Text == '@':
-            return Operator.Concat
-        if self.Text == 'is':
-            return Operator.Is
-        if self.Text == 'as':
-            return Operator.As
-        return Operator.NONE
+        return OPERATORS_DICT[self.Text]
     
     @property
     def OperatorType(self):
@@ -196,9 +105,9 @@ class OperatorToken(Token,IOperatorToken):
         devuelve el tipo de operador que representa
         """
         
-        if self.Text == '++' or self.Text == '--' or self.Text == '!':
+        if OPERATORS_UNARY.count(self.Text) > 0:
             return OperatorType.Unary
-        if self.Text == '?':
+        if OPERATORS_TERNARY.count(self.Text) > 0:
             return OperatorType.Ternary
         return OperatorType.Binary
     
@@ -226,31 +135,7 @@ class SimbolToken(Token,ISimbolToken):
         devuelve el simbolo que representa
         """
         
-        if self.Text == "(":
-            return Simbol.LeftP
-        if self.Text == ")":
-            return Simbol.RightP
-        if self.Text == "{":
-            return Simbol.LeftB
-        if self.Text == "}":
-            return Simbol.RightB
-        if self.Text == ".":
-            return Simbol.Point
-        if self.Text == ":":
-            return Simbol.DoublePoint
-        if self.Text == ",":
-            return Simbol.Com
-        if self.Text == "":
-            return Simbol.PointCom
-        if self.Text == "=>":
-            return Simbol.RightArrow
-        if self.Text == "\"":
-            return Simbol.DoubleCom
-        if self.Text == " ":
-            return Simbol.WhiteSpace
-        if self.Text == "\n":
-            return Simbol.JumpLine
-        return Simbol.NONE
+        return SIMBOLS_DICT[self.Text]
     
     @property
     def SimbolType(self):
@@ -259,11 +144,11 @@ class SimbolToken(Token,ISimbolToken):
         devuelve el tipo de simbolo que representa
         """
         
-        if self.Text == "(" or self.Text == ")" or self.Text == "{" or self.Text == "}":
+        if SIMBOL_AGRUPATORS.count(self.Text) > 0:
             return SimbolType.Agrupator
-        if self.Text == "." or self.Text == "self":
+        if SIMBOL_ACCESORS.count(self.Text) > 0:
             return SimbolType.Accesor
-        if self.Text == "=>" or self.Text == "\"" or self.Text == ":":
+        if SIMBOL_DECLARATORS.count(self.Text):
             return SimbolType.Declarator
         return SimbolType.Separator
     

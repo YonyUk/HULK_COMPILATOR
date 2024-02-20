@@ -33,6 +33,7 @@ class IRegEx:
     def Forward(self,character):
         """
         consume el caracter dado y cambia de estado en caso de existir transicion
+        devuelve True si hubo trancision
         """
         
         raise NotImplementedError()
