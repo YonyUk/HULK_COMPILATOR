@@ -70,7 +70,7 @@ def LoadDefinition():
             KEYWORD_DECLARATORS.append(declarator)
             pass
         pass
-    for conditional in definition['keywordconditionals']:
+    for conditional in definition['keyword_conditionals']:
         if KEYWORD_CONDITIONALS.count(conditional) == 0:
             KEYWORD_CONDITIONALS.append(conditional)
             pass
