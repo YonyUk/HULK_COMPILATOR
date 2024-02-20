@@ -23,6 +23,7 @@ class IRegEx:
         
         raise NotImplementedError()
     
+    @property
     def Match(self):
         """
         devuelve true si la expresion dada corresponde a la definida por esta expresion regular
