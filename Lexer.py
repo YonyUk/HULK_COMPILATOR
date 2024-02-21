@@ -2,7 +2,7 @@ from RegExDefinitions import TokenFinitRegEx,TokenConstrainedRegEx,IRegEx,State
 from TokensDefinition import KeywordToken,OperatorToken,SimbolToken,VariableToken,LiteralToken,EndToken
 from HULK_LANGUAGE_DEFINITION import KEYWORD_VALUES,OPERATOR_VALUES,SIMBOL_VALUES
 from EnumsTokensDefinition import Type
-from Rules import LiteralBooleanRule,LiteralNumericRule,LiteralStringRule,NameVariableRule
+# from Rules import LiteralBooleanRule,LiteralNumericRule,LiteralStringRule,NameVariableRule
 from copy import copy
 
 class Lexer(IRegEx):
@@ -10,25 +10,28 @@ class Lexer(IRegEx):
     automata que reconoce todas las cadenas que pertenecen al lenguaje definido
     """
     
-    def __init__(self):
+    def __init__(self,recognizers):
+        """
+        recognizers -> dict<int,IRegEx>
+        diccionario de los automatas que reconoceran nuestro lenguaje, las llaves son las prioridades de cada automata
+        """
+        self._recognizers = recognizers
+        self._priorities = list(self._recognizers.keys())
+        # ordenamos de menor a mayor las prioridades
+        for i in range(len(self._priorities)):
+            for j in range(i,len(self._priorities)):
+                if self._priorities[j] < self._priorities[i]:
+                    temp = self._priorities[i]
+                    self._priorities[i] = self._priorities[j]
+                    self._priorities[j] = temp
+                    pass
+                pass
+            pass
+        
         # creamos cada uno de los automatas correspondientes a los diferentes tipos de token
-        self._keyword_token_recognizer = TokenFinitRegEx(KEYWORD_VALUES,KeywordToken)
-        self._simbol_token_recognizer = TokenFinitRegEx(SIMBOL_VALUES,SimbolToken)
-        self._operator_token_recognizer = TokenFinitRegEx(OPERATOR_VALUES,OperatorToken)
-        self._variable_token_recognizer = TokenConstrainedRegEx([NameVariableRule()],VariableToken)
-        self._boolean_literal_token_recognizer = TokenConstrainedRegEx([LiteralBooleanRule()],LiteralToken,Type.Boolean)
-        self._numeric_literal_token_recognizer = TokenConstrainedRegEx([LiteralNumericRule()],LiteralToken,Type.Number)
-        self._string_literal_token_recognizer = TokenConstrainedRegEx([LiteralStringRule()],LiteralToken,Type.String)
+        
         # los guardamos en una lista
-        self._recognizers = [
-            self._keyword_token_recognizer,
-            self._simbol_token_recognizer,
-            self._operator_token_recognizer,
-            self._variable_token_recognizer,
-            self._boolean_literal_token_recognizer,
-            self._numeric_literal_token_recognizer,
-            self._string_literal_token_recognizer   
-        ]
+        
         # establecemos las variables de control
         self._text_readed = ''
         self._match = False
@@ -60,21 +63,17 @@ class Lexer(IRegEx):
         return self._last_state
     
     @property
-    def Token(self): 
+    def Token(self):
         
-        if self._operator_token_recognizer.LastState == State.FINAL:
-            return self._operator_token_recognizer.Token
-        if self._simbol_token_recognizer.LastState == State.FINAL:
-            return self._simbol_token_recognizer.Token
-        if self._keyword_token_recognizer.LastState == State.FINAL:
-            return self._keyword_token_recognizer.Token
-        if self._boolean_literal_token_recognizer.LastState == State.FINAL:
-            return self._boolean_literal_token_recognizer.Token
-        if self._numeric_literal_token_recognizer.LastState == State.FINAL:
-            return self._numeric_literal_token_recognizer.Token
-        if self._string_literal_token_recognizer.LastState == State.FINAL:
-            return self._string_literal_token_recognizer.Token
-        return self._variable_token_recognizer.Token
+        # ya que la lista de prioridades esta ordenada, larecorremos para ver quien reconocio la cadena
+        for value in self._priorities:
+            if self._recognizers[value].LastState == State.FINAL:
+                return self._recognizers[value].Token
+            pass
+        # si nadie la reconocio
+        self._state = State.FAULT
+        # retornamos lo que sea que haya leido el automata de menos prioridad
+        return self._recognizers[len(self._recognizers.keys()) - 1]
     
     def LoadCode(self,code):
         self.Code = code
@@ -85,7 +84,7 @@ class Lexer(IRegEx):
         self._match = False
         self._state = State.START
         self._last_state = State.START
-        for recognizer in self._recognizers:
+        for recognizer in self._recognizers.values():
             recognizer.Restart()
             pass
         pass
@@ -96,9 +95,9 @@ class Lexer(IRegEx):
         # intentamos reconocer la cadena de alguna forma
         forward = False
         
-        for recognizer in self._recognizers:
+        for recognizer in self._recognizers.values():
             
-            if not self._reading_string and recognizer == self._string_literal_token_recognizer:
+            if not self._reading_string and recognizer.Type == Type.String:
                 continue
         
             forward = recognizer.Forward(character) or forward
@@ -112,7 +111,7 @@ class Lexer(IRegEx):
         
         if not forward:
             self._state = State.FAULT
-            self._error = self._recognizers[len(self._recognizers) - 2].Error
+            self._error = self._recognizers[len(self._recognizers) - 1].Error
             pass
         else:
             self._text_readed += character
@@ -126,12 +125,13 @@ class Lexer(IRegEx):
     
     def Tokenize(self):
         # mientras que haya codigo que leer
-        while len(self.Code) > 0:
+        while len(self.Code) > 0 and not self._state == State.FAULT:
             position = 0
             # mientras que alguno de los automatas haya tenido transicion
             while self.Forward(self.Code[position]):
                 # quitamos el caracter leido
                 position += 1
+                if len(self.Code) - 1 < position: break
                 pass
                 
             # si estamos en un estado final

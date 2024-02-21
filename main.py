@@ -1,6 +1,28 @@
 from Lexer import Lexer
+from RegExDefinitions import TokenConstrainedRegEx,TokenFinitRegEx
+from TokensDefinition import KeywordToken,SimbolToken,OperatorToken,VariableToken,LiteralToken,Type
+from HULK_LANGUAGE_DEFINITION import KEYWORD_VALUES,SIMBOL_VALUES,OPERATOR_VALUES
+from Rules import LiteralBooleanRule,LiteralNumericRule,LiteralStringRule,NameVariableRule
 
-lexer = Lexer()
+keyword_token_recognizer = TokenFinitRegEx(KEYWORD_VALUES,KeywordToken)
+simbol_token_recognizer = TokenFinitRegEx(SIMBOL_VALUES,SimbolToken)
+operator_token_recognizer = TokenFinitRegEx(OPERATOR_VALUES,OperatorToken)
+variable_token_recognizer = TokenConstrainedRegEx([NameVariableRule()],VariableToken)
+boolean_literal_token_recognizer = TokenConstrainedRegEx([LiteralBooleanRule()],LiteralToken,Type.Boolean)
+numeric_literal_token_recognizer = TokenConstrainedRegEx([LiteralNumericRule()],LiteralToken,Type.Number)
+string_literal_token_recognizer = TokenConstrainedRegEx([LiteralStringRule()],LiteralToken,Type.String)
+
+recognizers = {
+    0: keyword_token_recognizer,
+    1: simbol_token_recognizer,
+    2: operator_token_recognizer,
+    3: boolean_literal_token_recognizer,
+    4: numeric_literal_token_recognizer,
+    5: string_literal_token_recognizer,
+    6: variable_token_recognizer
+}
+
+lexer = Lexer(recognizers)
 
 reader = open('TestCode.hk','r')
 code = reader.read()

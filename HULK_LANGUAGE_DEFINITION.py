@@ -258,7 +258,8 @@ SIMBOL_VALUES = [
     ",",
     "\n",
     "self",
-    ":"
+    ":",
+    ""
 ]
 
 SIMBOL_DICT = {
@@ -274,7 +275,8 @@ SIMBOL_DICT = {
     "," : Simbol.Com,
     "\n" : Simbol.JumpLine,
     "self" : Simbol.Self,
-    ":" : Simbol.DoublePoint
+    ":" : Simbol.DoublePoint,
+    "" : Simbol.End
 }
 
 SIMBOL_TEXTUALS = [

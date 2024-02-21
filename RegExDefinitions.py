@@ -24,6 +24,10 @@ class TokenFinitRegEx(IRegEx):
         pass
     
     @property
+    def Type(self):
+        return None
+    
+    @property
     def Error(self):
         return self._error
     
@@ -110,6 +114,10 @@ class TokenConstrainedRegEx(IRegEx):
         self._column = 1
         self._line = 1
         pass
+    
+    @property
+    def Type(self):
+        return self._self_type
     
     @property
     def Error(self):

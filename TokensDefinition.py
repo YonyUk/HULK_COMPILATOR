@@ -2,12 +2,14 @@ from Token import Token
 from Utils import isNumeric
 from TokenInterfaces import IKeywordToken,ILiteralToken,ISimbolToken,IOperatorToken,IVariableToken
 from EnumsTokensDefinition import Keyword,KeywordType,Type,Operator,OperatorType,TokenType,Simbol,SimbolType,OPERATORS_DICT,KEYWORDS_DICT,SIMBOLS_DICT
-from HULK_LANGUAGE_DEFINITION import KEYWORD_CONDITIONALS,KEYWORD_DECLARATORS,KEYWORD_FUNCTIONS,KEYWORD_LOOPS,KEYWORD_VALUES,OPERATORS_UNARY,OPERATORS_TERNARY,SIMBOL_AGRUPATORS,SIMBOL_ACCESORS,SIMBOL_DECLARATORS
+from HULK_LANGUAGE_DEFINITION import KEYWORD_CONDITIONALS,KEYWORD_DECLARATORS,KEYWORD_FUNCTIONS,KEYWORD_LOOPS,KEYWORD_VALUES,OPERATORS_UNARY,OPERATORS_TERNARY,SIMBOL_AGRUPATORS,SIMBOL_ACCESORS,SIMBOL_DECLARATORS,SIMBOL_VALUES,OPERATOR_VALUES
 
 class KeywordToken(Token,IKeywordToken):
     
     def __init__(self,Text):
         super().__init__(Text)
+        if KEYWORD_VALUES.count(Text) == 0:
+            raise Exception('Token no definido')
         pass
     
     @property
@@ -78,6 +80,8 @@ class OperatorToken(Token,IOperatorToken):
     
     def __init__(self,Text):
         super().__init__(Text)
+        if OPERATOR_VALUES.count(Text) == 0:
+            raise Exception('Token no definido')
         pass
     
     @property
@@ -117,6 +121,8 @@ class SimbolToken(Token,ISimbolToken):
     
     def __init__(self,Text):
         super().__init__(Text)
+        if SIMBOL_VALUES.count(Text) == 0:
+            raise Exception('Token no definido')
         pass
     
     @property
