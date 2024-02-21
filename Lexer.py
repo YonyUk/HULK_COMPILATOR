@@ -68,13 +68,13 @@ class Lexer(IRegEx):
             return self._simbol_token_recognizer.Token
         if self._keyword_token_recognizer.LastState == State.FINAL:
             return self._keyword_token_recognizer.Token
-        if self._variable_token_recognizer.LastState == State.FINAL:
-            return self._variable_token_recognizer.Token
         if self._boolean_literal_token_recognizer.LastState == State.FINAL:
             return self._boolean_literal_token_recognizer.Token
         if self._numeric_literal_token_recognizer.LastState == State.FINAL:
             return self._numeric_literal_token_recognizer.Token
-        return self._string_literal_token_recognizer.Token
+        if self._string_literal_token_recognizer.LastState == State.FINAL:
+            return self._string_literal_token_recognizer.Token
+        return self._variable_token_recognizer.Token
     
     def LoadCode(self,code):
         self.Code = code
