@@ -88,8 +88,6 @@ def LoadDefinition():
     
     reader.close()
     pass
-    
-    pass
 
 KEYWORD_VALUES = [
     'new',

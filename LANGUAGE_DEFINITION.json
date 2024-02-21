@@ -5,7 +5,9 @@
     "Operator Information":"Operadores de nuestro lenguaje\nCada lista contione los operadores segun su tipo",
     "Types Information":"Tipos nativos de nuestro lenguaje",
     "keywords":[
-        
+        "number",
+        "string",
+        "boolean"     
     ],
     "keyword_functions":[
 
