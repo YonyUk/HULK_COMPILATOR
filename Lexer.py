@@ -1,300 +1,165 @@
-from HULK_LANGUAGE_DEFINITION import SIMBOL_VALUES,SIMBOL_TEXTUALS,OPERATOR_VALUES,OPERATOR_TEXTUALS,KEYWORD_VALUES,TYPES_DEFINED
-from TokensDefinition import OperatorToken,SimbolToken,KeywordToken,LiteralToken,VariableToken,EndToken
-from Utils import isNumeric
-from EnumsTokensDefinition import TokenType,Simbol
-from ErrorsDefinition import LexicalError
-from CodeStatesDefinition import CompilationStateERROR,CompilationStateOK
-from Token import Token
+from RegExDefinitions import TokenFinitRegEx,TokenConstrainedRegEx,IRegEx,State
+from TokensDefinition import KeywordToken,OperatorToken,SimbolToken,VariableToken,LiteralToken,EndToken
+from HULK_LANGUAGE_DEFINITION import KEYWORD_VALUES,OPERATOR_VALUES,SIMBOL_VALUES
+from EnumsTokensDefinition import Type
+from Rules import LiteralBooleanRule,LiteralNumericRule,LiteralStringRule,NameVariableRule
+from copy import copy
 
-class Lexer:
+class Lexer(IRegEx):
+    """
+    automata que reconoce todas las cadenas que pertenecen al lenguaje definido
+    """
     
     def __init__(self):
-        self.TextReaded = ''
+        # creamos cada uno de los automatas correspondientes a los diferentes tipos de token
+        self._keyword_token_recognizer = TokenFinitRegEx(KEYWORD_VALUES,KeywordToken)
+        self._simbol_token_recognizer = TokenFinitRegEx(SIMBOL_VALUES,SimbolToken)
+        self._operator_token_recognizer = TokenFinitRegEx(OPERATOR_VALUES,OperatorToken)
+        self._variable_token_recognizer = TokenConstrainedRegEx([NameVariableRule()],VariableToken)
+        self._boolean_literal_token_recognizer = TokenConstrainedRegEx([LiteralBooleanRule()],LiteralToken,Type.Boolean)
+        self._numeric_literal_token_recognizer = TokenConstrainedRegEx([LiteralNumericRule()],LiteralToken,Type.Number)
+        self._string_literal_token_recognizer = TokenConstrainedRegEx([LiteralStringRule()],LiteralToken,Type.String)
+        # los guardamos en una lista
+        self._recognizers = [
+            self._keyword_token_recognizer,
+            self._simbol_token_recognizer,
+            self._operator_token_recognizer,
+            self._variable_token_recognizer,
+            self._boolean_literal_token_recognizer,
+            self._numeric_literal_token_recognizer,
+            self._string_literal_token_recognizer   
+        ]
+        # establecemos las variables de control
+        self._text_readed = ''
+        self._match = False
+        self._state = State.START
+        self._last_state = State.START
+        self._reading_string = False
         self.Code = ''
-        self.CurrentPosition = 0
-        pass
-    
-    def LoadCode(self,Code):
-        
-        self.Code = Code
-        self.CurrentPosition = 1
-        self.TextReaded = str(Code[0])
-        pass
-    
-    def _IsSimbolSufix(self,text):
-        
-        for simbol in SIMBOL_VALUES:
-            if simbol.endswith(text) and not len(simbol) == len(text):
-                return True
-            pass
-        return False
-    
-    def _IsSimbolPrefix(self,text):
-        
-        for simbol in SIMBOL_VALUES:
-            if simbol.startswith(text):
-                return True
-            pass
-        return False
-    
-    def _IsTextualSimbolPrefix(self,text):
-        
-        for simbol in SIMBOL_TEXTUALS:
-            if simbol.startswith(text):
-                return True
-            pass
-        return False
-    
-    def _IsOperatorSufix(self,text):
-        
-        for operator in OPERATOR_VALUES:
-            if operator.endswith(text) and not len(operator) == len(text):
-                return True
-            pass
-        return False
-    
-    def _IsOperatorPrefix(self,text):
-        
-        for operator in OPERATOR_VALUES:
-            if operator.startswith(text):
-                return True
-            pass
-        return False
-    
-    def _IsTextualOperatorPrefix(self,text):
-        
-        for operator in OPERATOR_TEXTUALS:
-            if operator.startswith(text):
-                return True
-            pass
-        return False
-    
-    def _CreateToken(self,text):
-        
-        if OPERATOR_VALUES.__contains__(text):
-            return OperatorToken(text)
-        if SIMBOL_VALUES.__contains__(text):
-            return SimbolToken(text)
-        if KEYWORD_VALUES.__contains__(text) or TYPES_DEFINED.__contains__(text):
-            return KeywordToken(text)
-        if text == 'true' or text == 'false' or isNumeric(text):
-            return LiteralToken(text)
-        return VariableToken(text)
-    
-    def Tokenize(self):
-        
-        while self.CurrentPosition < len(self.Code):
-            
-            if self.Code[self.CurrentPosition] == ' ':
-                # lo que sea que se haya leido es un token
-                yield self._CreateToken(self.TextReaded)
-                self.TextReaded = str(self.Code[self.CurrentPosition])
-                self.CurrentPosition += 1
-                yield self._CreateToken(self.TextReaded)
-                self.TextReaded = str(self.Code[self.CurrentPosition])
-                self.CurrentPosition += 1
-                pass
-            elif self.Code[self.CurrentPosition] == '.':
-                # mismo caso anterios
-                yield self._CreateToken(self.TextReaded)
-                self.TextReaded = str(self.Code[self.CurrentPosition])
-                self.CurrentPosition += 1
-                pass
-            elif self.TextReaded == " ":
-                # estamos en presencia de un token
-                yield self._CreateToken(self.TextReaded)
-                self.TextReaded = str(self.Code[self.CurrentPosition])
-                self.CurrentPosition += 1
-                pass
-            elif self.TextReaded == "\n":
-                yield self._CreateToken(self.TextReaded)
-                self.TextReaded = str(self.Code[self.CurrentPosition])
-                self.CurrentPosition += 1
-                pass
-            elif self.Code[self.CurrentPosition] == "\n":
-                # lo que sea que se haya leido es un token
-                yield self._CreateToken(self.TextReaded)
-                self.TextReaded = str(self.Code[self.CurrentPosition])
-                self.CurrentPosition += 1
-                yield self._CreateToken(self.TextReaded)
-                self.TextReaded = str(self.Code[self.CurrentPosition])
-                self.CurrentPosition += 1
-                pass
-            elif self.TextReaded == "\"":
-                # nos hemos topado con la declaracion de un string
-                # lo que sea que se haya leido es un token
-                yield self._CreateToken(self.TextReaded)
-                
-                length = 0
-                if self.Code.count("\"",self.CurrentPosition) > 0:
-                    length = self.Code.index("\"",self.CurrentPosition) - self.CurrentPosition
-                    pass
-                
-                if length == 0:
-                    # lo que quedaba del codigo forma parte del string detectado
-                    self.TextReaded = self.Code[self.CurrentPosition + 1]
-                    yield LiteralToken(self.TextReaded)
-                    yield EndToken("")
-                    break
-                
-                # terminamos el procesamiento del string
-                self.TextReaded = self.Code[self.CurrentPosition:self.CurrentPosition + length]
-                yield LiteralToken(self.TextReaded)
-                self.CurrentPosition += len(self.TextReaded)
-                self.TextReaded = "\""
-                yield self._CreateToken(self.TextReaded)
-                self.CurrentPosition += 1
-                
-                if self.CurrentPosition == len(self.Code):
-                    yield EndToken("")
-                    break
-                else:
-                    self.TextReaded = str(self.Code[self.CurrentPosition])
-                    self.CurrentPosition += 1
-                    pass
-                
-                pass
-            elif self._IsOperatorPrefix(self.TextReaded) and not self.TextReaded == 'a' and not self.TextReaded == 'i':
-                # detectamos el prefijo de un operador
-                
-                if not self._IsOperatorSufix(str(self.Code[self.CurrentPosition])) and not self._IsSimbolSufix(str(self.Code[self.CurrentPosition])):
-                    # si no es sufijo de ningun operador o simbolo
-                    if not self._IsTextualOperatorPrefix(self.TextReaded):
-                        # estamos en presencia de un operador
-                        yield self._CreateToken(self.TextReaded)
-                        self.TextReaded = str(self.Code[self.CurrentPosition])
-                        self.CurrentPosition += 1
-                        pass
-                    else:
-                        self.TextReaded += self.Code[self.CurrentPosition]
-                        self.CurrentPosition += 1
-                        pass
-                    pass
-                else:
-                    self.TextReaded += self.Code[self.CurrentPosition]
-                    self.CurrentPosition += 1
-                    pass
-                pass
-            elif self._IsOperatorPrefix(self.Code[self.CurrentPosition]) and not self.Code[self.CurrentPosition] == 'a' and not self.Code[self.CurrentPosition] == 'i':
-                
-                if not self._IsTextualOperatorPrefix(self.Code[self.CurrentPosition]):
-                    # lo que sea que se haya leido es un token
-                    yield self._CreateToken(self.TextReaded)
-                    self.TextReaded = str(self.Code[self.CurrentPosition])
-                    self.CurrentPosition += 1
-                    pass
-                else:
-                    self.TextReaded += self.Code[self.CurrentPosition]
-                    self.CurrentPosition += 1
-                    pass
-                
-                pass
-            elif self._IsSimbolPrefix(self.TextReaded):
-                # si el texto leido es prefijo de algun simbolo
-                
-                if not self._IsSimbolSufix(self.Code[self.CurrentPosition]):
-                    # si el caracter actual no es sufijo de ningun simbolo
-                    
-                    if not self._IsTextualSimbolPrefix(self.TextReaded):
-                        yield self._CreateToken(self.TextReaded)
-                        self.TextReaded = str(self.Code[self.CurrentPosition])
-                        self.CurrentPosition += 1
-                        pass
-                    else:
-                        self.TextReaded += self.Code[self.CurrentPosition]
-                        self.CurrentPosition += 1
-                        pass
-                    pass
-                else:
-                    self.TextReaded += self.Code[self.CurrentPosition]
-                    self.CurrentPosition += 1
-                    pass
-                
-                pass
-            elif self._IsSimbolPrefix(self.Code[self.CurrentPosition]):
-                # si es prefijo de algun simbolo
-                
-                if not self._IsTextualSimbolPrefix(self.Code[self.CurrentPosition]):
-                    #  lo que sea que se haya leido es un token
-                    
-                    yield self._CreateToken(self.TextReaded)
-                    self.TextReaded = str(self.Code[self.CurrentPosition])
-                    self.CurrentPosition += 1
-                    pass
-                else:
-                    self.TextReaded += self.Code[self.CurrentPosition]
-                    self.CurrentPosition += 1
-                    pass
-                    
-                pass
-            else:
-                self.TextReaded += self.Code[self.CurrentPosition]
-                self.CurrentPosition += 1
-                pass
-            
-            pass
-        yield self._CreateToken(self.TextReaded)
-        yield EndToken("")
-        
-        pass
-    
-    def TokenizeFiltered(self,filter):
-        for token in self.Tokenize():
-            if filter(token):
-                yield token
-                pass
-            pass
+        self._error = None
         pass
 
-    def LexicalAnalisys(self,tokens_sequence):
+    @property
+    def Error(self):
+        return self._error
+    
+    @property
+    def Expression(self):
+        return self._text_readed
+    
+    @property
+    def Match(self):
+        return self._match
+    
+    @property
+    def State(self):
+        return self._state
+    
+    @property
+    def LastState(self):
+        return self._last_state
+    
+    @property
+    def Token(self): 
         
-        column = 1
-        line = 1
+        if self._operator_token_recognizer.LastState == State.FINAL:
+            return self._operator_token_recognizer.Token
+        if self._simbol_token_recognizer.LastState == State.FINAL:
+            return self._simbol_token_recognizer.Token
+        if self._keyword_token_recognizer.LastState == State.FINAL:
+            return self._keyword_token_recognizer.Token
+        if self._variable_token_recognizer.LastState == State.FINAL:
+            return self._variable_token_recognizer.Token
+        if self._boolean_literal_token_recognizer.LastState == State.FINAL:
+            return self._boolean_literal_token_recognizer.Token
+        if self._numeric_literal_token_recognizer.LastState == State.FINAL:
+            return self._numeric_literal_token_recognizer.Token
+        return self._string_literal_token_recognizer.Token
+    
+    def LoadCode(self,code):
+        self.Code = code
+        pass
+    
+    def Restart(self):
+        self._text_readed = ''
+        self._match = False
+        self._state = State.START
+        self._last_state = State.START
+        for recognizer in self._recognizers:
+            recognizer.Restart()
+            pass
+        pass
+    
+    def Forward(self,character):
+        self._last_state = copy(self.State)
+            
+        # intentamos reconocer la cadena de alguna forma
+        forward = False
         
-        # donde guardaremos los tokens y sus posiciones
-        tokens = []
+        for recognizer in self._recognizers:
+            
+            if not self._reading_string and recognizer == self._string_literal_token_recognizer:
+                continue
         
-        for token in tokens_sequence:
-            if token.Type == TokenType.Variable:
-                if not str(str(token)[0]).isalpha() or not token.Text.isalnum():
-                    error = LexicalError('El nombre de una variable debe comenzar con una letra y no debe contener caracteres de escape',column,line)
-                    yield CompilationStateERROR(error)
+            forward = recognizer.Forward(character) or forward
+        
+            if recognizer.State == State.FINAL:
+                self._state = State.FINAL
+                self._match = True
                 pass
-            elif token.Type == TokenType.Simbol:
-                # si es un salto de linea podemos devolver esa cadena para procesarla
-                if token.Simbol == Simbol.JumpLine:
-                    yield CompilationStateOK(tokens)
-                    tokens.clear()
-                    line += 1
-                    column = 0
-                    pass
-                pass
-            # seguimos leyendo la cadena de tokens
-            tokens.append((token,line,column))
-            column += token.Length
+        
             pass
         
-        yield CompilationStateOK(tokens)
+        if not forward:
+            self._state = State.FAULT
+            self._error = self._recognizers[len(self._recognizers) - 2].Error
+            pass
+        else:
+            self._text_readed += character
+            self._match = False
+            if not self._state == State.FINAL:
+                self._state = State.ONWORK
+                pass
+            pass
+        
+        return forward
     
-    def LexicalAnalisysFiltered(self,tokens_sequence,filter):
-        # filtraremos los tokens innecesarios a la hora de parsear las instrucciones
-        for state in self.LexicalAnalisys(tokens_sequence):
-            #  si no hay ningun error lexico
-            if not state.Error == None:
-                yield state
+    def Tokenize(self):
+        # mientras que haya codigo que leer
+        while len(self.Code) > 0:
+            position = 0
+            # mientras que alguno de los automatas haya tenido transicion
+            while self.Forward(self.Code[position]):
+                # quitamos el caracter leido
+                position += 1
+                pass
+                
+            # si estamos en un estado final
+            if self.LastState == State.FINAL:
+                # retornamos el token encontrado
+                
+                yield self.Token
+                # comprabmos si estamos leyendo un string
+                if self._text_readed == '"' and not self._reading_string:
+                    self._reading_string = True
+                    pass
+                elif self._text_readed == '"':
+                    self._reading_string = False
+                    pass
+                
+                self.Restart()
+                self.Code = self.Code[position:]
+                
+                pass
+
+            if len(self.Code) - 1 < position:
+                self._text_readed = self.Code
+                self.Code = ''
+                yield SimbolToken(self._text_readed)
                 break
             
-            # extraemos la secuencia y la filtramos
-            tokens = state.TokensSequence
-            result = []
-            for element in tokens:
-                if filter(element[0]):
-                    result.append(element)
-                    pass
-                pass
-            # la devolvemos para ser procesada
-            yield CompilationStateOK(result)
             pass
+        
         pass
     
     pass

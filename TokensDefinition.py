@@ -1,8 +1,8 @@
 from Token import Token
 from Utils import isNumeric
 from TokenInterfaces import IKeywordToken,ILiteralToken,ISimbolToken,IOperatorToken,IVariableToken
-from EnumsTokensDefinition import Operator,Simbol,Keyword,KeywordType,Type,OperatorType,TokenType,SimbolType
-from HULK_LANGUAGE_DEFINITION import KEYWORD_CONDITIONALS,KEYWORD_DECLARATORS,KEYWORD_FUNCTIONS,KEYWORD_LOOPS,KEYWORD_VALUES,KEYWORD_DICT,OPERATOR_DICT,SIMBOL_DICT
+from EnumsTokensDefinition import Keyword,KeywordType,Type,Operator,OperatorType,TokenType,Simbol,SimbolType,OPERATORS_DICT,KEYWORDS_DICT,SIMBOLS_DICT
+from HULK_LANGUAGE_DEFINITION import KEYWORD_CONDITIONALS,KEYWORD_DECLARATORS,KEYWORD_FUNCTIONS,KEYWORD_LOOPS,KEYWORD_VALUES,OPERATORS_UNARY,OPERATORS_TERNARY,SIMBOL_AGRUPATORS,SIMBOL_ACCESORS,SIMBOL_DECLARATORS
 
 class KeywordToken(Token,IKeywordToken):
     
@@ -25,11 +25,9 @@ class KeywordToken(Token,IKeywordToken):
         Keyword() -> Keyword
         devuelve la palabra reservada que representa
         """
-        
-        if KEYWORD_DICT.keys().__contains__(self.Text):
-            return KEYWORD_DICT[self.Text]
-        return Keyword.NONE
-    
+               
+        return KEYWORDS_DICT[self.Text]
+
     @property
     def KeywordType(self):
         """
@@ -51,8 +49,9 @@ class KeywordToken(Token,IKeywordToken):
 
 class LiteralToken(Token,ILiteralToken):
     
-    def __init__(self,Text):
+    def __init__(self,Text,self_type):
         super().__init__(Text)
+        self._self_type = self_type
         pass
     
     @property
@@ -71,11 +70,7 @@ class LiteralToken(Token,ILiteralToken):
         devuelve el tipo del valor del token que representa
         """
         
-        if self.Text == 'true' or self.Text == 'false':
-            return Type.Boolean
-        if self.Text.isnumeric() or isNumeric(self.Text):
-            return Type.Number
-        return Type.String
+        return self._self_type
     
     pass
 
@@ -101,10 +96,8 @@ class OperatorToken(Token,IOperatorToken):
         devuelve el operador que representa
         """
         
-        if OPERATOR_DICT.keys().__contains__(self.Text):
-            return OPERATOR_DICT[self.Text]
-        return Operator.NONE
-    
+        return OPERATORS_DICT[self.Text]
+
     @property
     def OperatorType(self):
         """
@@ -112,9 +105,9 @@ class OperatorToken(Token,IOperatorToken):
         devuelve el tipo de operador que representa
         """
         
-        if self.Text == '++' or self.Text == '--' or self.Text == '!':
+        if OPERATORS_UNARY.count(self.Text) > 0:
             return OperatorType.Unary
-        if self.Text == '?':
+        if OPERATORS_TERNARY.count(self.Text) > 0:
             return OperatorType.Ternary
         return OperatorType.Binary
     
@@ -141,10 +134,7 @@ class SimbolToken(Token,ISimbolToken):
         Simbol() -> Simbol
         devuelve el simbolo que representa
         """
-        
-        if SIMBOL_DICT.keys().__contains__(self.Text):
-            return SIMBOL_DICT[self.Text]
-        return Simbol.NONE
+        return SIMBOLS_DICT[self.Text]
     
     @property
     def SimbolType(self):
@@ -153,11 +143,11 @@ class SimbolToken(Token,ISimbolToken):
         devuelve el tipo de simbolo que representa
         """
         
-        if self.Text == "(" or self.Text == ")" or self.Text == "{" or self.Text == "}":
+        if SIMBOL_AGRUPATORS.count(self.Text) > 0:
             return SimbolType.Agrupator
-        if self.Text == "." or self.Text == "self":
+        if SIMBOL_ACCESORS.count(self.Text) > 0:
             return SimbolType.Accesor
-        if self.Text == "=>" or self.Text == "\"" or self.Text == ":":
+        if SIMBOL_DECLARATORS.count(self.Text):
             return SimbolType.Declarator
         return SimbolType.Separator
     
