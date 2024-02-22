@@ -4,6 +4,7 @@ from TokensDefinition import KeywordToken,SimbolToken,OperatorToken,VariableToke
 from HULK_LANGUAGE_DEFINITION import KEYWORD_VALUES,SIMBOL_VALUES,OPERATOR_VALUES
 from Rules import LiteralBooleanRule,LiteralNumericRule,LiteralStringRule,NameVariableRule
 
+# creamos cada uno de los automatas que reconoceran nuestro lenguaje
 keyword_token_recognizer = TokenFinitRegEx(KEYWORD_VALUES,KeywordToken)
 simbol_token_recognizer = TokenFinitRegEx(SIMBOL_VALUES,SimbolToken)
 operator_token_recognizer = TokenFinitRegEx(OPERATOR_VALUES,OperatorToken)
@@ -12,6 +13,7 @@ boolean_literal_token_recognizer = TokenConstrainedRegEx([LiteralBooleanRule()],
 numeric_literal_token_recognizer = TokenConstrainedRegEx([LiteralNumericRule()],LiteralToken,Type.Number)
 string_literal_token_recognizer = TokenConstrainedRegEx([LiteralStringRule()],LiteralToken,Type.String)
 
+# los guardamos en el diccionario de prioridades
 recognizers = {
     0: keyword_token_recognizer,
     1: simbol_token_recognizer,
@@ -22,12 +24,15 @@ recognizers = {
     6: variable_token_recognizer
 }
 
+# instanciamos el lexer con las reglas definidas
 lexer = Lexer(recognizers)
 
+# cargamos el codigo
 reader = open('TestCode.hk','r')
 code = reader.read()
 lexer.LoadCode(code)
 
+# extraemos los tokens del codigo
 for token in lexer.Tokenize():
     print(token,token.Type)
     pass
