@@ -125,7 +125,7 @@ class Lexer(IRegEx):
     
     def Tokenize(self):
         # mientras que haya codigo que leer
-        while len(self.Code) > 0 and not self._state == State.FAULT:
+        while len(self.Code) > 0:
             position = 0
             # mientras que alguno de los automatas haya tenido transicion
             while self.Forward(self.Code[position]):
