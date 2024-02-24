@@ -160,7 +160,7 @@ SIMBOLS_DICT = {
     ')' : Simbol.RightP,
     '{' : Simbol.LeftB,
     '}' : Simbol.RightB,
-    '' : Simbol.Com,
+    ',' : Simbol.Com,
     '.' : Simbol.Point,
     ';' : Simbol.PointCom,
     ':' : Simbol.DoublePoint,
@@ -168,8 +168,7 @@ SIMBOLS_DICT = {
     '\"' : Simbol.DoubleCom,
     '\'' : Simbol.SimpleCom,
     ' ' : Simbol.WhiteSpace,
-    '❎' : Simbol.End,
-    '' : Simbol.Start,
+    '' : Simbol.End,
     'self' : Simbol.Self,
     '\n' : Simbol.JumpLine,
     '❌' : Simbol.NONE

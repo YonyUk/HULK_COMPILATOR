@@ -34,19 +34,7 @@ class NumberExpression(IExpression,Expression):
         return self._value
     
     def _resolve(self,left_value,right_expression,operator):
-        if operator.Operator == Operator.Plus:
-            return left_value + right_expression.Value
-        if operator.Operator == Operator.Minus:
-            return left_value - right_expression.Value
-        if operator.Operator == Operator.Mul:
-            return left_value * right_expression.Value
-        if operator.Operator == Operator.Div:
-            return left_value / right_expression.Value
-        if operator.Operator == Operator.Exp:
-            return left_value ** right_expression.Value
-        if operator.Operator == Operator.Rest:
-            return left_value % right_expression.Value
-        raise ResolveExpressionException(f'No se puede aplicar el operador \'{operator}\' al tipo {right_expression.Type}')
+        return operator.Resolve(left_value,right_expression.Value)
     
     def Resolve(self):
         self._expressions[0].Resolve()
@@ -123,11 +111,7 @@ class BooleanExpression(IExpression,Expression):
         return self._value
     
     def _resolve(self,left_value,right_expression,operator):
-        if operator.Operator == Operator.And:
-            return left_value and right_expression.Value
-        if operator.Operator == Operator.Or:
-            return left_value or right_expression.Value
-        raise ResolveExpressionException(f'No se puede aplicar el operador \'{operator}\' al tipo {right_expression.Value}')
+        return operator.Resolve(left_value,right_expression.Value)
     
     def Resolve(self):
         self._expressions[0].Resolve()
@@ -174,11 +158,8 @@ class StringExpression(IExpression,Expression):
         return self._value
     
     def _resolve(self,left_value,right_expression,operator):
-        if operator.Operator == Operator.Concat:
-            return left_value + ' ' + str(right_expression)
-        
-        raise ResolveExpressionException(f'No se puede aplicar el operador {operator} al tipo {right_expression.Type}')
-    
+        return operator.Resolve(left_value,right_expression.Value)
+          
     def Resolve(self):
         self._expressions[0].Resolve()
         self._value = self._expressions[0].Value

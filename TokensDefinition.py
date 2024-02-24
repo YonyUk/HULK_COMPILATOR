@@ -2,7 +2,7 @@ from Token import Token
 from Utils import isNumeric
 from TokenInterfaces import IKeywordToken,ILiteralToken,ISimbolToken,IOperatorToken,IVariableToken
 from EnumsTokensDefinition import Keyword,KeywordType,Type,Operator,OperatorType,TokenType,Simbol,SimbolType,OPERATORS_DICT,KEYWORDS_DICT,SIMBOLS_DICT
-from HULK_LANGUAGE_DEFINITION import KEYWORD_CONDITIONALS,KEYWORD_DECLARATORS,KEYWORD_FUNCTIONS,KEYWORD_LOOPS,KEYWORD_VALUES,OPERATORS_UNARY,OPERATORS_TERNARY,SIMBOL_AGRUPATORS,SIMBOL_ACCESORS,SIMBOL_DECLARATORS,SIMBOL_VALUES,OPERATOR_VALUES
+from HULK_LANGUAGE_DEFINITION import KEYWORD_CONDITIONALS,KEYWORD_DECLARATORS,KEYWORD_FUNCTIONS,KEYWORD_LOOPS,KEYWORD_VALUES,OPERATORS_UNARY,OPERATORS_TERNARY,SIMBOL_AGRUPATORS,SIMBOL_ACCESORS,SIMBOL_DECLARATORS,SIMBOL_VALUES,OPERATOR_VALUES,OPERATOR_RESOLVERS
 
 class KeywordToken(Token,IKeywordToken):
     
@@ -114,6 +114,10 @@ class OperatorToken(Token,IOperatorToken):
         if OPERATORS_TERNARY.count(self.Text) > 0:
             return OperatorType.Ternary
         return OperatorType.Binary
+    
+    @property
+    def Resolve(self):
+        return OPERATOR_RESOLVERS[self.Text]
     
     pass
 

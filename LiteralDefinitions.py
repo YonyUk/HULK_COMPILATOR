@@ -14,7 +14,7 @@ class ILiteral:
 class NumberLiteral(ILiteral,NumberExpression):
     
     def __init__(self,value):
-        if not type(value) == float or not type(value) == int:
+        if not type(value) == float and not type(value) == int:
             raise Exception('El valor asignado debe ser un valor numerico')
         self._value = value
         pass

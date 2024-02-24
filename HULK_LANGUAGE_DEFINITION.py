@@ -1,4 +1,5 @@
 from EnumsTokensDefinition import Keyword,Simbol,Operator
+from OperatorResolvers import *
 import json
 
 """
@@ -245,6 +246,32 @@ OPERATORS_UNARY = [
     '--'
 ]
 
+OPERATOR_RESOLVERS = {
+    '+' : PlusOperatorResolver,
+    '-' : MinusOperatorResolver,
+    '*' : MulOperatorResolver,
+    '/' : DivOperatorResolver,
+    '^' : ExpOperatorResolver,
+    '%' : RestOperatorResolver,
+    '<' : LessThanOperatorResolver,
+    '>' : GreatherThanOperatorResolver,
+    '<=' : LessEqThanOperatorResolver,
+    '>=' : GreatherEqThanOperatorResolver,
+    '=' : EqOperatorResolver,
+    '==' : DoubleEqOperatorResolver,
+    '@': ConcatOperatorResolver,
+    '++' : PPlusOperatorResolver,
+    '--' : MMinusOperatorResolver,
+    ':=' : DoublePointEqOperatorResolver,
+    '!' : DistintOperatorResolver,
+    '?' : AskOperatorResolver,
+    '&' : AndOperatorResolver,
+    '|' : OrOperatorResolver,
+    '~' : NotOperatorResolver,
+    'is' : IsOperatorResolver,
+    'as' : AsOperatorResolver
+}
+
 SIMBOL_VALUES = [
     "(",
     ")", 
@@ -302,7 +329,9 @@ SIMBOL_DECLARATORS = [
 ]
 
 SIMBOL_SEPARATORS = [
-    
+    ',',
+    '\n',
+    ';'
 ]
 
 TYPES_DEFINED = [

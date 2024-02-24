@@ -17,6 +17,14 @@ class IOperatorToken:
         """
 
         raise NotImplementedError()
+    
+    @property
+    def Resolver(self):
+        """
+        devuelve la funcion encargada de resolver este operador
+        """
+        
+        raise NotImplementedError()
 
     pass
 
