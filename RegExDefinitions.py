@@ -162,10 +162,7 @@ class TokenConstrainedRegEx(IRegEx):
         else:
             self._column += 1
             pass
-        
-        if self._state == State.FAULT:
-            return False
-        
+         
         if len(character) == 0:
             return True
         
@@ -176,6 +173,9 @@ class TokenConstrainedRegEx(IRegEx):
                 self._error = LexicalError(constrain.Description,self._column,self._line)
                 return False
             pass
+        
+        if self._state == State.FAULT:
+            return False
                 
         self._text_readed += character
         self._match = True
