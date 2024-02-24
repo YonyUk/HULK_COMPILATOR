@@ -37,8 +37,8 @@ code = reader.read()
 lexer.LoadCode(code)
 
 # extraemos los tokens del codigo
-for token in lexer.Tokenize():
-    print(token,token.Type)
+for state in lexer.LexicalAnalisys(lexer.Tokenize()):
+    print(state)
     pass
 
 

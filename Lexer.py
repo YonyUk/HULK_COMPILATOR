@@ -1,9 +1,10 @@
 from RegExDefinitions import TokenFinitRegEx,TokenConstrainedRegEx,IRegEx,State
 from TokensDefinition import KeywordToken,OperatorToken,SimbolToken,VariableToken,LiteralToken,EndToken
 from HULK_LANGUAGE_DEFINITION import KEYWORD_VALUES,OPERATOR_VALUES,SIMBOL_VALUES
-from EnumsTokensDefinition import Type
-# from Rules import LiteralBooleanRule,LiteralNumericRule,LiteralStringRule,NameVariableRule
+from EnumsTokensDefinition import Type,TokenType,Simbol
 from copy import copy
+from ErrorsDefinition import LexicalError
+from CodeStatesDefinition import CompilationStateERROR,CompilationStateOK
 
 class Lexer(IRegEx):
     """
@@ -157,6 +158,49 @@ class Lexer(IRegEx):
                 self.Code = ''
                 yield SimbolToken(self._text_readed)
                 break
+            
+            pass
+        
+        pass
+    
+    def LexicalAnalisys(self,tokens):
+        """
+        Este metodo comprueba las reglas de escritura de los tokens definidos por el lenguaje
+        """
+        last_token =  None
+        current_token = None
+        
+        line = 1
+        column = 1
+        
+        instruction = []
+        
+        for token in tokens:
+            
+            last_token = copy(current_token)
+            current_token = token
+            
+            instruction.append(token)
+            
+            if not last_token == None and token.Type == TokenType.Variable and last_token.Type == TokenType.Literal:
+                error = LexicalError(self._error.Message,column,line)
+                yield CompilationStateERROR(error)
+                break
+            
+            if token.Type == TokenType.Simbol:
+                if token.Simbol == Simbol.JumpLine or token.Simbol == Simbol.PointCom:
+                    yield CompilationStateOK(instruction)
+                    instruction.clear()
+                    pass
+                pass
+            
+            if token.Type == TokenType.Simbol and token.Simbol == Simbol.JumpLine:
+                line += 1
+                column = 1
+                pass
+            else:
+                column += len(token.Text)
+                pass
             
             pass
         
