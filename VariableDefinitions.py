@@ -1,6 +1,5 @@
 from ExpressionInterfaces import IExpression,Expression
 from ExpressionDefinitions import NumberExpression,BooleanExpression
-
 class UnassignatedVariableException(Exception):
     
     def __init__(self,message):
@@ -9,7 +8,6 @@ class UnassignatedVariableException(Exception):
         pass
     
     pass
-
 class IVariable:
     
     @property
@@ -40,7 +38,6 @@ class IVariable:
         raise NotImplementedError()
     
     pass
-
 class NumberVariable(IVariable,NumberExpression):
     
     def __init__(self,name,value=None):
@@ -128,7 +125,6 @@ class BooleanVariable(IVariable,BooleanExpression):
         return str(self.Value)
     
     pass
-
 class StringVariable(IVariable,NumberExpression):
     
     def __init__(self,name,value=None):
