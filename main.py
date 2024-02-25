@@ -37,10 +37,12 @@ code = reader.read()
 lexer.LoadCode(code)
 
 # extraemos los tokens del codigo
-for state in lexer.LexicalAnalisys(lexer.Tokenize()):
-    print(state)
+code_representation = ''
+for token in lexer.Tokenize():
+    code_representation += f'{token}'
     pass
 
+print(code_representation)
 
 print('++++++++++++++++++++++ Computando +++++++++++++++++++++++')
 # Ejemplos de como usar las expresiones

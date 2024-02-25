@@ -142,7 +142,11 @@ class TokenConstrainedRegEx(IRegEx):
     @property
     def Token(self):
         if self._self_type == None:
+            if not self._state == State.FINAL:
+                return self._creator(self._text_readed[:len(self._text_readed) - 1])
             return self._creator(self._text_readed)
+        if not self._state == State.FINAL:
+            return self._creator(self._text_readed[:len(self._text_readed) - 1],self._self_type)
         return self._creator(self._text_readed,self._self_type)
     
     def Restart(self):
@@ -171,11 +175,12 @@ class TokenConstrainedRegEx(IRegEx):
                 self._match = False
                 self._state = State.FAULT
                 self._error = LexicalError(constrain.Description,self._column,self._line)
-                return False
+                self._text_readed += character
+                return True
             pass
         
-        if self._state == State.FAULT:
-            return False
+        # if self._state == State.FAULT:
+        #     return False
                 
         self._text_readed += character
         self._match = True

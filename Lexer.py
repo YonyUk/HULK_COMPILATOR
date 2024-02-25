@@ -95,6 +95,7 @@ class Lexer(IRegEx):
             
         # intentamos reconocer la cadena de alguna forma
         forward = False
+        fault = True
         
         for recognizer in self._recognizers.values():
             
@@ -102,7 +103,11 @@ class Lexer(IRegEx):
                 continue
         
             forward = recognizer.Forward(character) or forward
-        
+            
+            if not recognizer.State == State.FAULT:
+                fault = False
+                pass
+            
             if recognizer.State == State.FINAL:
                 self._state = State.FINAL
                 self._match = True
@@ -110,7 +115,7 @@ class Lexer(IRegEx):
         
             pass
         
-        if not forward:
+        if not forward or fault:
             self._state = State.FAULT
             self._error = self._recognizers[len(self._recognizers) - 1].Error
             pass
@@ -122,7 +127,7 @@ class Lexer(IRegEx):
                 pass
             pass
         
-        return forward
+        return forward and not fault
     
     def Tokenize(self):
         # mientras que haya codigo que leer
@@ -150,16 +155,13 @@ class Lexer(IRegEx):
                 
                 self.Restart()
                 self.Code = self.Code[position:]
+                if position == 0: self.Code = self.Code[1:]
                 
                 pass
-
-            if len(self.Code) - 1 < position:
-                self._text_readed = self.Code
-                self.Code = ''
-                yield SimbolToken(self._text_readed)
-                break
             
             pass
+            
+            yield EndToken('')
         
         pass
     
@@ -182,7 +184,7 @@ class Lexer(IRegEx):
             
             instruction.append(token)
             
-            if not last_token == None and token.Type == TokenType.Variable and last_token.Type == TokenType.Literal:
+            if not last_token == None and token.Type == TokenType.Variable and (last_token.Type == TokenType.Literal or type(last_token) == EndToken):
                 error = LexicalError(self._error.Message,column,line)
                 yield CompilationStateERROR(error)
                 break
