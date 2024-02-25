@@ -7,6 +7,9 @@ from ExpressionDefinitions import NumberExpression,StringExpression,BooleanExpre
 from VariableDefinitions import NumberVariable,StringVariable,BooleanVariable
 from LiteralDefinitions import NumberLiteral,StringLiteral,BooleanLiteral
 
+def FiltToken(token):
+    return len(token.Text) > 0
+
 # creamos cada uno de los automatas que reconoceran nuestro lenguaje
 keyword_token_recognizer = TokenFinitRegEx(KEYWORD_VALUES,KeywordToken)
 simbol_token_recognizer = TokenFinitRegEx(SIMBOL_VALUES,SimbolToken)
@@ -37,12 +40,10 @@ code = reader.read()
 lexer.LoadCode(code)
 
 # extraemos los tokens del codigo
-code_representation = ''
-for token in lexer.Tokenize():
-    code_representation += f'{token}'
+for state in lexer.LexicalAnalisys(lexer.Tokenize(),FiltToken):
+    print(state)
     pass
 
-print(code_representation)
 
 print('++++++++++++++++++++++ Computando +++++++++++++++++++++++')
 # Ejemplos de como usar las expresiones

@@ -165,7 +165,7 @@ class Lexer(IRegEx):
         
         pass
     
-    def LexicalAnalisys(self,tokens):
+    def LexicalAnalisys(self,tokens,filter):
         """
         Este metodo comprueba las reglas de escritura de los tokens definidos por el lenguaje
         """
@@ -177,14 +177,21 @@ class Lexer(IRegEx):
         
         instruction = []
         
+        tokens_filtered = []
         for token in tokens:
+            if filter(token):
+                tokens_filtered.append(token)
+                pass
+            pass
+        
+        for token in tokens_filtered:
             
             last_token = copy(current_token)
             current_token = token
             
             instruction.append(token)
             
-            if not last_token == None and token.Type == TokenType.Variable and (last_token.Type == TokenType.Literal or type(last_token) == EndToken):
+            if not last_token == None and token.Type == TokenType.Variable and last_token.Type == TokenType.Literal and last_token.SelfType == Type.Number:
                 error = LexicalError(self._error.Message,column,line)
                 yield CompilationStateERROR(error)
                 break
