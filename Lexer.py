@@ -112,7 +112,11 @@ class Lexer(IRegEx):
                 self._state = State.FINAL
                 self._match = True
                 pass
+<<<<<<< HEAD
             
+=======
+        
+>>>>>>> cbcf627 (first commit)
             pass
         
         if not forward or fault:
@@ -144,9 +148,12 @@ class Lexer(IRegEx):
             if self.LastState == State.FINAL:
                 # retornamos el token encontrado
                 
+<<<<<<< HEAD
                 if self.Token.Text == 'e':
                     yield KeywordToken('e')
                 
+=======
+>>>>>>> cbcf627 (first commit)
                 yield self.Token
                 # comprabmos si estamos leyendo un string
                 if self._text_readed == '"' and not self._reading_string:
@@ -164,7 +171,12 @@ class Lexer(IRegEx):
             
             pass
             
+<<<<<<< HEAD
         yield EndToken('')
+=======
+            yield EndToken('')
+        
+>>>>>>> cbcf627 (first commit)
         pass
     
     def LexicalAnalisys(self,tokens,filter):

@@ -2,6 +2,7 @@ from enum import Enum
 
 class IntermediateCodeType(Enum):
     
+<<<<<<< HEAD
     Data = 0
     Expression = 1
     Body = 2
@@ -18,5 +19,10 @@ class ExpressionType(Enum):
     ReadInstruction = 2
     PrintInstruction = 3
     CastInstruction = 4
+=======
+    Main = 0
+    Function = 1
+    TypeDefinition = 2
+>>>>>>> cbcf627 (first commit)
     
     pass

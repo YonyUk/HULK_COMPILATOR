@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from EnumIntermediateCodeDefinitions import IntermediateCodeType
 
 def DeleteDuplicated(l):
@@ -18,20 +19,38 @@ def DeleteDuplicated(l):
     return l
 
 class ICodeIntermediateGenerator:
+=======
+class ICodeIntermediateGenerator:
+
+    @property
+    def Type(self):
+        """
+        Type() -> IntermediateCodeType
+        devuelve el tipo de generador de codigo que representa
+        """
+        
+        raise NotImplementedError()
+>>>>>>> cbcf627 (first commit)
     
     @property
     def Template(self):
         """
+<<<<<<< HEAD
         Template() -> dict<DATA,TEMPLATE>
         Genera el codigo de todos datos que se usaran a la vez que 
         devuelve la plantilla de codigo intermedio correspondiente
         DATA: definicion de los datos usados
         LOCALS: variables locales
         TEMPLATE: codigo generado
+=======
+        Template() -> str
+        devuelve la plantilla de codigo intermedio correspondiente
+>>>>>>> cbcf627 (first commit)
         """
 
         raise NotImplementedError()
     
+<<<<<<< HEAD
     @property
     def Type(self):
         """
@@ -262,17 +281,28 @@ class IFunctionCodeGenerator(ITypeCodeGenerator):
         """
         
         raise NotImplementedError()
+=======
+    pass
+
+class IFunctionIntermediateGenerator(ICodeIntermediateGenerator):
+>>>>>>> cbcf627 (first commit)
     
     @property
     def Params(self):
         """
+<<<<<<< HEAD
         list(str)
         retorna los parametros que recibe la funcion
+=======
+        Params() -> str
+        devuelve un diccionario con los nombres y los tipos de los parametros de la funcion
+>>>>>>> cbcf627 (first commit)
         """
         
         raise NotImplementedError()
     
     @property
+<<<<<<< HEAD
     def Data(self):
         """
         retorna toda la data generada por la funcion
@@ -333,4 +363,65 @@ class IFunctionCodeGenerator(ITypeCodeGenerator):
         
         return { 'DATA' : data , 'TEMPLATE' : template , 'LOCALS' : ''}
         
+=======
+    def ID(self):
+        """
+        devuelve el identificador de la funcion
+        """
+        
+        raise NotImplementedError()
+    
+    pass
+
+class ITypeDefinitionIntermediateGenerator(ICodeIntermediateGenerator):
+    
+    @property
+    def Name(self):
+        """
+        nombre del tipo que define
+        """
+        
+        raise NotImplementedError()
+    
+    @property
+    def Attributtes(self):
+        """
+        Attributtes() -> list(str)
+        devuelve una lista con los nombres de los atributos internos del tipo
+        """
+        
+        raise NotImplementedError()
+    
+    @property
+    def Functions(self):
+        """
+        Functions() -> dict<str,str>
+        devuelve undiccionario con los nombres de las funciones y los id de cada metodo
+        """
+        
+        raise NotImplementedError()
+    
+    @property
+    def Ascendence(self):
+        """
+        Ascendence() -> list(ITypeIntermediateGenerator)
+        devuelve una lista con los nombres de los tipos de los que hereda
+        """
+        
+        raise NotImplementedError()
+    
+    pass
+
+class IMainIntermediateGenerator(ICodeIntermediateGenerator):
+    
+    @property
+    def Variables(self):
+        """
+        Variables() -> dict<str,str>
+        devuelve un diccionarioj con los nombres de las variables y sus tipos
+        """
+        
+        raise NotImplementedError()
+    
+>>>>>>> cbcf627 (first commit)
     pass

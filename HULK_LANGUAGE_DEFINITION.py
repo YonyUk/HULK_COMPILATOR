@@ -108,7 +108,11 @@ KEYWORD_VALUES = [
     'sin',
     'tan',
     'log',
+<<<<<<< HEAD
     'e',
+=======
+    'E',
+>>>>>>> cbcf627 (first commit)
     'PI',
     'exp',
     'sqrt',
@@ -134,7 +138,11 @@ KEYWORD_DICT = {
     'sin' : Keyword.Sin,
     'tan' : Keyword.Tan,
     'log' : Keyword.Log,
+<<<<<<< HEAD
     'e' : Keyword.Euler,
+=======
+    'E' : Keyword.Euler,
+>>>>>>> cbcf627 (first commit)
     'PI' : Keyword.PI,
     'exp' : Keyword.Exp,
     'sqrt' : Keyword.Sqrt,
@@ -176,7 +184,11 @@ KEYWORD_LOOPS = [
 
 KEYWORD_CONSTS = [
     'PI',
+<<<<<<< HEAD
     'e'    
+=======
+    'E'    
+>>>>>>> cbcf627 (first commit)
 ]
 
 OPERATOR_VALUES = [

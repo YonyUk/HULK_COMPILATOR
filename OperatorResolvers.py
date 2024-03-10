@@ -5,6 +5,10 @@ def PlusOperatorResolver(a,b):
         pass
     raise Exception(f'Los valores de {a} y de {b} deben ser valores numericos')
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> cbcf627 (first commit)
 def PPlusOperatorResolver(a):
     if type(a) == int or type(a) == float: return a + 1
     raise Exception(f'El valor de {a} debe ser un valor numerico')
@@ -16,6 +20,10 @@ def MinusOperatorResolver(a,b):
         pass
     raise Exception(f'Los valores de {a} y de {b} deben ser valores numericos')
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> cbcf627 (first commit)
 def MMinusOperatorResolver(a):
     if type(a) == int or type(a) == float: return a - 1
     raise Exception(f'El valor de {a} debe ser un valor numerico')
@@ -27,6 +35,10 @@ def MulOperatorResolver(a,b):
         pass
     raise Exception(f'Los valores de {a} y de {b} deben ser valores numericos')
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> cbcf627 (first commit)
 def DivOperatorResolver(a,b):
     if type(a) == int or type(a) == float:
         if type(b) == int or type(b) == float:
@@ -34,6 +46,10 @@ def DivOperatorResolver(a,b):
         pass
     raise Exception(f'Los valores de {a} y de {b} deben ser valores numericos')
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> cbcf627 (first commit)
 def ExpOperatorResolver(a,b):
     if type(a) == int or type(a) == float:
         if type(b) == int or type(b) == float:

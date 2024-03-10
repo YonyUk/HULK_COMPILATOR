@@ -176,10 +176,14 @@ class TokenConstrainedRegEx(IRegEx):
                 self._state = State.FAULT
                 self._error = LexicalError(constrain.Description,self._column,self._line)
                 self._text_readed += character
+<<<<<<< HEAD
                 return False
             if constrain.Final(self._text_readed + character):
                 self._state = State.FINAL
                 pass
+=======
+                return True
+>>>>>>> cbcf627 (first commit)
             pass
         
         # if self._state == State.FAULT:
@@ -187,10 +191,14 @@ class TokenConstrainedRegEx(IRegEx):
                 
         self._text_readed += character
         self._match = True
+<<<<<<< HEAD
         if not self._state == State.FINAL:
             self._state = State.ONWORK
             pass
         
+=======
+        self._state = State.FINAL
+>>>>>>> cbcf627 (first commit)
         return True
     
     pass

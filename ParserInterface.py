@@ -7,6 +7,7 @@ class IExpressionParser:
         """
         raise NotImplementedError()
     
+<<<<<<< HEAD
     pass
 
 class IShiftReduceParser(IExpressionParser):
@@ -23,4 +24,6 @@ class IShiftReduceParser(IExpressionParser):
         """
         raise NotImplementedError()
     
+=======
+>>>>>>> cbcf627 (first commit)
     pass
