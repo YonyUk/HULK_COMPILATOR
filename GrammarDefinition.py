@@ -25,24 +25,16 @@ ArithmeticTerminals = [
 ArithmeticNonTerminals = [
     'E',
     'T',
-    'X',
     'F',
-    'Y',
     'P',
-    'Z',
-    'Q',
-    'W'
+    'Q'
 ]
 
 ArithmeticProductions = {
-    'E' : ['TX'],
-    'X' : ['+TX','-TX',''],
-    'T' : ['FY'],
-    'Y' : ['*FY','/FY',''],
-    'F' : ['PZ'],
-    'Z' : ['^PZ',''],
-    'P' : ['QW'],
-    'W' : ['%QW',''],
+    'E' : ['E+T','E-T','T'],
+    'T' : ['E*F','E/F','F'],
+    'F' : ['E^P','P'],
+    'P' : ['E%P','Q'],
     'Q' : ['(E)','n']
 }
 

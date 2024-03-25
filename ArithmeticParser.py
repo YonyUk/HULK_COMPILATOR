@@ -4,15 +4,14 @@ from RegExInterface import IRegEx,State
 from GrammarParser import GrammarParser
 from GrammarInterface import Grammar
 
-class ArithmeticParser(IExpressionParser):
-    
-    def __init__(self):
-        self._grammar = ArithMeticGrammar
-        self._translator = ArithmeticTranslator
-        pass
-        
-    pass
-
 AG = ArithMeticGrammar
-parser = GrammarParser(AG)
-print(parser._states)
+parser = GrammarParser(AG,ArithmeticTranslator)
+
+chain = 'n*n+n'
+index = 0
+
+# while parser.Forward(chain[index]):
+#     index += 1
+#     pass
+
+parser.Parse(chain)
