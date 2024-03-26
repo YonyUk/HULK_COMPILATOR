@@ -9,7 +9,7 @@ parser = GrammarParser(AG,ArithmeticTranslator)
 
 # print(AG.First('P'))
 
-chain = 'a*(n+n)+(n-a^a^n)'
+chain = 'a*(n-a^np/(n-a/n)'
 index = 0
 
 # while parser.Forward(chain[index]):

@@ -8,9 +8,12 @@ from EnumsTokensDefinition import TokenType,Operator,Simbol,SimbolType,OperatorT
 Las definiciones de las gramaticas
 """
 
+# falta diferenciar entre las prioridades de la potencia y modulacion; y la multiplicacion y division
+
 ArithmeticTerminals = [
     'n',
     'a',
+    'p',
     '',
     '+',
     '-',
@@ -32,7 +35,7 @@ ArithmeticNonTerminals = [
 ]
 
 ArithmeticProductions = {
-    'E' : ['E+T','E-T','T','a'],
+    'E' : ['E+T','E-T','T','a','(Ep'],
     'T' : ['E*F','E/F','E*T','E/T','F'],
     'F' : ['E^P','E^F','P'],
     'P' : ['E%Q','E%P','Q'],
