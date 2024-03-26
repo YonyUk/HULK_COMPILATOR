@@ -10,6 +10,7 @@ Las definiciones de las gramaticas
 
 ArithmeticTerminals = [
     'n',
+    'a',
     '',
     '+',
     '-',
@@ -19,7 +20,7 @@ ArithmeticTerminals = [
     '%',
     '(',
     ')',
-    '$' 
+    '$'
 ]
 
 ArithmeticNonTerminals = [
@@ -31,10 +32,10 @@ ArithmeticNonTerminals = [
 ]
 
 ArithmeticProductions = {
-    'E' : ['E+T','E-T','T'],
-    'T' : ['E*F','E/F','F'],
-    'F' : ['E^P','P'],
-    'P' : ['E%P','Q'],
+    'E' : ['E+T','E-T','T','a'],
+    'T' : ['E*F','E/F','E*T','F'],
+    'F' : ['E^P','E^F','P'],
+    'P' : ['E%Q','E%P','Q'],
     'Q' : ['(E)','n']
 }
 

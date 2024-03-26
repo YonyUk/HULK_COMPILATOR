@@ -7,7 +7,9 @@ from GrammarInterface import Grammar
 AG = ArithMeticGrammar
 parser = GrammarParser(AG,ArithmeticTranslator)
 
-chain = 'n*n+n'
+# print(AG.First('P'))
+
+chain = 'a*(n+n)+(n-a^a^n)'
 index = 0
 
 # while parser.Forward(chain[index]):

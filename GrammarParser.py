@@ -9,6 +9,7 @@ class GrammarParser(IRegEx,IShiftReduceParser):
     clase encargada de parsear una gramatica
     """
     _automatons = {}
+    _maxPrefixLength = 0
     _items = {}
     
     def __init__(self,grammar,translator):
@@ -21,6 +22,7 @@ class GrammarParser(IRegEx,IShiftReduceParser):
         self._state = State.START
         self._laststate = State.START
         self._stack = []
+        self._position = 0
         pass
     
     @property
@@ -49,6 +51,9 @@ class GrammarParser(IRegEx,IShiftReduceParser):
             
             items = []
             for derivation in self._grammar._Productions[production]:
+                if len(derivation) > self._maxPrefixLength:
+                    self._maxPrefixLength = len(derivation)
+                    pass
                 for i in range(len(derivation) + 1):
                     items.append(f'{derivation[:i]}.{derivation[i:]}')
                     pass
@@ -83,7 +88,7 @@ class GrammarParser(IRegEx,IShiftReduceParser):
                     if s.startswith(token):
                         state = s
                         follow = state.split('.')[1]
-                        if len(follow) > 0: return True
+                        if len(follow) > 0 and self._position < len(self._expression): return True
                         pass
                     pass
                 pass
@@ -114,9 +119,11 @@ class GrammarParser(IRegEx,IShiftReduceParser):
                 if found: break
                 pass
             
-            follow = state.split('.')[1]
+            if not state == None:
+                follow = state.split('.')[1]
+                if len(follow) == 0: return True
+                pass
             
-            if len(follow) == 0: return True
             pass
         
         return False
@@ -125,15 +132,19 @@ class GrammarParser(IRegEx,IShiftReduceParser):
         
         while self._reduce:
             
+            stack_temp = []
             reduced = False
             for i in range(len(self._stack)):
                 token = ''
+                
+                if len(self._stack) - i > self._maxPrefixLength: continue
+                
                 for j in range(i,len(self._stack)):
                     token += self._stack[j]
                     pass
                 
-                while len(self._stack) > len(token) - 1:
-                    self._stack.pop()
+                while len(stack_temp) < len(token):
+                    stack_temp.append(self._stack.pop())
                     pass
                 
                 for production in self._items.keys():
@@ -145,8 +156,13 @@ class GrammarParser(IRegEx,IShiftReduceParser):
                     pass
                 
                 if reduced: break
+            
+                while len(stack_temp) > 0:
+                    self._stack.append(stack_temp.pop())
+                    pass
                 
                 pass
+            
             
             pass
         pass
@@ -177,9 +193,10 @@ class GrammarParser(IRegEx,IShiftReduceParser):
     
     def Parse(self,tokens):
         
-        position = 0
+        self._position = 0
+        self._expression = tokens
         
-        while self.Forward(tokens[position]):
+        while self._position < len(tokens) and self.Forward(tokens[self._position]):
             
             if self._reduce and self._shift:
                 raise Exception('Esta gramatica no es LR(0)')
@@ -191,7 +208,7 @@ class GrammarParser(IRegEx,IShiftReduceParser):
                 self.Shift()
                 pass
             self.Restart()
-            position += 1
+            self._position += 1
             pass
         pass
     
