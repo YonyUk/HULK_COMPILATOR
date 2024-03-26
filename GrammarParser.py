@@ -76,13 +76,12 @@ class GrammarParser(IRegEx,IShiftReduceParser):
     
     @property
     def _shift(self):
-        for i in range(len(self._stack)):
+        for i in range(max(0,len(self._stack) - self._maxPrefixLength),len(self._stack)):
             token = ''
             for j in range(i,len(self._stack)):
                 token += self._stack[j]
                 pass
             
-            state = None
             for production in self._items.keys():
                 for s in self._items[production]:
                     if s.startswith(token):
@@ -92,8 +91,8 @@ class GrammarParser(IRegEx,IShiftReduceParser):
                         pass
                     pass
                 pass
-            
-            return False
+            pass
+        return False
     
     def Shift(self):
         pass
@@ -101,32 +100,22 @@ class GrammarParser(IRegEx,IShiftReduceParser):
     @property
     def _reduce(self):
         # revisar este metodo
-        for i in range(len(self._stack)):
+        for i in range(max(0,len(self._stack) - self._maxPrefixLength),len(self._stack)):
             token = ''
             for j in range(i,len(self._stack)):
                 token += self._stack[j]
                 pass
             
-            state = None
             for production in self._items.keys():
-                found = False
                 for s in self._items[production]:
                     if s.startswith(token):
-                        state = s
-                        found = True
-                        break
+                        follow = s.split('.')[1]
+                        if len(follow) > 0: return False
                     pass
-                if found: break
                 pass
-            
-            if not state == None:
-                follow = state.split('.')[1]
-                if len(follow) == 0: return True
-                pass
-            
             pass
         
-        return False
+        return True
     
     def Reduce(self):
         
@@ -134,10 +123,8 @@ class GrammarParser(IRegEx,IShiftReduceParser):
             
             stack_temp = []
             reduced = False
-            for i in range(len(self._stack)):
+            for i in range(max(0,len(self._stack) - self._maxPrefixLength),len(self._stack)):
                 token = ''
-                
-                if len(self._stack) - i > self._maxPrefixLength: continue
                 
                 for j in range(i,len(self._stack)):
                     token += self._stack[j]
@@ -162,8 +149,6 @@ class GrammarParser(IRegEx,IShiftReduceParser):
                     pass
                 
                 pass
-            
-            
             pass
         pass
     
@@ -198,7 +183,10 @@ class GrammarParser(IRegEx,IShiftReduceParser):
         
         while self._position < len(tokens) and self.Forward(tokens[self._position]):
             
-            if self._reduce and self._shift:
+            _reduce = self._reduce
+            _shift = self._shift
+            
+            if _reduce and _shift:
                 raise Exception('Esta gramatica no es LR(0)')
             
             if self._reduce:

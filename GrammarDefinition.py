@@ -33,7 +33,7 @@ ArithmeticNonTerminals = [
 
 ArithmeticProductions = {
     'E' : ['E+T','E-T','T','a'],
-    'T' : ['E*F','E/F','E*T','F'],
+    'T' : ['E*F','E/F','E*T','E/T','F'],
     'F' : ['E^P','E^F','P'],
     'P' : ['E%Q','E%P','Q'],
     'Q' : ['(E)','n']
