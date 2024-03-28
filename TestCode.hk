@@ -1,6 +1,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 10+20*(4+e);
 =======
 let a: number = 10 as Hola in print(Hola);
@@ -20,3 +21,8 @@ for (let i = 0; i < 100; i++){
 =======
 a *= 10
 >>>>>>> 6da4297 (translator moved from GrammarParser)
+=======
+let 7x) = 10
+
+
+>>>>>>> 7e27204 (adding lookahead)

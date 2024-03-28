@@ -44,22 +44,27 @@ class GrammarParser(IRegEx,IShiftReduceParser):
     """
     operator_procedence =[
         
+        ['(']
         ['^','%'],
         ['*','/'],
         ['+','-'],
         ['>','<','>=','<=','==','is'],
-        ['&','||','!'],
+        ['['],
+        ['&','|','!'],
+        ['.'],
         ['=','+=','-=','/=','*=','--',':='],
-        ['if',"for",'W'],
+        ['if',"for",'while'],
+        ['elif'],
+        ['else'],
         ["P ''"],
         ["X '"],
         ['@','@@'],
-        ['.'],
         ['as'],
         ['let'],
         [',']
-        ['type' , 'new' , 'function', 'in' , 'protocol' ,  ]
-        [';']
+        ['type' , 'new' , 'function', 'in' , 'protocol' , "{"  ]
+        [":"]
+        [';',"}" , ']',')']
         ['$']
     ]
     

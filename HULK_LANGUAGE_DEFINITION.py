@@ -389,8 +389,8 @@ SYMBOLS_and_OPERATORS_parser=[
     '.',
     '!',
     '++',
-    '*='
-    '!='
+    '*=',
+    '!=',
     '--',
     'is',
     'as',
@@ -411,7 +411,6 @@ SYMBOLS_and_OPERATORS_parser=[
     '!',
     '&',
     '|',
-    '~',
 ]
 
 
