@@ -9,5 +9,10 @@ let a: number = 10.5 as Hola in print(Hola);
 for (let i = 0; i < 100; i++){
     if a_b is 100e+300 "hello";
     else (ala & true);
+<<<<<<< HEAD
 }
 >>>>>>> cbcf627 (first commit)
+=======
+    X(5);
+}
+>>>>>>> e754a75 (ambiguiti on function deleted)
