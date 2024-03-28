@@ -109,10 +109,14 @@ KEYWORD_VALUES = [
     'tan',
     'log',
 <<<<<<< HEAD
+<<<<<<< HEAD
     'e',
 =======
     'E',
 >>>>>>> cbcf627 (first commit)
+=======
+    'e',
+>>>>>>> 849d64d (translator moved from GrammarParser)
     'PI',
     'exp',
     'sqrt',
@@ -185,10 +189,14 @@ KEYWORD_LOOPS = [
 KEYWORD_CONSTS = [
     'PI',
 <<<<<<< HEAD
+<<<<<<< HEAD
     'e'    
 =======
     'E'    
 >>>>>>> cbcf627 (first commit)
+=======
+    'e'    
+>>>>>>> 849d64d (translator moved from GrammarParser)
 ]
 
 OPERATOR_VALUES = [
@@ -352,5 +360,65 @@ TYPES_DEFINED = [
     'boolean',
     'string'
 ]
+
+SYMBOLS_and_OPERATORS=[
+    
+    'object',
+    'number',
+    'boolean',
+    'string',
+    'new',
+    'print',
+    'function',
+    'let',
+    'in',
+    'protocol',
+    'type',
+    'while',
+    'for',
+    'if',
+    'else',
+    'elif',
+    'e',
+    'PI',
+    'inherits',
+    ',',
+    '\n',
+    ';',
+    '=>',
+    ':',
+    '(',
+    ')',
+    '{',
+    '}',
+    '.',
+    'self',
+    '!',
+    '++',
+    '--',
+    'is',
+    'as',
+    '+',
+    '-',
+    '*',
+    '/',
+    '^',
+    '%',
+    '<',
+    '>',
+    '<=',
+    '>=',
+    '=',
+    '==',
+    '@',
+    ':=',
+    '!',
+    '?',
+    '&',
+    '|',
+    '~',
+]
+
+
 
 LoadDefinition()

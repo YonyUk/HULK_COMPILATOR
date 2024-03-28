@@ -113,10 +113,14 @@ class Lexer(IRegEx):
                 self._match = True
                 pass
 <<<<<<< HEAD
+<<<<<<< HEAD
             
 =======
         
 >>>>>>> cbcf627 (first commit)
+=======
+            
+>>>>>>> 849d64d (translator moved from GrammarParser)
             pass
         
         if not forward or fault:
@@ -172,11 +176,15 @@ class Lexer(IRegEx):
             pass
             
 <<<<<<< HEAD
+<<<<<<< HEAD
         yield EndToken('')
 =======
             yield EndToken('')
         
 >>>>>>> cbcf627 (first commit)
+=======
+        yield EndToken('')
+>>>>>>> 849d64d (translator moved from GrammarParser)
         pass
     
     def LexicalAnalisys(self,tokens,filter):

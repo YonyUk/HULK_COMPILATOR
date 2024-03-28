@@ -1,9 +1,13 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 10+20*(4+e);
 =======
 let a: number = 10 as Hola in print(Hola);
+=======
+let a: number = 10.5 as Hola in print(Hola);
+>>>>>>> 849d64d (translator moved from GrammarParser)
 for (let i = 0; i < 100; i++){
-    if a_b is 100 "hello";
+    if a_b is 100e+300 "hello";
     else (ala & true);
 }
 >>>>>>> cbcf627 (first commit)

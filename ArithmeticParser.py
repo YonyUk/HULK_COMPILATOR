@@ -3,6 +3,7 @@ from GrammarDefinition import ArithMeticGrammar,ArithmeticTranslator,ArithmeticN
 from RegExInterface import IRegEx,State
 from GrammarParser import GrammarParser
 from GrammarInterface import Grammar
+<<<<<<< HEAD
 from RegExDefinitions import TokenFinitRegEx
 
 AG = ArithMeticGrammar
@@ -39,3 +40,19 @@ index = 0
 
 parser.LoadTokens(chain)
 parser.Parse()
+=======
+
+AG = ArithMeticGrammar
+parser = GrammarParser(AG,ArithmeticTranslator)
+
+# print(AG.First('P'))
+
+chain = 'a*(n-a^np/(n-a/n)'
+index = 0
+
+# while parser.Forward(chain[index]):
+#     index += 1
+#     pass
+
+parser.Parse(chain)
+>>>>>>> 849d64d (translator moved from GrammarParser)

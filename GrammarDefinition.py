@@ -34,6 +34,7 @@ ArithmeticNonTerminals = [
     'Q'
 ]
 
+<<<<<<< HEAD
 Priorities = {
     '(' : -1,
     ')' : 0,
@@ -50,6 +51,13 @@ ArithmeticProductions = {
     'T' : ['T%F','F'],
     'F' : ['F*P','F/P','P'],
     'P' : ['P^Q','Q'],
+=======
+ArithmeticProductions = {
+    'E' : ['E+T','E-T','T','a','(Ep'],
+    'T' : ['E*F','E/F','E*T','E/T','F'],
+    'F' : ['E^P','E^F','P'],
+    'P' : ['E%Q','E%P','Q'],
+>>>>>>> 849d64d (translator moved from GrammarParser)
     'Q' : ['(E)','n']
 }
 
@@ -66,6 +74,7 @@ ArithmeticTranslator = {
     TokenType.Variable : 'n'
 }
 
+<<<<<<< HEAD
 ArithMeticGrammar = Grammar(
     ArithmeticNonTerminals,
     ArithmeticTerminals,
@@ -73,3 +82,6 @@ ArithMeticGrammar = Grammar(
     'E',
     Priorities
 )
+=======
+ArithMeticGrammar = Grammar(ArithmeticNonTerminals,ArithmeticTerminals,ArithmeticProductions,'E')
+>>>>>>> 849d64d (translator moved from GrammarParser)
