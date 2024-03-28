@@ -361,12 +361,8 @@ TYPES_DEFINED = [
     'string'
 ]
 
-SYMBOLS_and_OPERATORS=[
+SYMBOLS_and_OPERATORS_parser=[
     
-    'object',
-    'number',
-    'boolean',
-    'string',
     'new',
     'function',
     'let',
@@ -391,9 +387,10 @@ SYMBOLS_and_OPERATORS=[
     '{',
     '}',
     '.',
-    'self',
     '!',
     '++',
+    '*='
+    '!='
     '--',
     'is',
     'as',
@@ -412,7 +409,6 @@ SYMBOLS_and_OPERATORS=[
     '@',
     ':=',
     '!',
-    '?',
     '&',
     '|',
     '~',

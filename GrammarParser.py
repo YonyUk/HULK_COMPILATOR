@@ -1,7 +1,7 @@
 from RegExDefinitions import TokenFinitRegEx
 from RegExInterface import State,IRegEx
-from GrammarInterface import Grammar
 from ParserInterface import IShiftReduceParser
+<<<<<<< HEAD
 from copy import copy
 <<<<<<< HEAD
 from os import system
@@ -34,26 +34,41 @@ class GrammarParser(IRegEx,IShiftReduceParser):
         pass
         
 =======
+=======
+>>>>>>> 6da4297 (translator moved from GrammarParser)
 
 class GrammarParser(IRegEx,IShiftReduceParser):
     """
     clase encargada de parsear una gramatica
+    
     """
-    _automatons = {}
-    _maxPrefixLength = 0
-    _items = {}
+    operator_procedence =[
+        
+        ['^','%'],
+        ['*','/'],
+        ['+','-'],
+        ['>','<','>=','<=','==','is'],
+        ['&','||','!'],
+        ['=','+=','-=','/=','*=','--',':='],
+        ['if',"for",'W'],
+        ["P ''"],
+        ["X '"],
+        ['@','@@'],
+        ['.'],
+        ['as'],
+        ['let'],
+        [',']
+        ['type' , 'new' , 'function', 'in' , 'protocol' ,  ]
+        [';']
+        ['$']
+    ]
     
     def __init__(self,grammar):
 
         self._grammar = grammar
-        self._createAutomatons()
         self._error = None
-        self._expression = None
         self._match = False
-        self._state = State.START
-        self._laststate = State.START
         self._stack = []
-        self._position = 0
         pass
     
 >>>>>>> 849d64d (translator moved from GrammarParser)
@@ -139,27 +154,10 @@ class GrammarParser(IRegEx,IShiftReduceParser):
 =======
         return self._laststate
     
-    def _createAutomatons(self):
-        
-        for production in self._grammar._Productions.keys():
-            
-            items = []
-            for derivation in self._grammar._Productions[production]:
-                if len(derivation) > self._maxPrefixLength:
-                    self._maxPrefixLength = len(derivation)
-                    pass
-                for i in range(len(derivation) + 1):
-                    items.append(f'{derivation[:i]}.{derivation[i:]}')
-                    pass
-                pass
-            
-            automaton = TokenFinitRegEx(items,lambda token: token)
-            self._automatons[production] = automaton
-            self._items[production] = items
-            pass
-            
+    def Restart(self):        
         pass
     
+<<<<<<< HEAD
 >>>>>>> 849d64d (translator moved from GrammarParser)
     def Restart(self):
         for automaton in self._automatons.keys():
@@ -265,91 +263,105 @@ class GrammarParser(IRegEx,IShiftReduceParser):
                     pass
                 pass
             pass
+=======
+    def compare_procedence(self , operator1 , operator2):
+>>>>>>> 6da4297 (translator moved from GrammarParser)
         
-        return True
-    
-    def Reduce(self):
+        '''
+        campare operator1 precedence to operator2 procedence
         
-        while self._reduce:
+        return values: 
+        
+        0: equal procedence
+        1: grater procedence
+        -1: lower procedence
+        
+        '''
+        
+        for operators in self.operator_procedence:
             
-            stack_temp = []
-            reduced = False
-            for i in range(max(0,len(self._stack) - self._maxPrefixLength),len(self._stack)):
-                token = ''
-                
-                for j in range(i,len(self._stack)):
-                    token += self._stack[j]
-                    pass
-                
-                while len(stack_temp) < len(token):
-                    stack_temp.append(self._stack.pop())
-                    pass
-                
-                for production in self._items.keys():
-                    if self._items[production].count(token + '.') > 0:
-                        token = production
-                        self._stack.append(token)
-                        reduced = True
-                        break
-                    pass
-                
-                if reduced: break
+            if list(operators).__contains__(operator1) and list(operators).__contains__(operator2):
+                return 0
             
-                while len(stack_temp) > 0:
-                    self._stack.append(stack_temp.pop())
-                    pass
-                
-                pass
-            pass
-        pass
-    
-    def Forward(self,token):
-        
-        self._laststate = copy(self._state)
-  
-        for i in range(len(self._stack) + 1):
-            t = ''
-            for j in range(i,len(self._stack)):
-                t += self._stack[j]
-                pass
-            t += token
+            if list(operators).__contains__(operator1) and not list(operators).__contains__(operator2):
+                return 1
             
-            for production in self._items.keys():
-                for state in self._items[production]:
-                    if state.startswith(t + '.'):
-                        self._state = State.FINAL
-                        self._stack.append(token)
-                        return True
-                    pass
-                pass
+            if not list(operators).__contains__(operator1) and list(operators).__contains__(operator2):
+                return -1
+            
+    def is_operator(self,item):
         
-        self._state = State.FAULT
+        for operators in self.operator_procedence:
+            
+            if list(operators).__contains__(item): return True
         
         return False
     
-    def Parse(self,tokens):
+    pointer=['$']
+    reduce_operator=False
+    
+    @property
+    def _shift_reduce(self , pivot):
+    
+        '''
+        return True if shift
+        return False if reduce
+        return reduce if not an operator (False)
         
-        self._position = 0
-        self._expression = tokens
-        
-        while self._position < len(tokens) and self.Forward(tokens[self._position]):
+        '''
+    
+        if self.is_operator(pivot):
             
-            _reduce = self._reduce
-            _shift = self._shift
-            
-            if _reduce and _shift:
-                raise Exception('Esta gramatica no es LR(0)')
-            
-            if self._reduce:
-                self.Reduce()
-                pass
+            result = self.compare_procedence(pivot,self.pointer[-1])
+
+            if result == 0 or result == 1 :
+                self.pointer.append(pivot)
+                self.reduce_operator = False                
             else:
-                self.Shift()
-                pass
-            self.Restart()
-            self._position += 1
+                self.reduce_operator =True
+        
+        else: self.reduce_operator = False
+
+    def make_production(self,gramar,stack):
+        
+        '''
+        make a production posible
+        
+        '''
+        
+        for production in gramar:
+            
+            if len(production) < len(stack):
+                
+                sub_stack = stack[ (len(stack) - len(production)):]
+
+                
+                
+            
             pass
+        
         pass
     
+<<<<<<< HEAD
     pass
 >>>>>>> 849d64d (translator moved from GrammarParser)
+=======
+    def posible_reduction(self,stack):
+        
+        reductions = []
+        for syntaxis in self._grammar:
+            
+            reduction = self.make_production(syntaxis)        
+            reductions.append(reduction)
+        
+        return reductions
+    
+    
+    def Shift_AST(self):
+        pass
+    
+    def Reduce_AST(self):
+        
+        
+        pass
+>>>>>>> 6da4297 (translator moved from GrammarParser)

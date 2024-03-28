@@ -41,6 +41,7 @@
     ],
     "operators":[
 <<<<<<< HEAD
+<<<<<<< HEAD
         "*=",
         "/=",
         "+=",
@@ -55,6 +56,12 @@
 =======
 
 >>>>>>> cbcf627 (first commit)
+=======
+        "!",
+        "!=",
+        "*=",
+        "+="
+>>>>>>> 6da4297 (translator moved from GrammarParser)
     ],
     "operators_unary":[
 
