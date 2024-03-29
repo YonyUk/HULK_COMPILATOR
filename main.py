@@ -7,6 +7,7 @@ from ExpressionDefinitions import NumberExpression,StringExpression,BooleanExpre
 from VariableDefinitions import NumberVariable,StringVariable,BooleanVariable
 from LiteralDefinitions import NumberLiteral,StringLiteral,BooleanLiteral
 import GRAMATIC_DEFINITION
+import GrammarParser as GP
 from os import system
 
 
@@ -108,10 +109,15 @@ if not Error:
 
     gd_token= GRAMATIC_DEFINITION.traslator(my_list)
 
+<<<<<<< HEAD
     print(gd_token)
 >>>>>>> 6f9c51e (gramar modified)
 
+=======
+    #print(gd_token)
+>>>>>>> 8380a4e (grammar tokenikezed)
 
+    gp = GP.GrammarParser(GRAMATIC_DEFINITION.gramar,gd_token)
 
 
 

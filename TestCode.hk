@@ -5,6 +5,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 10+20*(4+e);
 =======
 let a: number = 10 as Hola in print(Hola);
@@ -31,6 +32,9 @@ let 7x) = 10
 =======
 A(X)
 >>>>>>> 6f9c51e (gramar modified)
+=======
+A(X);
+>>>>>>> 8380a4e (grammar tokenikezed)
 
 5 == 5
 =======
