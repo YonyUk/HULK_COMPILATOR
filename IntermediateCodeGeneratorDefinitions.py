@@ -586,6 +586,285 @@ class ArgExpression(IExpressionCodeGenerator):
     pass
 
 
+class LengthExpression(IExpressionCodeGenerator):
+    def __init__(self, address, value):
+        self._address = address
+        self._value = value
+
+    @property
+    def Value(self):
+        return self._address
+
+    @property
+    def Locals(self):
+        return [self._address]
+
+    @property
+    def Data(self):
+        return []
+
+    @property
+    def Template(self):
+        return {
+            "DATA": "",
+            "TEMPLATE": f"{self._address} = LENGTH {self._value};",
+            "LOCALS": "",
+        }
+
+    pass
+
+
+class ConcatExpression(IExpressionCodeGenerator):
+    def __init__(self, address, first, second):
+        self._address = address
+        self._first = first
+        self._second = second
+
+    @property
+    def Value(self):
+        return self._address
+
+    @property
+    def Locals(self):
+        return [self._address]
+
+    @property
+    def Data(self):
+        return []
+
+    @property
+    def Template(self):
+        return {
+            "DATA": "",
+            "TEMPLATE": f"{self._address} = CONCAT {self._first} {self._second};",
+            "LOCALS": "",
+        }
+
+    pass
+
+
+class PrefixExpression(IExpressionCodeGenerator):
+    def __init__(self, address, value, prefix):
+        self._address = address
+        self._value = value
+        self._prefix = prefix
+
+    @property
+    def Value(self):
+        return self._address
+
+    @property
+    def Locals(self):
+        return [self._address]
+
+    @property
+    def Data(self):
+        return []
+
+    @property
+    def Template(self):
+        return {
+            "DATA": "",
+            "TEMPLATE": f"{self._address} = CONCAT {self._value} {self._prefix};",
+            "LOCALS": "",
+        }
+
+    pass
+
+
+class SubStringExpression(IExpressionCodeGenerator):
+    def __init__(self, address, value, index):
+        self._address = address
+        self._value = value
+        self._index = index
+
+    @property
+    def Value(self):
+        return self._address
+
+    @property
+    def Locals(self):
+        return [self._address]
+
+    @property
+    def Data(self):
+        return []
+
+    @property
+    def Template(self):
+        return {
+            "DATA": "",
+            "TEMPLATE": f"{self._address} = CONCAT {self._value} {self._index};",
+            "LOCALS": "",
+        }
+
+    pass
+
+
+class StringCastExpression(IExpressionCodeGenerator):
+    def __init__(self, address, value):
+        self._address = address
+        self._value = value
+
+    @property
+    def Value(self):
+        return self._address
+
+    @property
+    def Locals(self):
+        return [self._address]
+
+    @property
+    def Data(self):
+        return []
+
+    @property
+    def Template(self):
+        return {
+            "DATA": "",
+            "TEMPLATE": f"{self._address} = STR {self._value};",
+            "LOCALS": "",
+        }
+
+    pass
+
+
+class ReadExpression(IExpressionCodeGenerator):
+    def __init__(self, address):
+        self._address = address
+
+    @property
+    def Value(self):
+        return self._address
+
+    @property
+    def Locals(self):
+        return [self._address]
+
+    @property
+    def Data(self):
+        return []
+
+    @property
+    def Template(self):
+        return {
+            "DATA": "",
+            "TEMPLATE": f"{self._address} = READ;",
+            "LOCALS": "",
+        }
+
+    pass
+
+
+class PrintExpression(IExpressionCodeGenerator):
+    def __init__(self, address):
+        self._address = address
+
+    @property
+    def Value(self):
+        return self._address
+
+    @property
+    def Locals(self):
+        return []
+
+    @property
+    def Data(self):
+        return []
+
+    @property
+    def Template(self):
+        return {
+            "DATA": "",
+            "TEMPLATE": f"LABEL {self._address};",
+            "LOCALS": "",
+        }
+
+    pass
+
+
+class GoToExpression(IExpressionCodeGenerator):
+    def __init__(self, address):
+        self._address = address
+
+    @property
+    def Value(self):
+        return self._address
+
+    @property
+    def Locals(self):
+        return []
+
+    @property
+    def Data(self):
+        return []
+
+    @property
+    def Template(self):
+        return {
+            "DATA": "",
+            "TEMPLATE": f"GOTO {self._address};",
+            "LOCALS": "",
+        }
+
+    pass
+
+
+class GoToExpression(IExpressionCodeGenerator):
+    def __init__(self, address, bool_ex):
+        self._address = address
+        self._bool_ex = bool_ex
+
+    @property
+    def Value(self):
+        return self._address
+
+    @property
+    def Locals(self):
+        return []
+
+    @property
+    def Data(self):
+        return []
+
+    @property
+    def Template(self):
+        return {
+            "DATA": "",
+            "TEMPLATE": f"IF {self._bool_ex} GOTO {self._address};",
+            "LOCALS": "",
+        }
+
+    pass
+
+
+class LabelExpression(IExpressionCodeGenerator):
+    def __init__(self, address):
+        self._address = address
+
+    @property
+    def Value(self):
+        return self._address
+
+    @property
+    def Locals(self):
+        return []
+
+    @property
+    def Data(self):
+        return []
+
+    @property
+    def Template(self):
+        return {
+            "DATA": "",
+            "TEMPLATE": f"PRINT {self._address};",
+            "LOCALS": "",
+        }
+
+    pass
+
+
 class LoadExpression(IExpressionCodeGenerator):
     def __init__(self, address, message):
         self._address = address
