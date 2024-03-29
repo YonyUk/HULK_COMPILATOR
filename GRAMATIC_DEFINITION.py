@@ -1,108 +1,189 @@
 import HULK_LANGUAGE_DEFINITION as HK
 
-function_caLL={
-        
-    "call" :[ "name(param)"],
-    "E '": ["call"]
-}
+gramar =[
 
-strings={
+# function_caLL
+[
+    ["c",[ "c(p)" , "cT" ] ],
+    ["T", ["c"]]
+],
+
+# strings
+[
+    ["T", ["T@T","T@@T"]]
+],
+
+# expression_block
+[
+    ["b",[ "{\}", "b}"]],
+    ["O", ["{E", "{b" ,"{B" ,"{M", "{M", "OE" , "OB", "bl ''M","bl ''M"]],
+    ["B" , ["b;"]],
+    ["E" , ["T;"]],
+    ["T",  ["T.T"]]
+],
+
+# literals
+[
+
+["T" , [ "letT" ]],
+["p" , [ "T,T" , "p,T" ]],
+["T" , [ "T:=T" , "T:=T" , "T:=T" ]],
+["T" , [ "T=T" ]],
+["T" , [ "TasT" ]],
+["T" , [ "T:T" ]],
+["E", ["T;"]],
+
+],
+
+# booleans
+[
     
-    "E '": ["E '@E '","E '@@E '"],
-}
+    ["T" , ["T&T" , "T|T" , "T!=T", "T>T" , "T<T" , "T<=T" , "T>=T" , "T==T" , "TisT" ]]
+],
 
-expression_block = {
+# numbers
+[
     
-    "bl '":[ "{ }", "bl ''}"],
-    "bl ''": ["{E", "{bl '" ,"{bl" ,"{tf", "{tf", "bl ''E" , "bl ''bl", "bl ''tf","bl ''tf"],
-    "bl" : ["bl ';"],
-    "E" : ["E;"],
-    "E '":  ["E '.E '"]
-}
+    ["T" , ["T '+T", "T-T", "T*T", "T/T", "T^T", "T%T"]],
+    ["T" , [ "T-=T" ,"T+=T" ,"T/=T" ,"T*=T" , "T--" , "T++" , "T" ]]
+],
 
-literals={
-
-"E '" : [ "letE '" ],
-"param" : [ "E ',E '" , "param,E '" ],
-"E '" : [ "E ':=E '" , "E ' := E '" , "E ':=E '" ],
-"E '" : [ "E '=E '" ],
-"E '" : [ "E 'asE '" ],
-"E '" : [ "E ':E '" ],
-"E": ["E ';"],
-
-}
-
-booleans = {
-    
-    "E '" : ["E&E" , "E|E" , "E '!=E '", "E '>E '" , "E '<E '" ,
-             "E '<=E '" , "E '>=E '" , "E '==E '" , "E 'isE '"
-             ],
-}
-
-numbers = {
-    
-    "E '" : ["E ' '+E '", "E '-E '", "E '*E '", "E '/E '", "E '^E '", "E '%G '"],
-    "E '" : [ "E '-=E '" ,"E '+=E '" ,"E '/=E '" ,"E '*=E '" , "E '--" , "E '++" , "E '" ]
-}
-
-IN = {
-    "E '": ["E 'inE '" , "paraminE '" , "paraminparam"],
-    "E": [ "E 'inbl '" , "E 'inbl"]
+# IN
+[
+    ["T", ["TinT" , "pinT" , "pinp"]],
+    ["E", [ "Tinb" , "TinB"]]
      
-}
-FOR = {
- "for" : ["for(E ')bl '" , "for(E ')bl", "for(E ')E"],
- "E" : ["for"],
- "for '": ["for(E ')E '"],
- "E '" : ["for '"]
+],
 
-} 
-conditional = {
-    
-    "I" : [ "if(E ')E '" , "Ielif(E ')bl '" , "Ielif(E ')E '" , "if(E ')bl '" ] ,
-    "If": ["Ielsebl" , "Ielsebl '"  ],      
-    "E" : ["If"]
-    
-}
-While = {
-    
-    "W" : ["while(E ')E" , "while(E ')bl" , "while(E ')bl '" ],
-    "W '": ["while(E ')E '" ],
-    "E '": ["W '"],
-    "E" : ["W"]
-    
-}
-function = {    
+#  For
+[
+
+ ["FOR" , ["forTb" , "forTB", "forTE"]],
+ ["for", ["forTT"]],
+ ["T" , ["for"]]
  
-    "tf" : [ "functionE 'bl" , "functionE '=>E" , 
-            "functionE '=>bl"  , "functionE 'bl '" , "functionE '=>bl '" ]
-}
-types = {
-    
-    "tf ": ["typeE 'bl '"  , "typeE 'inheritsE 'bl '" ],
-    "E '" : [ "newE '" ]
-}
-protocols = {
-    "tf" : ["protocolE 'bl '" , "protocolE 'extendsE 'bl '" , "protocolE 'bl" , "protocolE 'extendsE 'bl"]
-}
+],
 
-vector ={
+# conditional
+[
     
-    "E '" : ["[E '||E ']" , "[params]" ],
-    "E '": ["E '[E ']"]
-}
+    ["I" , [ "ifTT" , "IelifTb" , "IelifTT" , "ifTb" ] ],
+    ["If", ["IelseB" , "Ielseb"  ]],      
+    ["E" , ["If"]]
+    
+],
+
+# While
+[
+    
+    ["W" , ["whileTE" , "whileTB" , "whileTb" ]],
+    ["w", ["whileTT" ]],
+    ["T", ["w"]],
+    ["E" , ["W"]]
+    
+],
+
+# function
+[    
+ 
+    ["M" , [ "functionTB" , "functionT=>E"  
+            "functionT=>B"  , "functionTb" , "functionT=>b" ]]
+],
+
+# types
+[
+    
+    ["M ", ["typeTb"  , "typeTinheritsTb" ]],
+    ["T" , [ "newT" ]]
+],
+
+# protocols
+[
+    ["M" , ["protocolTb" , "protocolTextendsTb" , "protocolTB" , "protocolTextendsTB"]]
+],
+
+# vector
+[
+    
+    ["T" , ["[T||T]" , "[p]" ]],
+    ["T", ["T[T]"]]
+]
+]
+
+production_token = [
+        "p",
+        "c",
+        "B",
+        "b",
+        "T",
+        "W",
+        "w",
+        "E",
+        "I",
+        "If",
+        "for",
+        "FOR",
+        "O",
+        "new",
+        "function",
+        "let",
+        "in",
+        "protocol",
+        "type",
+        "while",
+        "for",
+        "if",
+        "else",
+        "elif",
+        "e",
+        "PI",
+        "inherits",
+        ",",
+        ";",
+        "=>",
+        ":",
+        "(",
+        ")",
+        "{",
+        "}",
+        ".",
+        "!",
+        "++",
+        "*=",
+        "!=",
+        "--",
+        "is",
+        "as",
+        "+",
+        "-",
+        "*",
+        "/",
+        "^",
+        "%",
+        "<",
+        ">",
+        "<=",
+        ">=",
+        "=",
+        "==",
+        "@",
+        ":=",
+        "!",
+        "&",
+        "|"
+    ]
 
 def traslator(token_list):
     
     print(token_list)
-    parse_list=[]
+    parse_list=["$"]
     index=0
     while index < len(token_list ):
         
         try:
             
             if token_list[index] == "PI" or token_list[index] == "e"  or float(token_list[index])  :
-                parse_list.append("V")
+                parse_list.append("T")
                 index += 1
                 continue
         
@@ -115,7 +196,7 @@ def traslator(token_list):
             while index1 < len(token_list):
                 
                 if token_list[index1] == "'" or token_list[index1] == "\"" :
-                    parse_list.append("V")
+                    parse_list.append("T")
                     index = index1
                     index += 1
                     break
@@ -133,10 +214,10 @@ def traslator(token_list):
             
         if not kw:
             if index + 1 < len(token_list) and token_list[index + 1 ] == "(" :
-                parse_list.append("Z ''")
+                parse_list.append("name")
             
             else:
-                parse_list.append("V")
+                parse_list.append("T")
         index += 1
     
     parse_list.append("$")

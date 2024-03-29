@@ -314,8 +314,9 @@ class GrammarParser(IRegEx,IShiftReduceParser):
             s += item
         
         return s
-        
-    pointer=['$']
+    
+    # the pointer has the structure ( "index" in code , operator "item" )
+    pointer=[]
     
     @property
     def _shift_reduce(self , pivot , index_pointer ):
@@ -329,10 +330,10 @@ class GrammarParser(IRegEx,IShiftReduceParser):
     
         if self.is_operator(pivot):
             
-            result = self.compare_procedence(pivot,self.pointer[-1])
+            result = self.compare_procedence( pivot , self.pointer[-1][1] )
 
             if result == 0 or result == 1 :
-                self.pointer.append(index_pointer)
+                self.pointer.append((index_pointer,pivot))
                 return True
             
             else:
@@ -340,23 +341,50 @@ class GrammarParser(IRegEx,IShiftReduceParser):
         
         return True
 
-    def make_production(self,gramar,stack):
+    def reduce_stack(self , stack:list , gramar ):
+            
+        for productions in gramar:
+            
+            for sub_production in productions:
+                
+                for derivation in sub_production[1]: # walk for each derivation and try to reduce
+                
+                    sub_stack = stack[ len(stack) - len(derivation) : ]
+                    
+                    if self.Tostring(sub_stack) == derivation:
+                        
+                        stack = stack[ : len(stack) - len(derivation)]                
+
+                        stack.append(sub_production[0])
+                    
+                    pass
+        
+        pass
+
+    def gradient_parser(self,gramar,stack:list , code ):
         
         '''
         make a production posible
         
         '''
+        index_pointer = 0
         
-        for production in gramar:
+        shift = True
+        
+        while index_pointer <  len(code)  :
+                
+            shift = self._shift_reduce( code[index_pointer] , index_pointer )
             
-            if len(production) < len(stack):
+            stack.append( code[index_pointer] )
+            
+            while not shift:
                 
-                sub_stack = stack[ (len(stack) - len(production)):]
-
+                stack = self.reduce_stack(stack ,gramar )
                 
-                
+                shift = self._shift_reduce( code[index_pointer] , index_pointer )
             
             pass
+<<<<<<< HEAD
         
         pass
     
@@ -368,14 +396,20 @@ class GrammarParser(IRegEx,IShiftReduceParser):
         
         reductions = []
         for syntaxis in self._grammar:
+=======
+>>>>>>> 6f9c51e (gramar modified)
             
-            reduction = self.make_production(syntaxis)        
-            reductions.append(reduction)
-        
-        return reductions
+            index_pointer += 1
     
-    def Shift_AST(self):
-        pass
+        if len(stack) == 1 and (stack[0] == 'E' or stack[0] == 'tf') :
+            
+            self.State = True
+            
+            return
+        
+        self.State = False
+        
+        return
     
     def Reduce_AST(self):
         
