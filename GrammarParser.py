@@ -303,16 +303,23 @@ class GrammarParser(IRegEx,IShiftReduceParser):
         
         return False
     
+    def look_ahead(self,item):
+        
+        
+        
+        
+        pass
+    
+    
     pointer=['$']
-    reduce_operator=False
     
     @property
-    def _shift_reduce(self , pivot):
+    def _shift_reduce(self , pivot , index_pointer ):
     
         '''
         return True if shift
         return False if reduce
-        return reduce if not an operator (False)
+        return shift if not an operator (True)
         
         '''
     
@@ -321,12 +328,13 @@ class GrammarParser(IRegEx,IShiftReduceParser):
             result = self.compare_procedence(pivot,self.pointer[-1])
 
             if result == 0 or result == 1 :
-                self.pointer.append(pivot)
-                self.reduce_operator = False                
+                self.pointer.append(index_pointer)
+                return True
+            
             else:
-                self.reduce_operator =True
+                return False
         
-        else: self.reduce_operator = False
+        return True
 
     def make_production(self,gramar,stack):
         

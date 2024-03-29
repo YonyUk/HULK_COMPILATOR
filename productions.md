@@ -19,7 +19,6 @@ By default every non-token element is taken to `S '` if it is a word like inside
 * `S '` -> G1 ' @ G1 ' 
 * `S '` -> G1 ' @@ G1 ' 
 * `S '` -> ( S ' )
-* `S` -> S ' ;
 
 ## Expression block
 
@@ -60,7 +59,6 @@ By default every non-token element is taken to `L ''` if it is a word like
 * `B '` -> E ' == E ' 
 * `B '` ->  E ' is L ''
 * `B '` -> ( B ' )
-* `B` -> B ' ; 
 
 ## Numbers:
 
@@ -90,7 +88,6 @@ By default every non-token element is taken to `N '` if it is a number like.
 * `N '` -> G ' --
 * `N '` -> G ' ++
 * `N '` -> G '
-* `N` -> G ' ; 
 
 ## in
 
@@ -206,6 +203,8 @@ By default every non-token element is taken to `N '` if it is a number like.
 
 - K <= ([L '' , P '' , X ' , T '],[ '&' , '|' , ')' ])
 
-- E ' <= ([S '~ , N '~ , P ''~ , B '~ , L ''~ , V '~ , D '~ , X '~ , T '~ , K~ , G '~ , G1 '~ , W '~] , [ '.' , ',' , ';' , 'else' , 'elif' , 'in' ,' , ':=', '$' , '||' , '==' , '~' , ']' ])
+- E ' <= ([S '~ , N '~ , P ''~ , B '~ , L ''~ , V '~ , D '~ , X '~ , T '~ , K~ , G '~ , G1 '~ , W '~] , ['~' ])
 
 - E ' <= ([ # S ' ,# N ' ,# P '' ,# B ' ,# L '' ,# V ' ,# D ' ,# X ' ,# T ' ,# K ,# G ' ,# G1 ' ,# W ' ] , [ '#' ])
+
+- E ' <= ([S ' , N ' , P '' , B ' , L '' , V ' , D ' , X ' , T ' , K , G ' , G1 ' , W '] , [ '.' , ',' , ';' , 'else' , 'elif' , 'in' ,' , ':=', '$' , '||' , '==' , ']' ])
