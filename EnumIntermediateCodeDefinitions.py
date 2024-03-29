@@ -2,8 +2,11 @@ from enum import Enum
 
 class IntermediateCodeType(Enum):
     
-    Main = 0
-    Function = 1
-    TypeDefinition = 2
+    Data = 0
+    Expression = 1
+    Body = 2
+    Function = 3
+    Type = 4
+    FunctionInvocation = 5
     
     pass
