@@ -2,6 +2,7 @@ from RegExDefinitions import TokenFinitRegEx
 from RegExInterface import State,IRegEx
 from ParserInterface import IShiftReduceParser
 <<<<<<< HEAD
+<<<<<<< HEAD
 from copy import copy
 <<<<<<< HEAD
 from os import system
@@ -36,6 +37,9 @@ class GrammarParser(IRegEx,IShiftReduceParser):
 =======
 =======
 >>>>>>> 6da4297 (translator moved from GrammarParser)
+=======
+import GRAMATIC_DEFINITION as GD
+>>>>>>> 49a3f4f (grammar modified extensifly)
 
 class GrammarParser(IRegEx,IShiftReduceParser):
     """
@@ -303,14 +307,14 @@ class GrammarParser(IRegEx,IShiftReduceParser):
         
         return False
     
-    def look_ahead(self,item):
+    def Tostring( self , prefix ):
         
+        s=""
+        for item in prefix:
+            s += item
         
+        return s
         
-        
-        pass
-    
-    
     pointer=['$']
     
     @property
@@ -369,7 +373,6 @@ class GrammarParser(IRegEx,IShiftReduceParser):
             reductions.append(reduction)
         
         return reductions
-    
     
     def Shift_AST(self):
         pass

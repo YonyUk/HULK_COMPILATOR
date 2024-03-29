@@ -3,6 +3,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 10+20*(4+e);
 =======
 let a: number = 10 as Hola in print(Hola);
@@ -28,5 +29,8 @@ let 7x) = 10
 >>>>>>> 282f827 (many fixes added to gramatic for it to be count)
 
 5 == 5
+=======
+let  5a = 5
+>>>>>>> 49a3f4f (grammar modified extensifly)
 
 >>>>>>> 7e27204 (adding lookahead)

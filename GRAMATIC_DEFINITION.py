@@ -1,115 +1,95 @@
 import HULK_LANGUAGE_DEFINITION as HK
 
 function_caLL={
-    
-    "P '" : ["Z ''(E '" ,  "P 'E '" , "Z ''(L '''" ,  "P 'L '''" , "Z ''(F" , "P 'F" ],
-    "P ''" :[ "P ')" , "Z ''(E ')" , "Z ''(F)" , "Z ''(L ''')" , "P 'E ' )" , "P 'L ''')"  , "P 'F)" , "(P '')"]
-    
+        
+    "call" :[ "name(param)"],
+    "E '": ["call"]
 }
+
 strings={
     
-    "G1" : [ "L ''" , "N '" , "P ''" , "S '", "T '"],
-    "S '": ["G1 '@G1 ' ","G1 '@@G1 ' ","(S ')"],
+    "E '": ["E '@E '","E '@@E '"],
 }
+
 expression_block = {
     
-    "E '" : ["S '","N '", "P ''" , "B '", "L ''","V '", "D '" ,"X '","(E ')", "T '" , "K" , "G '" , "G1 '" , "W '" ],
     "bl '":[ "{ }", "bl ''}"],
-    "bl ''": ["{E", "{bl '" ,"{bl" ,"{F", "{C", "bl ''E" , "bl ''bl", "bl ''F","bl ''C"],
+    "bl ''": ["{E", "{bl '" ,"{bl" ,"{tf", "{tf", "bl ''E" , "bl ''bl", "bl ''tf","bl ''tf"],
     "bl" : ["bl ';"],
     "E" : ["E;"],
-    "T '":  ["E '.P ''" , "S '.P ''" , "N '.P ''" , "P ''.P ''" , "B '.P ''" , "L ''.P ''" ,
-             "V '.P ''" , "D '.P ''" , "X '.P ''" , "T '.P ''" , "K.P ''" , "G '.P ''" , "G1 '.P ''" ,
-             "W '.P ''", "E '.L ''" , "S '.L ''" , "N '.L ''" , "L ''.L ''" , "B '.L ''" , "L ''.L ''" ,
-             "V '.L ''" , "D '.L ''" , "X '.L ''" , "T '.L ''" , "K.L ''" , "G '.L ''" , "G1 '.L ''" , "W '.L ''" ]
-
+    "E '":  ["E '.E '"]
 }
+
 literals={
-    
-"D '" : [ "letE0" ],
-"D ''" : [ "E ',E0" , "E ',E '" , "D '',E0" , "D '',E '"],
-"E '" : [ "L '':=E '" , "L ''' := E '" , "D ':=E '" ],
-"E0" : [ "L ''=E '",  "L '''=E '" ],
-"D" : [ "D ';" ],
-"L ''" : [ "(L '')" , "L ''asL ''" ],
-"L '''" : [ "L '':L ''" ],
-   
+
+"E '" : [ "letE '" ],
+"param" : [ "E ',E '" , "param,E '" ],
+"E '" : [ "E ':=E '" , "E ' := E '" , "E ':=E '" ],
+"E '" : [ "E '=E '" ],
+"E '" : [ "E 'asE '" ],
+"E '" : [ "E ':E '" ],
+"E": ["E ';"],
+
 }
 
 booleans = {
     
-    "K" : ["B '" , "L ''" , "P ''" , "L '" , "X '", "T '"],
-    "G '" : ["L ''" , "N '" , "P ''" , "X '" , "T '"],
-    "B '" : ["K&K" , "K||K" , "E '!=E '", "G '>G '" , "G '<G '" ,
-             "G '<=G '" , "G '>=G '" , "E '==E '" , "E 'isE '" , "(B ')" ,"B ';",
-             "K$B '" , "B '$K" , "K|B '" , "B '|K",
+    "E '" : ["E&E" , "E|E" , "E '!=E '", "E '>E '" , "E '<E '" ,
+             "E '<=E '" , "E '>=E '" , "E '==E '" , "E 'isE '"
              ],
-
 }
 
 numbers = {
     
-    "G '" : ["L ''" , "N '" , "P ''" ,  "X '" , "T '"  ,"PI" , "e" ,"G '+G '", "G '-G '", "G '*G '", "G '/G '", "G '^G '", "G '%G '", "(G ')"],
-    "N '" : [ "L '-=G '" ,"L '+=G '" ,"L '/=G '" ,"L '*=G '" , "G '--" , "G '++" , "G '" ]
+    "E '" : ["E ' '+E '", "E '-E '", "E '*E '", "E '/E '", "E '^E '", "E '%G '"],
+    "E '" : [ "E '-=E '" ,"E '+=E '" ,"E '/=E '" ,"E '*=E '" , "E '--" , "E '++" , "E '" ]
 }
 
 IN = {
-    "E '": ["E 'inE '",  "D ''inbl '"],
-    "E": [ "D ''inbl '" , "E 'inbl " , "E 'inE , D ''inE " ]
+    "E '": ["E 'inE '" , "paraminE '" , "paraminparam"],
+    "E": [ "E 'inbl '" , "E 'inbl"]
      
 }
 FOR = {
- "for" : ["for(L ''inE ')bl '" , "for(L ''inE ')E '" , "for(L ''inE ')bl", "for(L ''inE ')E"],
+ "for" : ["for(E ')bl '" , "for(E ')bl", "for(E ')E"],
  "E" : ["for"],
+ "for '": ["for(E ')E '"],
  "E '" : ["for '"]
 
 } 
 conditional = {
     
-    "K" : [ "L '' ","P ''", "X '" ,"T '" ],
-    "I" : [ "if(K)E '" , "if(B ')E '" , "Ielif(K)bl" , "Ielif(K)E '", 
-           "Ielif(B ')bl" , "Ielif(B ')E '" , "if(K)bl '" ] ,
-    "If": ["Ielsebl" , "IelseE" , "if(B ')E" , "if(K)E" ],      
-    "E'": ["IelseE '"],
+    "I" : [ "if(E ')E '" , "Ielif(E ')bl '" , "Ielif(E ')E '" , "if(E ')bl '" ] ,
+    "If": ["Ielsebl" , "Ielsebl '"  ],      
     "E" : ["If"]
     
 }
 While = {
     
-    "W" : ["while(K)E" , "while(B ')E" , "while(K)bl" , "while(B ')bl" ,
-           "while(K)bl '" , "while(B ')bl '"],
-    "W '": ["while(K)E '" , "while(B ')E '" ],
+    "W" : ["while(E ')E" , "while(E ')bl" , "while(E ')bl '" ],
+    "W '": ["while(E ')E '" ],
+    "E '": ["W '"],
     "E" : ["W"]
     
 }
 function = {    
  
-    "F" : [ "functionP ''bl" , "functionP '':L ''bl" , "functionP ''=>E" , 
-           "functionP '':L ''=>E" , "functionP ''=>bl" , "functionP '':L ''=>bl"  ,
-           "functionP ''bl '" , "functionP '':L ''bl '" , "functionP ''=>E" , 
-           "functionP '':L ''=>E" , "functionP ''=>bl '" ,  "functionP '':L ''=>bl '" ]
+    "tf" : [ "functionE 'bl" , "functionE '=>E" , 
+            "functionE '=>bl"  , "functionE 'bl '" , "functionE '=>bl '" ]
 }
 types = {
     
-    "C ": ["typeL ''bl '" , "typeP ''bl '" , "typeL ''inheritsL ''bl '" ,
-           "typeP ''inheritsL ''bl '" , "typeL ''inheritsP ''bl '" , "typeP ''inheritsP ''bl '" ],
-    "E '" : [ "newP ''" ]
-    
-}
-special_block = {
-    
-    "bls '" : ["{P '':L '';" , "bls 'P '':L '';"],
-    "bls" : ["bl 's}"]
-    
+    "tf ": ["typeE 'bl '"  , "typeE 'inheritsE 'bl '" ],
+    "E '" : [ "newE '" ]
 }
 protocols = {
- 
-    "Q" : ["protocolL ''bls" , "protocolL ''extendsL ''bls"]
+    "tf" : ["protocolE 'bl '" , "protocolE 'extendsE 'bl '" , "protocolE 'bl" , "protocolE 'extendsE 'bl"]
 }
+
 vector ={
-    "V '" : ["[E '||E 'inE ']" ,  "V '']"],
-    "V ''" : [ "[E '," , "V ''E ',"] ,
-    "X '": ["L ''[E ']"]
+    
+    "E '" : ["[E '||E ']" , "[params]" ],
+    "E '": ["E '[E ']"]
 }
 
 def traslator(token_list):
@@ -122,7 +102,7 @@ def traslator(token_list):
         try:
             
             if token_list[index] == "PI" or token_list[index] == "e"  or float(token_list[index])  :
-                parse_list.append("N '")
+                parse_list.append("V")
                 index += 1
                 continue
         
@@ -135,7 +115,7 @@ def traslator(token_list):
             while index1 < len(token_list):
                 
                 if token_list[index1] == "'" or token_list[index1] == "\"" :
-                    parse_list.append("S '")
+                    parse_list.append("V")
                     index = index1
                     index += 1
                     break
@@ -146,20 +126,7 @@ def traslator(token_list):
         for arg in HK.SYMBOLS_and_OPERATORS_parser:            
             
             if token_list[index] == arg:
-                
-                if arg == 'is':
-                
-                    parse_list.append("~")                    
-                    parse_list.append(token_list[index])
-                    kw =True
-                    break
-                
-                if arg == "==":
-                    parse_list.append(token_list[index])
-                    parse_list.append("#")                    
-                    kw =True
-                    break
-                
+            
                 parse_list.append(token_list[index])
                 kw =True
                 break
@@ -169,7 +136,7 @@ def traslator(token_list):
                 parse_list.append("Z ''")
             
             else:
-                parse_list.append("L ''")
+                parse_list.append("V")
         index += 1
     
     parse_list.append("$")
