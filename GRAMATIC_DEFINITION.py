@@ -4,8 +4,7 @@ gramar =[
 
 # function_caLL
 [
-    ["c",[ ["c","(","p",")"] , ["c","(","T",")" ] ] ],
-    ["T", [["c"]]]
+    ["T",[ ["c","(","p",")"] , ["c","(","T",")" ] ] ],
 ],
 
 # strings
@@ -67,7 +66,7 @@ gramar =[
 # conditional
 [
     
-    ["I" , [ ["ifTT"] , ["I","elif","T","b"] , ["I","elif","T","T"] , ["if","T","b"] ] ],
+    ["I" , [ ["if","T","T"] , ["I","elif","T","b"] , ["I","elif","T","T"] , ["if","T","b"] ] ],
     ["If", [["I","else","B"] , ["I","else","b"]  ]],      
     ["E" , [["If"]]]
     
@@ -86,7 +85,7 @@ gramar =[
 # function
 [    
  
-    ["M" , [ ["function","T","B"] , ["function","T","=>","E"]  
+    ["M" , [ ["function","T","B"] , ["function","T","=>","E"]  ,
             ["function","T","=>","B" ] , ["function","T","b"] , ["function","T","=>","b"] ]]
 ],
 
@@ -105,12 +104,15 @@ gramar =[
 # vector
 [
     
-    ["T" , [[ "[","T","||","T" , "]"] , [ " [ " , " p " , " ] " ]  ]],
-    ["T", [ [" T" ,"[" , "T" , "]" ]] ]
+    ["T" , [[ "[","T","||","T" , "]"] , [ "[" , "p" , "]" ]  ]],
+    ["T", [ ["T" ,"[" , "T" , "]" ]] ]
 ]
 ]
 
 production_token = [
+        
+        "T",
+        "M",
         "p",
         "c",
         "B",
@@ -138,6 +140,12 @@ production_token = [
         "e",
         "PI",
         "inherits",
+        "extends",
+        "+=",
+        "/=",
+        "||",
+        "[",
+        "]",
         ",",
         ";",
         "=>",
@@ -170,7 +178,10 @@ production_token = [
         ":=",
         "!",
         "&",
-        "|"
+        "|",
+        "@@",
+        "-=",
+        
     ]
 
 def traslator(token_list):

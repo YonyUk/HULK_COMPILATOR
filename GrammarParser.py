@@ -322,7 +322,7 @@ class GrammarParser(IRegEx,IShiftReduceParser):
     # the pointer has the structure ( "index" in code , operator "item" )
     pointer=[( 0 ,"$1")]
     
-    def match(self , target , derivation ):
+    def match(self , target:list , derivation:list ):
         
         if len(target) < len(derivation):
             return False
@@ -331,6 +331,8 @@ class GrammarParser(IRegEx,IShiftReduceParser):
         while index < len(target) :
             
             if target[index] != derivation[index]: return False
+            
+            index += 1
         
         return True
     
@@ -360,36 +362,34 @@ class GrammarParser(IRegEx,IShiftReduceParser):
 
     def reduce_stack(self , stack:list , gramar ):
             
-        sub_stack = stack[ self.pointer[-1][0] : len(stack) ]
-        
-        target = self.Tostring(sub_stack)
+        sub_stack = stack[ self.pointer[-1][0] :   ]
         
         index = 0
-        while index < len(target):
+        while index < len(sub_stack):
         
+            target = sub_stack[ : index + 1 ]
+            
             for productions in gramar:
                 
                 for sub_production in productions:
                     
                     for derivation in sub_production[1]: # walk for each derivation and try to reduce
-                    
-                        target1 = target[ : index + 1 ]
                         
-                        if self.match(target1,derivation):
+                        if self.match(target,derivation):
                             
-                            new_stack = stack[ : self.pointer[-1][0]]                
+                            new_stack = stack[ : self.pointer[-1][0] ]
 
+                            new_stack.append( sub_production[0] )
                             
-
-                            stack.append(sub_production[0])
+                            reminder_stack = stack[ self.pointer[-1][0] + len(derivation) :   ]
                             
-                            stack.append("$")
+                            new_stack.extend( reminder_stack )
                             
-                            return stack
+                            return new_stack , True
             
             index += 1
         
-        return stack
+        return stack , False
                     
     def gradient_parser(self,gramar,stack:list , code ):
         
@@ -409,12 +409,16 @@ class GrammarParser(IRegEx,IShiftReduceParser):
             
             while not shift:
                 
-                stack = self.reduce_stack(stack ,gramar )
+                stack , modified = self.reduce_stack(stack ,gramar )
                 
-                self.pointer.pop()
+                if not modified:
+                    
+                    self.pointer.pop()
                 
-                shift = self._shift_reduce( pivot= code[index_pointer] ,index_pointer=index_pointer )
-            
+                    shift = self._shift_reduce( pivot= code[index_pointer] ,index_pointer=index_pointer )
+                
+                else: shift = False
+                
             pass
 <<<<<<< HEAD
         
@@ -433,7 +437,8 @@ class GrammarParser(IRegEx,IShiftReduceParser):
             
             index_pointer += 1
     
-        if len(stack) == 3 and (stack[1] == 'E' or stack[1] == 'M') :
+    
+        if len(stack) == 2 and (stack[0] == 'E' or stack[0] == 'M') :
             
             # self.State = True
             

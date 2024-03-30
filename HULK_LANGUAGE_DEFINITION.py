@@ -88,13 +88,6 @@ def LoadDefinition():
             pass
         pass
     
-    # for const in definition['production_token']:
-    #     if xxx.count(const) == 0:
-    #         xxx.append(const)
-    #         pass
-    #     pass
-    
-    
     reader.close()
     pass
 
