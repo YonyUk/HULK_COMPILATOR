@@ -121,39 +121,3 @@ class CilTree:
     
     pass
 # ################################COMPROBANDO############################
-
-var = AllocateExpression('a',20);
-
-val = ValueNode(1)
-
-data = DataNode("hello world",'msg')
-
-assig_var = AssigmentExpression(var.Value,data)
-
-exp = BinaryExpressionNode(var,val,'+')
-
-asig = AssigmentExpression(var.Value,exp)
-
-
-x_param = ParamNode('x1')
-y_param = ParamNode('x2')
-
-a_body = BodyNode(BinaryExpressionNode(x_param,y_param,'+'))
-
-function_a = FunctionNode('A',a_body,'',x_param,y_param)
-
-mainbody = BodyNode(var,assig_var,asig,FunctionInvocationNode(var.Value,function_a.Name))
-
-Run = FunctionNode('Run',a_body,'')
-
-Sleep = FunctionNode('Sleep',mainbody,'')
-
-Human_type = TypeNode('Human','Age','Name',f1='Run',f2='Sleep')
-
-main = FunctionNode('main',mainbody,0)
-
-tree = CilTree(main,[CilTree(function_a,[]),CilTree(Human_type,[]),CilTree(Run,[]),CilTree(Sleep,[])])
-
-writer = open('./CIL/CIL_CODE.txt','w')
-writer.write(tree.Code)
-writer.close()

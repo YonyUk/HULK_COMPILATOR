@@ -10,3 +10,13 @@ class IntermediateCodeType(Enum):
     FunctionInvocation = 5
     
     pass
+
+class ExpressionType(Enum):
+    
+    JumpInstruction = 0
+    ReturnInstruction = 1
+    ReadInstruction = 2
+    PrintInstruction = 3
+    CastInstruction = 4
+    
+    pass

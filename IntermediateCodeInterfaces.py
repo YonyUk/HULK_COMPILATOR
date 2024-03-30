@@ -16,6 +16,7 @@ def DeleteDuplicated(l):
         pass
     
     return l
+
 class ICodeIntermediateGenerator:
     
     @property
@@ -167,6 +168,13 @@ class IExpressionCodeGenerator(ICodeIntermediateGenerator):
         retorna todos los nodos de datos que se usaran en el cuerpo
         """
         
+        raise NotImplementedError()
+    
+    @property
+    def ExpressionType(self):
+        """
+        retorna el tipo de expression
+        """
         raise NotImplementedError()
 
     pass

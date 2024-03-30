@@ -40,13 +40,13 @@ code = reader.read()
 lexer.LoadCode(code)
 
 # extraemos los tokens del codigo
-# for state in lexer.LexicalAnalisys(lexer.Tokenize(),FiltToken):
-#     print(state)
-#     pass
-
-for token in lexer.Tokenize():
-    print(token,token.Type)
+for state in lexer.LexicalAnalisys(lexer.Tokenize(),FiltToken):
+    print(state)
     pass
+
+# for token in lexer.Tokenize():
+#     print(token,token.Type)
+#     pass
 
 
 print('++++++++++++++++++++++ Computando +++++++++++++++++++++++')
