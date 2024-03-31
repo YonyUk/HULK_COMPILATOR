@@ -48,30 +48,28 @@ class GrammarParser(IRegEx,IShiftReduceParser):
     """
     operator_procedence =[
         
-        ['('],
+        [']',')'],
         ['^','%'],
         ['*','/'],
         ['+','-'],
         ['>','<','>=','<=','==', '~' ,'is'],
-        ['['],
         ['&','|','!'],
         ['.'],
         ['=','+=','-=','/=','*=','--',':='],
-        ['if',"for",'while'],
         ['elif'],
         ['else'],
-        ["P ''"],
-        ["X '"],
         ['@','@@'],
         ['as'],
         ['let'],
         [','],
-        ['type' , 'new' , 'function', 'in' , 'protocol' , "{"  ],
+        ['in' ],
         [":"],
-        [';',"}" , ']',')'],
         ['||'],
-        ['$1'],
-        ['$2'],
+        ["$2"],
+        ['}'],
+        [";"],
+        ["$1","$3"],
+        ['[','(','{'],
     ]
     
     def __init__(self,grammar,code):
@@ -81,7 +79,9 @@ class GrammarParser(IRegEx,IShiftReduceParser):
         self._match = False
         self._stack = []
         
-        self.gradient_parser(grammar,self._stack,code)
+        result = self.gradient_parser(grammar,self._stack,code)
+        
+        print(result)
         
         pass
     
@@ -171,6 +171,7 @@ class GrammarParser(IRegEx,IShiftReduceParser):
     def Restart(self):        
         pass
     
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> 849d64d (translator moved from GrammarParser)
     def Restart(self):
@@ -280,6 +281,9 @@ class GrammarParser(IRegEx,IShiftReduceParser):
 =======
     def compare_procedence(self , operator1 , operator2):
 >>>>>>> 6da4297 (translator moved from GrammarParser)
+=======
+    def compare_procedence(self , pivote , pointer):
+>>>>>>> b8678ef (parser almost finished)
         
         '''
         campare operator1 precedence to operator2 procedence
@@ -291,16 +295,39 @@ class GrammarParser(IRegEx,IShiftReduceParser):
         -1: lower procedence
         
         '''
+        if pivote == "(" : return 0
+        if pivote == "{" : return 0
+        if pivote == "[" : return 0
+        
+        if pointer == "(" and ( pivote == ")" ) : return -1
+        
+        if pointer == "{" and ( pivote == "}" ): return -1
+        
+        if pointer == "[" and ( pivote == "]"): return -1
+        
+        if pivote == ")" and self.pointer[-1][1] == "(": return 0
+        
+        if pivote == "]" and self.pointer[-1][1] == "[": return 0
+        
+        if pivote == "}" and self.pointer[-1][1] == "{": return 0
+        
+        if pointer == "$1": return 0 
+        
+        if any( pointer == item for item in [']',')','}'] ) or any( pivote == item for item in [']',')','}'] ) :
+            return -1
+        
+        if any( pointer == item for item in ['[','(','{'] ) or any( pivote == item for item in ['[','(','{'] ) :
+            return -1
         
         for operators in self.operator_procedence:
             
-            if list(operators).__contains__(operator1) and list(operators).__contains__(operator2):
+            if list(operators).__contains__(pivote) and list(operators).__contains__(pointer):
                 return 0
             
-            if list(operators).__contains__(operator1) and not list(operators).__contains__(operator2):
+            if list(operators).__contains__(pivote) and not list(operators).__contains__(pointer):
                 return 1
             
-            if not list(operators).__contains__(operator1) and list(operators).__contains__(operator2):
+            if not list(operators).__contains__(pivote) and list(operators).__contains__(pointer):
                 return -1
             
     def is_operator(self,item):
@@ -311,32 +338,32 @@ class GrammarParser(IRegEx,IShiftReduceParser):
         
         return False
     
-    def Tostring( self , prefix ):
-        
-        s=""
-        for item in prefix:
-            s += item
-        
-        return s
-    
     # the pointer has the structure ( "index" in code , operator "item" )
     pointer=[( 0 ,"$1")]
+    best_match = 0
     
     def match(self , target:list , derivation:list ):
         
-        if len(target) < len(derivation):
+        if len(target) != len(derivation):
             return False
         
         index = 0
-        while index < len(target) :
+
+        while index < len(derivation) :
             
             if target[index] != derivation[index]: return False
             
             index += 1
         
-        return True
+        if len(derivation) > self.best_match:
+            
+            self.best_match = len(derivation)      
+            
+            return  True
     
-    def _shift_reduce(self , pivot , index_pointer ):
+        else: return  False
+        
+    def _shift_reduce(self , pivot , index_pointer ,next_point ):
     
         '''
         return True if shift
@@ -349,10 +376,12 @@ class GrammarParser(IRegEx,IShiftReduceParser):
         
         if self.is_operator(pivot):
             
-            result = self.compare_procedence( pivot , self.pointer[-1][1] )
+            result = self.compare_procedence( pivot , self.pointer[next_point][1] )
 
             if result == 0 or result == 1 :
+
                 self.pointer.append((index_pointer,pivot))
+
                 return True
             
             else:
@@ -360,14 +389,31 @@ class GrammarParser(IRegEx,IShiftReduceParser):
         
         return True
 
-    def reduce_stack(self , stack:list , gramar ):
+    def remove_item_stack(self , stack:list ,pop_number):
+        
+        i=0
+        while i < pop_number:
             
-        sub_stack = stack[ self.pointer[-1][0] :   ]
+            stack.pop()
+            
+            i +=1
+        
+        return stack
+
+    def reduce_stack(self , stack:list , gramar , next_point ):
+            
+        self.best_match =0
+        
+        sub_stack = stack[ self.pointer[next_point][0] : ]
+        
+        best_match=[]
         
         index = 0
+        
+        pop_number = 0
         while index < len(sub_stack):
         
-            target = sub_stack[ : index + 1 ]
+            target = sub_stack[ index: ]
             
             for productions in gramar:
                 
@@ -375,48 +421,76 @@ class GrammarParser(IRegEx,IShiftReduceParser):
                     
                     for derivation in sub_production[1]: # walk for each derivation and try to reduce
                         
-                        if self.match(target,derivation):
+                        new_best_match = self.match(target,derivation)
+                        
+                        if new_best_match :
                             
-                            new_stack = stack[ : self.pointer[-1][0] ]
-
-                            new_stack.append( sub_production[0] )
+                            best_match = sub_production[0]
                             
-                            reminder_stack = stack[ self.pointer[-1][0] + len(derivation) :   ]
-                            
-                            new_stack.extend( reminder_stack )
-                            
-                            return new_stack , True
+                            pop_number = len(derivation)
             
             index += 1
+            
+        if len(best_match) > 0:
+
+            new_stack = self.remove_item_stack(stack=stack , pop_number= pop_number )
+            
+            new_stack.append(best_match)
+            
+            return new_stack , True
         
         return stack , False
-                    
-    def gradient_parser(self,gramar,stack:list , code ):
+    
+    def reduce_pointer( self , pointer:list , stack:list ):
         
+        pointer.reverse()
+        
+        new_pointer = []
+        for p in pointer:
+            
+            if p[0] <= len(stack) - 1 and p[1] == stack[p[0] ]:
+                new_pointer.append(p)
+        
+        new_pointer.append(pointer[-1])
+        new_pointer.reverse()
+        
+        return stack,new_pointer
+    
+    def gradient_parser(self,gramar,stack:list , code ):        
         '''
-        make a production posible
+        parse the string using gradient parser
         
         '''
         index_pointer = 1
         
         shift = True
         
-        while index_pointer <  len(code)  :
+        while index_pointer <  len(code) :
+            
+            next_point =- 1
                 
-            shift = self._shift_reduce( pivot= code[index_pointer] ,index_pointer=index_pointer )
-            
-            stack.append( code[index_pointer] )
-            
+            shift = self._shift_reduce( pivot= code[index_pointer] ,index_pointer= len(stack) ,next_point= -1 )
+                    
             while not shift:
                 
-                stack , modified = self.reduce_stack(stack ,gramar )
-                
+                stack , modified = self.reduce_stack(stack ,gramar , next_point )
+        
                 if not modified:
                     
-                    self.pointer.pop()
+                    next_point -=1
+                    shift = self._shift_reduce( pivot= code[index_pointer] ,index_pointer = len(stack) , next_point= next_point )
                 
-                    shift = self._shift_reduce( pivot= code[index_pointer] ,index_pointer=index_pointer )
+                else: 
+                    
+                    next_point =- 1
+
+                    stack,self.pointer = self.reduce_pointer( self.pointer ,stack)
+                    
+                    print(stack)
+                    
+                    shift = shift = self._shift_reduce( pivot= code[index_pointer] ,index_pointer = len(stack) , next_point= next_point )
                 
+<<<<<<< HEAD
                 else: shift = False
                 
             pass
@@ -435,22 +509,13 @@ class GrammarParser(IRegEx,IShiftReduceParser):
 =======
 >>>>>>> 6f9c51e (gramar modified)
             
+=======
+            stack.append( code[index_pointer] )
+            print(stack)
+>>>>>>> b8678ef (parser almost finished)
             index_pointer += 1
     
-    
-        if len(stack) == 2 and (stack[0] == 'E' or stack[0] == 'M') :
-            
-            # self.State = True
-            
-            print("parsed")
-            
-            return
-        
-        print("not parsed")
-        
-        return
-    
-    
+        return stack
     
     def Reduce_AST(self):
         

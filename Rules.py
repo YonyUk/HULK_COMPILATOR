@@ -92,10 +92,17 @@ def NumericRule(number):
     
     if number.count('-') > 1 or number.count('+') > 1: return False
     
+<<<<<<< HEAD
     if number.startswith('+') or number.startswith('-'): return False
     
     if number.count('+') == 1 or number.count('-') == 1: return number.count('e') == 1
     
+=======
+    if number.count('+') == 1 or number.count('-') == 1: return number.count('e') == 1
+    
+    if number.startswith('+') == 1 or number.startswith('-') == 1: return False
+    
+>>>>>>> b8678ef (parser almost finished)
     if number.count('.') > 1: return False
     
     if number.count('e') > 1: return False

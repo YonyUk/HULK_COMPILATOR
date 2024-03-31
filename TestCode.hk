@@ -6,6 +6,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 10+20*(4+e);
 =======
 let a: number = 10 as Hola in print(Hola);
@@ -42,3 +43,6 @@ let  5a = 5
 >>>>>>> 49a3f4f (grammar modified extensifly)
 
 >>>>>>> 7e27204 (adding lookahead)
+=======
+( A(4) + B(5) + new (a())) ;
+>>>>>>> b8678ef (parser almost finished)

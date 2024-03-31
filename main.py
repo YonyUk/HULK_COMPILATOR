@@ -12,7 +12,7 @@ from os import system
 
 
 def FiltToken(token):
-    return len(token.Text) > 0 and token.Text != ' '
+    return len(token.Text) > 0
 
 #_____________________________LEXER___________________________________________________
 
@@ -118,10 +118,8 @@ if not Error:
 >>>>>>> 8380a4e (grammar tokenikezed)
 
     gp = GP.GrammarParser(GRAMATIC_DEFINITION.gramar,gd_token)
-
-
-
-
+    
+    
 #_________________________SEMANTIC CHEKING__________________________________
 
     # YOUR CODE GOES HERE
