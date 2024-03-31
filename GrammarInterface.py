@@ -14,7 +14,7 @@ class Grammar:
     class that defines a grammar
     """
     
-    def __init__(self,NonTerminals,Terminals,Productions,StartSimbol):
+    def __init__(self,NonTerminals,Terminals,Productions,StartSimbol,Priorities):
         """
         NonTerminals, Terminals: lists of Productions objects
         Productions: dict str,[str]
@@ -25,6 +25,7 @@ class Grammar:
         self._Terminals = Terminals
         self._Productions = Productions
         self._StartSimbol = StartSimbol
+        self._Priorities = Priorities
         pass
     
     def Reduce(self,expression):

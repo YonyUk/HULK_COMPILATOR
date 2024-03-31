@@ -144,6 +144,9 @@ class Lexer(IRegEx):
             if self.LastState == State.FINAL:
                 # retornamos el token encontrado
                 
+                if self.Token.Text == 'e':
+                    yield KeywordToken('e')
+                
                 yield self.Token
                 # comprabmos si estamos leyendo un string
                 if self._text_readed == '"' and not self._reading_string:

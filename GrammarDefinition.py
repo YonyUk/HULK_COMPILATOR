@@ -34,11 +34,22 @@ ArithmeticNonTerminals = [
     'Q'
 ]
 
+Priorities = {
+    '(' : -1,
+    ')' : 0,
+    '+' : 0,
+    '-' : 0,
+    '%' : 1,
+    '*' : 2,
+    '/' : 2,
+    '^' : 3
+}
+
 ArithmeticProductions = {
-    'E' : ['E+T','E-T','T','a','(Ep'],
-    'T' : ['E*F','E/F','E*T','E/T','F'],
-    'F' : ['E^P','E^F','P'],
-    'P' : ['E%Q','E%P','Q'],
+    'E' : ['E+T','E-T','T'],
+    'T' : ['T%F','F'],
+    'F' : ['F*P','F/P','P'],
+    'P' : ['P^Q','Q'],
     'Q' : ['(E)','n']
 }
 
@@ -55,4 +66,10 @@ ArithmeticTranslator = {
     TokenType.Variable : 'n'
 }
 
-ArithMeticGrammar = Grammar(ArithmeticNonTerminals,ArithmeticTerminals,ArithmeticProductions,'E')
+ArithMeticGrammar = Grammar(
+    ArithmeticNonTerminals,
+    ArithmeticTerminals,
+    ArithmeticProductions,
+    'E',
+    Priorities
+)

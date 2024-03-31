@@ -65,6 +65,10 @@ def NumericRule(number):
     
     if number.count('-') > 1 or number.count('+') > 1: return False
     
+    if number.startswith('+') or number.startswith('-'): return False
+    
+    if number.count('+') == 1 or number.count('-') == 1: return number.count('e') == 1
+    
     if number.count('.') > 1: return False
     
     if number.count('e') > 1: return False
