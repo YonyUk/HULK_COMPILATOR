@@ -106,9 +106,10 @@ if not Error:
     tokens = [str(token) for token in my_list if token.Text != '\n' and token.Text != ' ']
     
     my_list = tokens
-
+        
     gd_token= GRAMATIC_DEFINITION.traslator(my_list)
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     print(gd_token)
 >>>>>>> 6f9c51e (gramar modified)
@@ -116,6 +117,9 @@ if not Error:
 =======
     #print(gd_token)
 >>>>>>> 8380a4e (grammar tokenikezed)
+=======
+    print(gd_token)
+>>>>>>> 2fa0417 (many marges)
 
     gp = GP.GrammarParser(GRAMATIC_DEFINITION.gramar,gd_token)
     

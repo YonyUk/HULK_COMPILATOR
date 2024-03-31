@@ -153,11 +153,17 @@ class Lexer(IRegEx):
                 # retornamos el token encontrado
                 
 <<<<<<< HEAD
+<<<<<<< HEAD
                 if self.Token.Text == 'e':
                     yield KeywordToken('e')
                 
 =======
 >>>>>>> cbcf627 (first commit)
+=======
+                if self.Token.Text == 'e':
+                    yield KeywordToken('e')
+                
+>>>>>>> 2fa0417 (many marges)
                 yield self.Token
                 # comprabmos si estamos leyendo un string
                 if self._text_readed == '"' and not self._reading_string:

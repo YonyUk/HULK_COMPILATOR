@@ -93,14 +93,18 @@ def NumericRule(number):
     if number.count('-') > 1 or number.count('+') > 1: return False
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     if number.startswith('+') or number.startswith('-'): return False
     
     if number.count('+') == 1 or number.count('-') == 1: return number.count('e') == 1
     
 =======
     if number.count('+') == 1 or number.count('-') == 1: return number.count('e') == 1
+=======
+    if number.startswith('+') or number.startswith('-'): return False
+>>>>>>> 2fa0417 (many marges)
     
-    if number.startswith('+') == 1 or number.startswith('-') == 1: return False
+    if number.count('+') == 1 or number.count('-') == 1: return number.count('e') == 1
     
 >>>>>>> b8678ef (parser almost finished)
     if number.count('.') > 1: return False

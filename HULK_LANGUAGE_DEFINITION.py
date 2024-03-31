@@ -91,8 +91,6 @@ def LoadDefinition():
     reader.close()
     pass
 
-# xxx=[]
-
 KEYWORD_VALUES = [
     'new',
     'print',
@@ -145,10 +143,14 @@ KEYWORD_DICT = {
     'tan' : Keyword.Tan,
     'log' : Keyword.Log,
 <<<<<<< HEAD
+<<<<<<< HEAD
     'e' : Keyword.Euler,
 =======
     'E' : Keyword.Euler,
 >>>>>>> cbcf627 (first commit)
+=======
+    'e' : Keyword.Euler,
+>>>>>>> 2fa0417 (many marges)
     'PI' : Keyword.PI,
     'exp' : Keyword.Exp,
     'sqrt' : Keyword.Sqrt,
@@ -362,7 +364,6 @@ TYPES_DEFINED = [
     'boolean',
     'string'
 ]
-
 SYMBOLS_and_OPERATORS_parser=[
     
     'new',
@@ -414,7 +415,4 @@ SYMBOLS_and_OPERATORS_parser=[
     '&',
     '|',
 ]
-
-
-
 LoadDefinition()
