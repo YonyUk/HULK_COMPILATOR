@@ -59,6 +59,7 @@ class GrammarParser(IRegEx,IShiftReduceParser):
         ['&','|','!'],
         ['.'],
         ['=','+=','-=','/=','*=','--',':=','++','--'],
+        ['if'],
         ['elif'],
         ['else'],
         ['@','@@'],
@@ -286,14 +287,10 @@ class GrammarParser(IRegEx,IShiftReduceParser):
 >>>>>>> b8678ef (parser almost finished)
         
         '''
-        campare operator1 precedence to operator2 procedence
-        
-        return values: 
-        
-        0: equal procedence
-        1: grater procedence
-        -1: lower procedence
-        
+        compare precedence between operator1 and operator2:
+        ->  0: equal procedence
+        ->  1: grater procedence
+        -> -1: lower procedence        
         '''
         if pivote == "(" : return 0
         if pivote == "{" : return 0

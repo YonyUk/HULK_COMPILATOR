@@ -11,6 +11,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 10+20*(4+e);
 =======
 let a: number = 10 as Hola in print(Hola);
@@ -67,3 +68,14 @@ a(3,4,5);
 =======
     {q;}/{q;};
 >>>>>>> 076a9a4 (block operation allowed)
+=======
+if (T) {
+    
+    3;
+    
+}
+elif R {
+
+}
+
+>>>>>>> 882c73d (for , block , if else ,elif done)
