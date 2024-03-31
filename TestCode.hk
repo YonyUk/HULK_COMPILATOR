@@ -61,5 +61,9 @@ a(3,4,5);
 >>>>>>> f002039 (F added to productions)
 =======
 
+<<<<<<< HEAD
     E/{q;};
 >>>>>>> cd17c65 (fixes to blocks)
+=======
+    {q;}/{q;};
+>>>>>>> 076a9a4 (block operation allowed)
