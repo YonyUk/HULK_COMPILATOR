@@ -12,6 +12,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 10+20*(4+e);
 =======
 let a: number = 10 as Hola in print(Hola);
@@ -79,3 +80,5 @@ elif R {
 }
 
 >>>>>>> 882c73d (for , block , if else ,elif done)
+=======
+>>>>>>> 2694bab (in completed)
