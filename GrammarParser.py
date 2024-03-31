@@ -66,7 +66,6 @@ class GrammarParser(IRegEx,IShiftReduceParser):
         ['as'],
         [','],
         ['in' ],
-        [":"],
         ['||'],
         [";"],
         ["$2"],
