@@ -25,16 +25,22 @@
 
     ],
     "simbols":[
-        
+        "[",
+        "]",
+        "{",
+        "}"
     ],
     "simbol_accesors":[
 
     ],
     "simbol_agrupators":[
-
+        "[",
+        "]",
+        "{",
+        "}"
     ],
     "simbol_separators":[
-
+        
     ],
     "simbol_declarators":[
 
@@ -70,10 +76,15 @@
         "!",
         "!=",
         "&=",
+<<<<<<< HEAD
         "|=",
         "[",
         "]"
 >>>>>>> 2fa0417 (many marges)
+=======
+        "|="
+        
+>>>>>>> 036b011 (lexer error fixed)
     ],
     "operators_unary":[
 

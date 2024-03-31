@@ -115,7 +115,7 @@ gramar =[
 
 # protocols
 [
-    ["M" , [["protocol","c","(",")","b"] ,[ "protocol","T","extends","T","b"] ,[ "protocol","T","B"] ,[ "protocol","T","extends","T","B"]]]
+    ["M" , [["protocol","F","b"] ,[ "protocol","T","extends","T","b"] ,[ "protocol","T","B"] ,[ "protocol","T","extends","T","B"]]]
 ],
 
 # vector
@@ -124,81 +124,6 @@ gramar =[
     ["T" , [[ "[","T","||","T" , "]"] , [ "[" , "p" , "]" ] , ["T" ,"[" , "T" , "]" ]  ]],
 ]
 ]
-
-production_token = [
-        
-        "T",
-        "M",
-        "p",
-        "c",
-        "B",
-        "b",
-        "T",
-        "W",
-        "w",
-        "E",
-        "I",
-        "If",
-        "for",
-        "FOR",
-        "O",
-        "new",
-        "function",
-        "let",
-        "in",
-        "protocol",
-        "type",
-        "while",
-        "for",
-        "if",
-        "else",
-        "elif",
-        "e",
-        "PI",
-        "inherits",
-        "extends",
-        "+=",
-        "/=",
-        "||",
-        "[",
-        "]",
-        ",",
-        ";",
-        "=>",
-        ":",
-        "(",
-        ")",
-        "{",
-        "}",
-        ".",
-        "!",
-        "++",
-        "*=",
-        "!=",
-        "--",
-        "is",
-        "as",
-        "+",
-        "-",
-        "*",
-        "/",
-        "^",
-        "%",
-        "<",
-        ">",
-        "<=",
-        ">=",
-        "=",
-        "==",
-        "@",
-        ":=",
-        "!",
-        "&",
-        "|",
-        "@@",
-        "-=",
-        
-    ]
 
 def traslator(token_list):
     

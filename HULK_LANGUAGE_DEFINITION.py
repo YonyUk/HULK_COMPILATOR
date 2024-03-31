@@ -327,7 +327,9 @@ SIMBOL_DICT = {
     "\n" : Simbol.JumpLine,
     "self" : Simbol.Self,
     ":" : Simbol.DoublePoint,
-    "" : Simbol.End
+    "" : Simbol.End,
+    "[" : Simbol.LeftC,
+    "]" : Simbol.RightC,
 }
 
 SIMBOL_TEXTUALS = [
@@ -343,7 +345,9 @@ SIMBOL_AGRUPATORS = [
     '(',
     ')',
     '{',
-    '}'
+    '}',
+    "[",
+    "]",
 ]
 
 SIMBOL_DECLARATORS = [

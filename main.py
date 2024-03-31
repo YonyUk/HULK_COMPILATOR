@@ -107,8 +107,11 @@ if not Error:
     
     my_list = tokens
         
-    gd_token= GRAMATIC_DEFINITION.traslator(my_list)
+    print(my_list)
+    
+    # gd_token= GRAMATIC_DEFINITION.traslator(my_list)
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     print(gd_token)
@@ -120,8 +123,11 @@ if not Error:
 =======
     print(gd_token)
 >>>>>>> 2fa0417 (many marges)
+=======
+    # print(gd_token)
+>>>>>>> 036b011 (lexer error fixed)
 
-    gp = GP.GrammarParser(GRAMATIC_DEFINITION.gramar,gd_token)
+    # gp = GP.GrammarParser(GRAMATIC_DEFINITION.gramar,gd_token)
     
     
 #_________________________SEMANTIC CHEKING__________________________________

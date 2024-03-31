@@ -240,7 +240,7 @@ class Lexer(IRegEx):
                 pass
             
             pass
-        
+        yield CompilationStateOK(instruction)
         pass
     
     pass
