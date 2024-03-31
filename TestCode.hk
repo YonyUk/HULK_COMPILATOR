@@ -9,6 +9,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 10+20*(4+e);
 =======
 let a: number = 10 as Hola in print(Hola);
@@ -54,3 +55,6 @@ c((a)) + b;
 =======
 []
 >>>>>>> 036b011 (lexer error fixed)
+=======
+a(3,4,5);
+>>>>>>> f002039 (F added to productions)

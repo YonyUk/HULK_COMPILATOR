@@ -109,8 +109,9 @@ if not Error:
         
     print(my_list)
     
-    # gd_token= GRAMATIC_DEFINITION.traslator(my_list)
+    gd_token= GRAMATIC_DEFINITION.traslator(my_list)
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -126,8 +127,11 @@ if not Error:
 =======
     # print(gd_token)
 >>>>>>> 036b011 (lexer error fixed)
+=======
+    print(gd_token)
+>>>>>>> f002039 (F added to productions)
 
-    # gp = GP.GrammarParser(GRAMATIC_DEFINITION.gramar,gd_token)
+    gp = GP.GrammarParser(GRAMATIC_DEFINITION.gramar,gd_token)
     
     
 #_________________________SEMANTIC CHEKING__________________________________
