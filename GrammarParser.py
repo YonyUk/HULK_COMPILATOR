@@ -48,8 +48,10 @@ class GrammarParser(IRegEx,IShiftReduceParser):
     """
     operator_procedence =[
         
-        ["c"],
+        ['[','(','{'],
         [']',')'],
+        ["c"],
+        ['}'],
         ['^','%'],
         ['*','/'],
         ['+','-'],
@@ -65,11 +67,9 @@ class GrammarParser(IRegEx,IShiftReduceParser):
         ['in' ],
         [":"],
         ['||'],
-        ["$2"],
-        ['}'],
         [";"],
+        ["$2"],
         ["$1","$3"],
-        ['[','(','{'],
     ]
     
     def __init__(self,grammar,code):
@@ -305,13 +305,8 @@ class GrammarParser(IRegEx,IShiftReduceParser):
         
         if pointer == "[" and ( pivote == "]"): return -1
         
-        # if pivote == ")" and self.pointer[-1][1] == "(": return 0
-        
-        # if pivote == "]" and self.pointer[-1][1] == "[": return 0
-        
-        # if pivote == "}" and self.pointer[-1][1] == "{": return 0
-        
         if pointer == "$1": return 0 
+        if pointer == "$2" or pivote == "$2" : return -1 
         
         if any( pointer == item for item in [']',')','}'] ) or any( pivote == item for item in [']',')','}'] ) :
             return -1

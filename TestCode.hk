@@ -10,6 +10,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 10+20*(4+e);
 =======
 let a: number = 10 as Hola in print(Hola);
@@ -58,3 +59,7 @@ c((a)) + b;
 =======
 a(3,4,5);
 >>>>>>> f002039 (F added to productions)
+=======
+
+    E/{q;};
+>>>>>>> cd17c65 (fixes to blocks)
