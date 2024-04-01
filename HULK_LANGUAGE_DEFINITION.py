@@ -381,9 +381,8 @@ SYMBOLS_and_OPERATORS_parser=[
     'if',
     'else',
     'elif',
-    'e',
-    'PI',
     'inherits',
+    'extends',
     ',',
     '\n',
     ';',
@@ -421,6 +420,7 @@ SYMBOLS_and_OPERATORS_parser=[
     "||",
     "[",
     "]",
-    "@@"
+    "@@",
+    '**'
 ]
 LoadDefinition()

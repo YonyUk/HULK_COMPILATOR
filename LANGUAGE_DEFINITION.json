@@ -87,8 +87,13 @@
 =======
         "|=",
         "||",
+<<<<<<< HEAD
         "@@"
 >>>>>>> f002039 (F added to productions)
+=======
+        "@@",
+        "**"
+>>>>>>> a7bc99e (parser arleady finished)
         
 >>>>>>> 036b011 (lexer error fixed)
     ],
