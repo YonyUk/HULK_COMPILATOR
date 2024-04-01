@@ -1,165 +1,155 @@
+gramar =[
 
-`NOTES:`
 
-    P is an in-Line caLL , P '' is expression part caLL and P ' is an about to build function call , that derives in P or P '' , L ' is variable in brackets ( L '' ) where L '' is the variable , S ' is string , N ' is number , B ' is boolean , V ' is vector , Z '' is a L '' but before a function
+# function_caLL
+[
+    [F,[ [c,P] , [c,N ] , [c,T] ] ],
+    [P,[[(,p,)]]],
+    [T,[[F]],],
+    [N,[[(,)]]],
+],
 
-## Function caLL:
+# strings
+[
+    [T, [ [T,@,T] ,[F,@,T], [T,@@,T] , [F,@@,T]] ],
+    [E, [[T,@,E] ,[F,@,E],[T,@@,E] , [F,@@,E] ] ]
+],
+
+# expression_block
+[
+    [O,[[E,E],[O,$2,O], [T,$2,O] ,[O,E],[O,B],[O,$2,b],[b,$2,E],[M,E],[E,M],[O,M],[M,O],[O,Q],[Q,$2]]],
+    [O,[[E,$2,M],[M,$2,O]]],
+    [O,[[O,$2,E],[E,$2,b] , [E,$2,O],[O,$2] , [O,;],[E,$2,E],[b,$2,b],[ O, $2, M]]],
+    [b,[[{,O,}],[{,E,}],[{,B,}],[{,}],[b,$2],[{,b,}],[{,T,}]]],
+    [B,[[b,;]]],
+    [T,[[T,$2]]],
+    [E,[[E,$2],[B]]],
+    [E,[[$2,;,$3],[E,;]]],
+    
+    [b,[[{,M,}],]],
+    
+    [E , [[T,;]]],
+    [T,  [[T ,.,E] , [F ,.,E], [T ,.,T] , [F ,.,T] ]],
+    [E,  [[T ,.,E] ]]
+],
+
+# literals
+[
+
+[T , [ [let,T] , [T,:,T]]],
+[E , [ [let,E] , [T,:,E]]],
+[p , [ [T, ,,$2 ,T ] , [T,,,$2,p] ]],
+[T , [ [T,:=,T] ]],
+[E , [ [T,:=,E] ]],
+[T , [ [T,=,T]  ]],
+[E , [  [T,=,E] ]],
+[T , [ [T,as,T] , [F,as,T] , [T,as,E] ]],
+[E , [ [T,as,E] ]],
+[E, [[T,;,$2]]],
+[T, [[(,T,)]]],
+
+],
+
+# booleans
+[
+    
+    [T , [[T,&,T] , [F,&,T] , [T,|,T] , [F,|,T]  , [T,!=,T] , [F,!=,T] , 
+            [T,>,T] , [F,>,T]  , [T,<,T] , [F,<,T]  , [T,<=,T] , [F,<=,T] ,
+            [T,>=,T] ,[F,>=,T] , [T,==,T] ,[F,==,T] , 
+            [T,is,T] , [F,is,T] ]],
+    
+    [E , [[T,&,E]  , [T,|,E]  , [T,!=,E] ,
+            [T,>,E]  , [T,<,E]  , [T,<=,E] ,
+            [T,>=,E] , [T,==,E] , 
+            [T,is,E] ]],
+],
+
+# numbers
+[
+    
+    [T , [[T,+,T] , [T,+,T] , [T,-,T],[ T,*,T], [T,/,T],[T,/,T], [T,^,T], [T,%,T],[T,**,T]]],
+    [T , [[T,$2,+,T] , [T,$2,+,T] , [T,$2,-,T],[ T,$2,*,T], [T,$2,/,T],[T,$2,/,T], [T,$2,^,T], [T,$2,%,T],[T,$2,**,T]]],
+    [E , [[T,$2,+,E] , [T,$2,+,E] , [T,$2,-,E],[ T,$2,*,E], [T,$2,/,E],[T,$2,/,E], [T,$2,^,E], [T,$2,%,E],[T,$2,**,E]]],
+    [E , [[T,+,E], [F+E],[T,-,E],[ T,*,E], [T,/,E],[T,/,E], [T,^,E], [T,E]],
+    
+    [T , [ [T,-=,T] ,[T,+=,T] ,[T,/=,T] ,[T,*=,T] , [T,--]  , [T,++]]],
+    [E , [ [T,-=,E] ,[T,+=,E] ,[T,/=,E] ,[T,*=,E] , [E,--] , [E,++] ],[E,**],[E,**,E]]],
+],
+
+# IN
+[
+    [p,[[p,$2]]],
+    [T, [[T,in,T] ,[T,$2,in,T],[p,$2,in,T],[p,$2,in,p], [p,in,T] , [p,in,p]]],
+    [T, [[T,$2]]],
+    [E, [[T,in,E], [T,$2,in,E] ,[T,in,b],[T,$2,in,b] ,[p,$2,in,E] ,[p,in,E],[p,in,b],[p,$2,in,b]]],
+       
+],
+
+#  For
+[
+    [E , [[for,T,$2,B] , [for,T,$2,E], [for,T,E]]],
+    [E, [ [for,T,$2,b]]],
+    
+],
+
+# conditional
+[
+    
+    [if,[[if,T,$2,E],[if,T,$2,b],[if,T,$2,B],[if,$2],[if, T, $2, T,]]],
+    
+    [elif,[[if,elif,T,$2,E],[if,elif,T,$2,b],[if,elif,T,$2,B],[elif,$2],[if,elif, T, $2, T,]]],
+    
+    [E,[[if,else,E],[if,else,b],[if,else,B]]],
+    
+    [E,[[elif,else,E],[elif,else,b],[elif,else,B]]],
+    
+    [T,[[elif,else,T],[if, else, T]]],
+    
+],
+
+# While
+[
+    
+    [E , [[while,T,$2,B] , [while,T,$2,E],[while,T,E]]],
+    [E, [ [while,T,$2,b]]],
+],
+
+# function
+[    
  
-* `P '` -> Z '' ( E ' , $|$ P ' E ' , 
-* `P '` -> Z '' ( L ''' , $|$ P ' L ''' , 
-* `P '` -> Z '' ( F  $|$ P ' F , 
-* `P ''` -> P ' ) $|$ Z ''( E ') $|$ Z ''( F ) $|$ $|$ Z ''( L ''') $|$ P ' E ' )  $|$ P ' L ''' )  $|$ P ' F ' )
-* `P ''` -> ( P '' )
+    [M , [ [function,T,$2,=>,$2,E] , [function,T,$2,:,T ,=>,$2,E] 
+            ,[function,T,$2,=>,$2,b],[function,T,$2,:,T,=>,$2,b] ,
+            [ function, T,$2, :, T, b],[function, T, $2, b, ],[function, T, E, ],
+            [ function, T,=>,$2,E],
+            [T, $2, :, Q],[T, $2, :, E],[T, $2, :, T, b,],
+            [function,T,$2,:,Q]
+            ]],
+    [Q,[[T, =>, $2, E]]],
+    
+    [M,[[M,$2],[M,$2,M],[M,;],[M,M]]]
+],
 
-## Strings
+# types
+[
+    [M, [[type,T,$2,b  ], [type,T,$2,inherits,T,$2,b],[type,T,b] , [type, T, inherits, T, b]]],
+    [T , [ [new,F] ]],
+],
 
-By default every non-token element is taken to `S '` if it is a word like inside quotation marks , `""`
+# protocols
+[
+    [M , [[protocol,T,$2,b] ,[ protocol,T,$2,extends,T,$2,b],[protocol, T, b,],[protocol, T, extends, T, b,]]]
+    
+],
 
-* `G1 '` -> L '' $|$ N ' $|$ P '' $|$ S ' $|$ T '
-* `S '` -> G1 ' @ G1 ' 
-* `S '` -> G1 ' @@ G1 ' 
-* `S '` -> ( S ' )
+# vector
+[
+    
+    [T , [ [,T,||,T , ]] , [ [ , p , ] ] , [T,[ , T , ] ]  ]],
+]
+]
 
-## Expression block
 
-* `E '` -> S ' $|$ N ' $|$ P '' $|$ B ' $|$ L '' $|$ V ' $|$ D ' $|$ X ' $|$ T ' $|$ K $|$ G ' $|$ G1 ' $|$ W '
-* `bl '` -> { }
-* `bl ''` -> { E $|$ { bl ' $|$ { bl $|$ {F $|$ {C   
-* `bl ''` -> bl '' E $|$ bl '' bl $|$ bl '' F $|$ bl '' C    
-* `bl '` -> bl '' }
-* `bl` -> bl ';
-* `E '` -> ( E ' )
-* `E`  -> E ';
-* `T '` -> E '.P '' $|$ S '.P '' $|$ N '.P '' $|$ P ''.P '' $|$ B '.P '' $|$ L ''.P '' $|$ V '.P '' $|$ D '.P '' $|$ X '.P '' $|$ T '.P '' $|$ K.P '' $|$ G '.P '' $|$ G1 '.P '' $|$ W '.P ''
-* `T '` ->  E '.L '' $|$ S '.L '' $|$ N '.L '' $|$ L ''.L '' $|$ B '.L '' $|$ L ''.L '' $|$ V '.L '' $|$ D '.L '' $|$ X '.L '' $|$ T '.L '' $|$ K.L '' $|$ G '.L '' $|$ G1 '.L '' $|$ W '.L ''
-
-## Literals:
-
-By default every non-token element is taken to `L ''` if it is a word like
-
-* `D '` -> let E0
-* `D ''` -> E ' , E0 $|$ E ' , E '
-* `D ''` -> D '' , E0 $|$ D '' , E '
-* `E '` -> L '' := E ' $|$ L ''' := E ' $|$ D ' := E '
-* `E0` -> L '' = E ' $|$ L ''' = E '
-* `D` -> D '; 
-* `L '''` -> L '' : L '' // let x: Number = 42;
-* `L ''` -> (L '')
-* `L ''` ->  L '' as L ''
-
-## Booleans
-
-* `K` -> L '' $|$ P '' $|$ X ' $|$ T '
-* `G '` -> L '' $|$ N ' $|$ P '' $|$ X ' $|$ T '
-* `B '` -> K & K $|$ K $ B ' $|$ B ' $ K
-* `B '` -> K | K $|$ K | B ' $|$ B ' | K
-* `B '` -> E ' != E ' 
-* `B '` ->  G ' > G ' $|$ G ' < G '
-* `B '` ->  G ' >= G ' $|$ G ' <= G '
-* `B '` -> E ' == E ' 
-* `B '` ->  E ' is L ''
-* `B '` -> ( B ' )
-
-## Numbers:
-
-By default every non-token element is taken to `N '` if it is a number like.
-
-* `G '` -> L '' $|$ N ' $|$ P '' $|$ X ' $|$ T '
-* `G '` -> PI
-* `G '` -> e 
-
-### Operators
-
-* `G '` -> G ' +  G '
-* `G '` -> G ' -  G '
-* `G '` -> G ' *  G '
-* `G '` -> G ' /  G '
-* `G '` -> G ' ^  G '
-* `G '` -> G ' %  G '
-* `G '` -> ( G ' )
-
-### No operator , but numbers
-
-* `N '` -> G '
-* `N '` -> L '' -= G '
-* `N '` -> L '' += G '
-* `N '` -> L '' /= G '
-* `N '` -> L '' *= G '
-* `N '` -> G ' --
-* `N '` -> G ' ++
-* `N '` -> G '
-
-## in
-
-* `E '` -> E ' in E ' $|$ D '' in E '
-* `E` -> D '' in bl '
-* `E` -> E ' in bl 
-* `E` ->  E ' in E $|$ D '' in E 
-
-## for
-
-* `for` -> for( L '' in E ' ) bl '
-* `for '` -> for( L '' in E ' ) E '
-* `for` -> for( L '' in E ' ) bl
-* `for` -> for( L '' in E ' ) E
-* `E` -> for
-* `E '` -> for '
-
-##  Conditional
-
-* `K` -> L '' $|$ P '' $|$ X ' $|$ T '
-* `I` -> if ( K ) E ' $|$ if ( B ' ) E '
-* `I` -> if ( K ) bl '
-* `If` -> I else bl $|$ I else E $|$ if ( B ' ) E $|$ if ( K ) E 
-* `I` -> I elif ( K ) bl $|$ I  elif ( K ) E ' $|$ I elif ( B ' ) bl $|$ I  elif ( B ' ) E '
-* `E '` -> I else E '
-* `E` -> If
-
-## while
-
-* `K` -> L '' $|$ P '' $|$ X ' $|$ T '
-* `W`-> while( K ) E $|$ while( B ' ) E
-* `W`-> while( K ) bl $|$ while( B ' ) bl
-* `W` -> while( K ) bl ' $|$ while( B ' ) bl '
-* `W '` -> while( K ) E ' $|$ while( B ' ) E '
-* `E` -> W
-  
-## function
-
-* `F` -> function P '' bl $|$ function P '' : L '' bl
-* `F` -> function P '' => E $|$ function P '' : L '' => E
-* `F` -> function P '' => bl $|$ $|$ function P '' : L '' => bl  
-* `F` -> function P '' bl ' $|$ function P '' : L '' bl '
-* `F` -> function P '' => E $|$ function P '' : L '' => E
-* `F` -> function P '' => bl ' $|$ $|$ function P '' : L '' => bl ' 
-  
-## Types
-
-* `C`-> type L '' bl '
-* `C`-> type P '' bl ' 
-* `C`-> type L '' inherits L '' bl '
-* `C`-> type P '' inherits L '' bl '
-* `C`-> type L '' inherits P '' bl '
-* `C`-> type P '' inherits P '' bl '
-* `E '` -> new P ''
-
-## Special block
-
-* `bls '` -> { P '' : L ''; $|$ bls ' P '' : L '';
-* `bls ` -> bl 's }
-
-## Protocols
-
-* `Q` -> protocol L '' bls $|$ protocol L '' extends L '' bls
-
-## Vector
-
-* `V '` -> [ E ' || E ' in E ' ]
-* `V ''` -> [ E ' , $|$ V '' E ' ,
-* `V '` -> V '' ]
-* `X '`-> L ''[ E ']
-
-# Procedencia
+# Procedence
 
  * Arithmetic Operations
  * Comparison Operations
@@ -174,37 +164,87 @@ By default every non-token element is taken to `N '` if it is a number like.
  * Type Conversion
 
 
-# Strategy
+
+
+# Reduction Strategy -> GRADIENT PARSER
+
+
+  This parser tries to model operator procedence using a grammar of the for $<G,P>$ where in $G$ exist pairs of the form $X-> Y$ where $X$ is non-terminal and $Y$ is a sentence . In $P$ if $\alpha\in P$ and $\beta\in P$ , such that $\aleph>\beta$ or $\beta<\alpha$ is the procedece of each operator.
+
+
+## Strategy
 
     Shift: ++ , --
     Shift: -+
     Reduce: -+
 
+if an `operator procedence` is that $\alpha>\beta$ for some $\alpha$ and $\beta$ then in string of the form $W \alpha W \beta W$ we reduce to $\alpha$ once we compare procedence between $\alpha$ and $\beta$ , if the case where oposite , $\alpha<\beta$ or $\alpha=\beta$ , we shift to next `token`
 
-# Reduction Strategy
+e.j : let x := y + 4;
 
-- Para saber que reduccion hacer en caso de que se tengas varias posibles, miramos los operadores a ambas partes ( izquierda y derecha ) , y nos quedamos con la produccion del operador con mas procedencia
+The token are `let` , `x` , `:=` , `y` , `+` , `4` , `;` if the operator precedence is 
 
-    ej : let x := y + 4;
+- `+`
+- `:=`
+- `;`
+- `$`
 
-    let L '' := L '' + N ';
+GRAMMAR :
 
-    para el segundo L '' nos quedamos con G ' y resolvemos
+- $S -> \$E\$$
+- $E -> let  E$
+- $E -> T := E$
+- $E -> T := E$ 
+- $E -> T + E$
 
-    let L '' := G ' + G ';
 
-- Una vez resuelto el ultimo pivote, se pasa para el pivote anterior y se intenta parsear desde la posicion del nuevo pivote hasta el final de la cadena
+we build the string in a default form `$` `let` `x` `:=` `y` `+` `4` `;` `$` and replace all non keywords and operator language to a default for `T`
 
-### Produccion segun operador
+The automaton iterate to state in that of token `:=` and compares procedence to `$`, as it is higher , we shift to the next operator token , in this case `+`. As can be seen , its higher so we shift again to operator token `;`. Reach this state, automaton determines it is time for reduction , so it `reduces` the string back to the operator that makes it do another `shift` . So it reduces to operator token `+` because it has a lower procedence , so the string remainds in the form:
 
-- G ' <= ([ P '' , N ' , L '' , X ' , T ' ] , [ '+' , '-' , '*' , '/' , '^' , '%'  , '++' , '--' , '/=' , ' *= ' , '-=' , '>' , '<' , '>=' , '<=' , '!=' ] )
+|  `$` `let` `T` `:=` `T` `+` `E`   | $E -> T ;$
 
-- G1 ' <= ([L '', N ' , P '' , S ' , T '], [ '@' , '@@' ])
+And again we go back to operator token `:=`:
 
-- K <= ([L '' , P '' , X ' , T '],[ '&' , '|' , ')' ])
+|  `$` `let` `T` `:=` `E` | $E -> T + E$   
 
-- E ' <= ([S '~ , N '~ , P ''~ , B '~ , L ''~ , V '~ , D '~ , X '~ , T '~ , K~ , G '~ , G1 '~ , W '~] , ['~' ])
+| `$` `let` `E` | $E -> T := E$   
 
-- E ' <= ([ # S ' ,# N ' ,# P '' ,# B ' ,# L '' ,# V ' ,# D ' ,# X ' ,# T ' ,# K ,# G ' ,# G1 ' ,# W ' ] , [ '#' ])
+| `$` `E` | $E -> let  E$   
 
-- E ' <= ([S ' , N ' , P '' , B ' , L '' , V ' , D ' , X ' , T ' , K , G ' , G1 ' , W '] , [ '.' , ',' , ';' , 'else' , 'elif' , 'in' ,' , ':=', '$' , '||' , '==' , ']' ])
+At this time we `shift` because we have reached `$` 
+
+| `$` `E` `$`
+
+| `S` | $S -> \$E\$$
+
+# HULK
+
+In `HULK` programming languaje we used operator procedence in a form
+
+### Procedence according to operator
+  
+- $[,(,\{$
+- $],)$
+- $c$
+- $\}$
+- $as$
+- $\% , **$ , ^
+- $*,/$
+- $+,-$
+- $<,>,>=,<=,==, ~ ,is$
+- $\&,\|,!$
+- $.$
+- $=,+=,-=,/=,*=,--,:=,++,--$
+- $let$
+- $if$
+- $elif$
+- $else$
+- $@,@@$
+- $,$
+- $=>$
+- $in$
+- $||$
+- $;$
+- $\$2$
+- $\$1,\$3$
