@@ -55,26 +55,26 @@
 
 # numbers
 
-- T -> $ T+T \space|\space T+T \space|\space T-T \space|\space  T*T \space|\space T/T \space|\space T/T \space|\space T^T \space|\space T\%T \space|\space T**T$
-- T -> $ T\$2+T \space|\space T\$2+T \space|\space T\$2-T \space|\space  T\$2*T \space|\space T\$2/T \space|\space T\$2/T \space|\space T\$2^T \space|\space T\$2\%T \space|\space T\$2**T$
-- E -> $ T\$2+E \space|\space T\$2+E \space|\space T\$2-E \space|\space  T\$2*E \space|\space T\$2/E \space|\space T\$2/E \space|\space T\$2^E \space|\space T\$2\%E \space|\space T\$2**E$
-- E -> $ T+E \space|\space F+E \space|\space T-E \space|\space  T*E \space|\space T/E \space|\space T/E \space|\space T^E \space|\space TE$
+- $T ->  T+T \space|\space T+T \space|\space T-T \space|\space  T*T \space|\space T/T \space|\space T/T \space|\space T^T \space|\space T\%T \space|\space T**T$
+- $T ->  T\$2+T \space|\space T\$2+T \space|\space T\$2-T \space|\space  T\$2*T \space|\space T\$2/T \space|\space T\$2/T \space|\space T\$2^T \space|\space T\$2\%T \space|\space T\$2**T$
+- $E ->  T\$2+E \space|\space T\$2+E \space|\space T\$2-E \space|\space  T\$2*E \space|\space T\$2/E \space|\space T\$2/E \space|\space T\$2^E \space|\space T\$2\%E \space|\space T\$2**E$
+- $E ->  T+E \space|\space F+E \space|\space T-E \space|\space  T*E \space|\space T/E \space|\space T/E \space|\space T^E \space|\space TE$
 
-- T -> $ T-=T \space|\space T+=T \space|\space T/=T [T,*=,T] , [T,--]  , [T,++]]]$
-- T -> $ T-=T \space|\space T+=T \space|\space T/=T \space|\space T*=T \space|\space T-- \space|\space T++$
-- E -> $ T-=E \space|\space T+=E \space|\space T/=E \space|\space T*=E \space|\space E-- \space|\space E++ \space|\space E** \space|\space E**E$
+- $T ->  T-=T \space|\space T+=T \space|\space T/=T [T,*=,T] , [T,--]  , [T,++]]]$
+- $T ->  T-=T \space|\space T+=T \space|\space T/=T \space|\space T*=T \space|\space T-- \space|\space T++$
+- $E ->  T-=E \space|\space T+=E \space|\space T/=E \space|\space T*=E \space|\space E-- \space|\space E++ \space|\space E** \space|\space E**E$
 
 # IN
 
-- p -> $p\$2$
-- T -> $ T\space in\space T \space|\space T\$2\space in\space T \space|\space p\$2inT \space|\space p\$2\space in\space p \space|\space p\space in\space T \space|\space p\space inp\space $
-- T -> $ T\$2$
-- E -> $ T\space in\space E \space|\space T\$2\space in\space E \space|\space T\space in\space b \space|\space T\$2inb \space|\space p\$2\space in\space E \space|\space pinE \space|\space p\space in\space b \space|\space p\$2\space in\space b $
+- $p -> p\$2$
+- $T ->  T\space in\space T \space|\space T\$2\space in\space T \space|\space p\$2inT \space|\space p\$2\space in\space p \space|\space p\space in\space T \space|\space p\space inp\space $
+- $T ->  T\$2$
+- $E ->  T\space in\space E \space|\space T\$2\space in\space E \space|\space T\space in\space b \space|\space T\$2inb \space|\space p\$2\space in\space E \space|\space pinE \space|\space p\space in\space b \space|\space p\$2\space in\space b $
 
 # For
 
-- E -> $ for\space T\$2B \space|\space for\space T\$2E \space|\space forTE$
-- E -> $ for\space T\$2b $
+- $E ->  for\space T\$2B \space|\space for\space T\$2E \space|\space forTE$
+- $E ->  for\space T\$2b $
 
 # conditional
 
@@ -90,12 +90,16 @@
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 - E ->  $whileT\$2B \space|\space whileT\$2E \space|\space whileTE$
 - $E -> $whileT$2b $
 =======
     
 =======
 - E ->  $while \space T\$2B \space|\space while \space T\$2E \space|\space while\space T\space E$
+=======
+- $E ->  while \space T\$2B \space|\space while \space T\$2E \space|\space while\space T\space E$
+>>>>>>> 43a3d19 (readme)
 - $E -> while \space T\$2b $
 
 >>>>>>> eeb8b70 (readme)
