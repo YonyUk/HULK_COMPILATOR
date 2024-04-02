@@ -1,57 +1,53 @@
-gramar =[
+
+# HULK PROGRAMMING LANGUAGE
 
 
-# function_caLL
-[
-    [F,[ [c,P] , [c,N ] , [c,T] ] ],
-    [P,[[(,p,)]]],
-    [T,[[F]],],
-    [N,[[(,)]]],
-],
 
-# strings
-[
-    [T, [ [T,@,T] ,[F,@,T], [T,@@,T] , [F,@@,T]] ],
-    [E, [[T,@,E] ,[F,@,E],[T,@@,E] , [F,@@,E] ] ]
-],
 
-# expression_block
-[
-    [O,[[E,E],[O,$2,O], [T,$2,O] ,[O,E],[O,B],[O,$2,b],[b,$2,E],[M,E],[E,M],[O,M],[M,O],[O,Q],[Q,$2]]],
-    [O,[[E,$2,M],[M,$2,O]]],
-    [O,[[O,$2,E],[E,$2,b] , [E,$2,O],[O,$2] , [O,;],[E,$2,E],[b,$2,b],[ O, $2, M]]],
-    [b,[[{,O,}],[{,E,}],[{,B,}],[{,}],[b,$2],[{,b,}],[{,T,}]]],
-    [B,[[b,;]]],
-    [T,[[T,$2]]],
-    [E,[[E,$2],[B]]],
-    [E,[[$2,;,$3],[E,;]]],
-    
-    [b,[[{,M,}],]],
-    
-    [E , [[T,;]]],
-    [T,  [[T ,.,E] , [F ,.,E], [T ,.,T] , [F ,.,T] ]],
-    [E,  [[T ,.,E] ]]
-],
+# Function caLL
 
-# literals
-[
+- $F -> cP | cN | cT$
+- $P -> ( p )$
+- $T -> F$
+- $N ->( )$
 
-[T , [ [let,T] , [T,:,T]]],
-[E , [ [let,E] , [T,:,E]]],
-[p , [ [T, ,,$2 ,T ] , [T,,,$2,p] ]],
-[T , [ [T,:=,T] ]],
-[E , [ [T,:=,E] ]],
-[T , [ [T,=,T]  ]],
-[E , [  [T,=,E] ]],
-[T , [ [T,as,T] , [F,as,T] , [T,as,E] ]],
-[E , [ [T,as,E] ]],
-[E, [[T,;,$2]]],
-[T, [[(,T,)]]],
+# Strings
 
-],
+- $T -> T@T | F@T | T@@T | F@@T$
+- $E -> T@E | F@E | T@@E | F@@E$
+
+
+# Expression_block
+
+- $O -> EE | O\$2O | T\$2 O | OE | OB | O \$2 b | b \$2 E | ME | EM | OM | MO | OQ | Q \$2$
+- $O -> E \$2 M | M \$2 O$
+- $O -> O \$2 E | E \$2 b  | E \$2 O | O \$2 | O; | E \$2 E | b \$2 b | O \$2 M$
+- $b -> { O } | { E } | { B } | { } | b \$2 | { b } | { T }$
+- $B -> b;$
+- $T -> T \$2$
+- $E -> E \$2 | B$
+- $E -> \$2 ; \$3 | E;$
+- $b -> { M }$
+- $E -> T;$
+- $T -> T.E | F.E | T.T | F.T |$
+- $E -> T.E$
+
+# Literals
+
+- $T -> let T | T:T$
+- $E -> letE | T:E$
+- $p -> T \$2 T | T \$2 p$
+- $T -> T:=T$
+- $E -> T:=E$
+- $T -> T=T$
+- $E -> T=E$
+- $T -> T as T | F as T | T as E$
+- $E -> T as E$
+- $E -> T;\$2$
+- $T -> ( T )$
 
 # booleans
-[
+
     
     [T , [[T,&,T] , [F,&,T] , [T,|,T] , [F,|,T]  , [T,!=,T] , [F,!=,T] , 
             [T,>,T] , [F,>,T]  , [T,<,T] , [F,<,T]  , [T,<=,T] , [F,<=,T] ,
@@ -62,11 +58,9 @@ gramar =[
             [T,>,E]  , [T,<,E]  , [T,<=,E] ,
             [T,>=,E] , [T,==,E] , 
             [T,is,E] ]],
-],
 
 # numbers
-[
-    
+
     [T , [[T,+,T] , [T,+,T] , [T,-,T],[ T,*,T], [T,/,T],[T,/,T], [T,^,T], [T,%,T],[T,**,T]]],
     [T , [[T,$2,+,T] , [T,$2,+,T] , [T,$2,-,T],[ T,$2,*,T], [T,$2,/,T],[T,$2,/,T], [T,$2,^,T], [T,$2,%,T],[T,$2,**,T]]],
     [E , [[T,$2,+,E] , [T,$2,+,E] , [T,$2,-,E],[ T,$2,*,E], [T,$2,/,E],[T,$2,/,E], [T,$2,^,E], [T,$2,%,E],[T,$2,**,E]]],
@@ -74,27 +68,24 @@ gramar =[
     
     [T , [ [T,-=,T] ,[T,+=,T] ,[T,/=,T] ,[T,*=,T] , [T,--]  , [T,++]]],
     [E , [ [T,-=,E] ,[T,+=,E] ,[T,/=,E] ,[T,*=,E] , [E,--] , [E,++] ],[E,**],[E,**,E]]],
-],
+
 
 # IN
-[
+
     [p,[[p,$2]]],
     [T, [[T,in,T] ,[T,$2,in,T],[p,$2,in,T],[p,$2,in,p], [p,in,T] , [p,in,p]]],
     [T, [[T,$2]]],
     [E, [[T,in,E], [T,$2,in,E] ,[T,in,b],[T,$2,in,b] ,[p,$2,in,E] ,[p,in,E],[p,in,b],[p,$2,in,b]]],
        
-],
 
 #  For
-[
+
     [E , [[for,T,$2,B] , [for,T,$2,E], [for,T,E]]],
     [E, [ [for,T,$2,b]]],
     
-],
 
 # conditional
-[
-    
+
     [if,[[if,T,$2,E],[if,T,$2,b],[if,T,$2,B],[if,$2],[if, T, $2, T,]]],
     
     [elif,[[if,elif,T,$2,E],[if,elif,T,$2,b],[if,elif,T,$2,B],[elif,$2],[if,elif, T, $2, T,]]],
@@ -105,48 +96,49 @@ gramar =[
     
     [T,[[elif,else,T],[if, else, T]]],
     
-],
 
 # While
-[
+
     
     [E , [[while,T,$2,B] , [while,T,$2,E],[while,T,E]]],
     [E, [ [while,T,$2,b]]],
-],
+
 
 # function
-[    
+
  
-    [M , [ [function,T,$2,=>,$2,E] , [function,T,$2,:,T ,=>,$2,E] 
-            ,[function,T,$2,=>,$2,b],[function,T,$2,:,T,=>,$2,b] ,
-            [ function, T,$2, :, T, b],[function, T, $2, b, ],[function, T, E, ],
-            [ function, T,=>,$2,E],
-            [T, $2, :, Q],[T, $2, :, E],[T, $2, :, T, b,],
-            [function,T,$2,:,Q]
-            ]],
-    [Q,[[T, =>, $2, E]]],
-    
-    [M,[[M,$2],[M,$2,M],[M,;],[M,M]]]
-],
+- $M -> function \space T \space \$2 \space => \space \$2 \space E \space$ 
+- $M -> function \space T \space \$2 \space : \space T \space => \space \$2 \space E \space$ 
+- $M -> function \space T \space \$2 \space => \space \$2 \space b \space$ 
+- $M -> function \space T \space \$2 \space : \space T \space => \space \$2 \space b \space$ 
+- $M -> function \space T \space \$2 \space : \space T \space b \space$ 
+- $M -> function \space T \space \$2 \space b \space$
+- $M -> function \space T \space E \space$
+- $M -> function \space T \space => \space \$2 \space E \space$
+- $M -> T \space \$2 \space : \space Q \space$ 
+- $M -> T \space \$2 \space : \space E \space$ 
+- $M -> T \space \$2 \space : \space T \space b \space$
+- $M -> function \space T \space \$2 \space : \space Q$
+- $Q -> T \space => \$2 \space E$
+ - $M -> M \space \$2 \space | \space M \space \$2 \space M \space | \space M; | \space M M$
 
 # types
-[
-    [M, [[type,T,$2,b  ], [type,T,$2,inherits,T,$2,b],[type,T,b] , [type, T, inherits, T, b]]],
-    [T , [ [new,F] ]],
-],
+
+- $M -> \space type \space T \space \$2 \space b \space | \space type \space T \space \$2 \space inherits \space T \space \$2 \space b | \space type \space T \space b \space | \space type \space T \space inherits \space T \space b$
+
+- $T -> \space new \space F \space$
+
 
 # protocols
-[
-    [M , [[protocol,T,$2,b] ,[ protocol,T,$2,extends,T,$2,b],[protocol, T, b,],[protocol, T, extends, T, b,]]]
-    
-],
+
+- $M -> protocol \space T \space \$2 \space b$
+- $M -> protocol \space T \space \$2 \space extends \space T \space \$2 \space b$
+- $M -> protocol \space T \space b$
+- $M -> protocol \space T \space extends \space T \space b$
 
 # vector
-[
-    
-    [T , [ [,T,||,T , ]] , [ [ , p , ] ] , [T,[ , T , ] ]  ]],
-]
-]
+
+- $T -> [T||T] \space | \space [p] | \space T[T]$
 
 
 # Procedence
