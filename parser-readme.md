@@ -20,7 +20,7 @@
 - $O -> O \$2 E \space|\space E \$2 b  \space|\space E \$2 O \space|\space O \$2 | O; | E \$2 E | b \$2 b | O \$2 M$
 - $b -> \{ O \} \space|\space \{ E \} \space|\space \{ B \} \space|\space \{ \} \space|\space b \$2 \space| \space \{ b \} \space|\space \{ T \} $
 - $B -> b;$
-- $T -> T \$2$
+- $T -> T \$2 $
 - $E -> E \$2 \space|\space B$
 - $E -> \$2 ; \$3 | E;$
 - $b -> { M }$
@@ -44,7 +44,7 @@
 
 # booleans
 
-- $T -> T & T \space | \space  F & T \space | \space  T | T \space| \space F | T \space | \space  T != T  \space | \space  F != T  \space | \space T>T \space|\space  F>T  \space|\space T<T \space|\space F<T \space|\space  T<=T \space|\space F<=T \space|\space
+- $T -> T \& T \space | \space  F \& T \space | \space  T | T \space| \space F | T \space | \space  T != T  \space | \space  F != T  \space | \space T>T \space|\space  F>T  \space|\space T<T \space|\space F<T \space|\space  T<=T \space|\space F<=T \space|\space
             T>=T \space|\space F>=T \space|\space T==T \space|\space F==T \space|\space
             TisT \space|\space F\space is\space T $
 
