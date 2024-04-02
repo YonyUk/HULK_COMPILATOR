@@ -6,82 +6,81 @@
 
 # Function caLL
 
-- $F -> cP | cN | cT$
+- $F -> cP \space|\space cN \space|\space cT$
 - $P -> ( p )$
 - $T -> F$
 - $N ->( )$
 
 # Strings
 
-- $T -> T@T | F@T | T@@T | F@@T$
-- $E -> T@E | F@E | T@@E | F@@E$
+- $T -> T@T \space|\space F@T \space|\space T@@T \space|\space F@@T$
+- $E -> T@E \space|\space F@E \space|\space T@@E \space|\space F@@E$
 
 
 # Expression_block
 
-- $O -> EE | O\$2O | T\$2 O | OE | OB | O \$2 b | b \$2 E | ME | EM | OM | MO | OQ | Q \$2$
-- $O -> E \$2 M | M \$2 O$
-- $O -> O \$2 E | E \$2 b  | E \$2 O | O \$2 | O; | E \$2 E | b \$2 b | O \$2 M$
-- $b -> { O } | { E } | { B } | { } | b \$2 | { b } | { T }$
+- $O -> EE \space|\space O\$2O \space|\space T\$2 O \space|\space OE \space|\space OB \space|\space O \$2 b | b \$2 E \space|\space ME \space|\space EM \space|\space OM \space|\space MO \space|\space OQ \space|\space Q \$2$
+- $O -> E \$2 M \space|\space M \$2 O$
+- $O -> O \$2 E \space|\space E \$2 b  \space|\space E \$2 O \space|\space O \$2 | O; | E \$2 E | b \$2 b | O \$2 M$
+- $b -> { O } \space|\space { E } \space|\space { B } \space|\space { } \space|\space b \$2 \space|\space { b } \space|\space { T }$
 - $B -> b;$
 - $T -> T \$2$
-- $E -> E \$2 | B$
+- $E -> E \$2 \space|\space B$
 - $E -> \$2 ; \$3 | E;$
 - $b -> { M }$
 - $E -> T;$
-- $T -> T.E | F.E | T.T | F.T |$
+- $T -> T.E \space|\space F.E \space|\space T.T | F.T |$
 - $E -> T.E$
 
 # Literals
 
-- $T -> let T | T:T$
-- $E -> letE | T:E$
-- $p -> T \$2 T | T \$2 p$
+- $T -> let T \space|\space T:T$
+- $E -> letE \space|\space T:E$
+- $p -> T \$2 T \space|\space T \$2 p$
 - $T -> T:=T$
 - $E -> T:=E$
 - $T -> T=T$
 - $E -> T=E$
-- $T -> T as T | F as T | T as E$
+- $T -> T as T \space|\space F as T \space|\space T as E$
 - $E -> T as E$
 - $E -> T;\$2$
 - $T -> ( T )$
 
 # booleans
 
+- $T -> T \& T \space | \space  F \& T \space | \space  T | T \space| \space F | T \space | \space  T != T  \space | \space  F != T  \space | \space T>T \space|\space  F>T  \space|\space T<T \space|\space F<T \space|\space  T<=T \space|\space F<=T \space|\space
+            T>=T \space|\space F>=T \space|\space T==T \space|\space F==T \space|\space 
+            TisT \space|\space FisT $
     
-    [T , [[T,&,T] , [F,&,T] , [T,|,T] , [F,|,T]  , [T,!=,T] , [F,!=,T] , 
-            [T,>,T] , [F,>,T]  , [T,<,T] , [F,<,T]  , [T,<=,T] , [F,<=,T] ,
-            [T,>=,T] ,[F,>=,T] , [T,==,T] ,[F,==,T] , 
-            [T,is,T] , [F,is,T] ]],
-    
-    [E , [[T,&,E]  , [T,|,E]  , [T,!=,E] ,
-            [T,>,E]  , [T,<,E]  , [T,<=,E] ,
-            [T,>=,E] , [T,==,E] , 
-            [T,is,E] ]],
+- $E -> T\&E \space|\space T|E \space|\space T!=E \space|\space
+            T>E  \space|\space T<E \space|\space T<=E \space|\space
+            T>=E \space|\space T==E \space|\space 
+            TisE $
 
 # numbers
 
-    [T , [[T,+,T] , [T,+,T] , [T,-,T],[ T,*,T], [T,/,T],[T,/,T], [T,^,T], [T,%,T],[T,**,T]]],
-    [T , [[T,$2,+,T] , [T,$2,+,T] , [T,$2,-,T],[ T,$2,*,T], [T,$2,/,T],[T,$2,/,T], [T,$2,^,T], [T,$2,%,T],[T,$2,**,T]]],
-    [E , [[T,$2,+,E] , [T,$2,+,E] , [T,$2,-,E],[ T,$2,*,E], [T,$2,/,E],[T,$2,/,E], [T,$2,^,E], [T,$2,%,E],[T,$2,**,E]]],
-    [E , [[T,+,E], [F+E],[T,-,E],[ T,*,E], [T,/,E],[T,/,E], [T,^,E], [T,E]],
+- T -> $ T+T \space|\space T+T \space|\space T-T \space|\space  T*T \space|\space T/T \space|\space T/T \space|\space T^T \space|\space T\%T \space|\space T**T$
+- T -> $ T\$2+T \space|\space T\$2+T \space|\space T\$2-T \space|\space  T\$2*T \space|\space T\$2/T \space|\space T\$2/T \space|\space T\$2^T \space|\space T\$2\%T \space|\space T\$2**T$
+- E -> $ T\$2+E \space|\space T\$2+E \space|\space T\$2-E \space|\space  T\$2*E \space|\space T\$2/E \space|\space T\$2/E \space|\space T\$2^E \space|\space T\$2\%E \space|\space T\$2**E$
+- E -> $ T+E \space|\space F+E \space|\space T-E \space|\space  T*E \space|\space T/E \space|\space T/E \space|\space T^E \space|\space TE$
     
-    [T , [ [T,-=,T] ,[T,+=,T] ,[T,/=,T] ,[T,*=,T] , [T,--]  , [T,++]]],
-    [E , [ [T,-=,E] ,[T,+=,E] ,[T,/=,E] ,[T,*=,E] , [E,--] , [E,++] ],[E,**],[E,**,E]]],
+- T -> $ T-=T \space|\space T+=T \space|\space T/=T [T,*=,T] , [T,--]  , [T,++]]]$
+- T -> $ T-=T \space|\space T+=T \space|\space T/=T \space|\space T*=T \space|\space T-- \space|\space T++$
+- E -> $ T-=E \space|\space T+=E \space|\space T/=E \space|\space T*=E \space|\space E-- \space|\space E++ \space|\space E** \space|\space E**E$
 
 
 # IN
 
-    [p,[[p,$2]]],
-    [T, [[T,in,T] ,[T,$2,in,T],[p,$2,in,T],[p,$2,in,p], [p,in,T] , [p,in,p]]],
-    [T, [[T,$2]]],
-    [E, [[T,in,E], [T,$2,in,E] ,[T,in,b],[T,$2,in,b] ,[p,$2,in,E] ,[p,in,E],[p,in,b],[p,$2,in,b]]],
+- p -> $p\$2$
+- T -> $ TinT \space|\space T\$2inT \space|\space p\$2inT \space|\space p\$2inp \space|\space pinT \space|\space pinp$
+- T -> $ T\$2$
+- E -> $ TinE \space|\space T\$2inE \space|\space Tinb \space|\space T\$2inb \space|\space p\$2inE \space|\space pinE \space|\space pinb \space|\space p\$2inb $
        
 
 #  For
 
-    [E , [[for,T,$2,B] , [for,T,$2,E], [for,T,E]]],
-    [E, [ [for,T,$2,b]]],
+- E -> $ forT\$2B \space|\space forT\$2E \space|\space forTE$
+- E -> $ forT\$2b $
     
 
 # conditional
@@ -99,9 +98,8 @@
 
 # While
 
-    
-    [E , [[while,T,$2,B] , [while,T,$2,E],[while,T,E]]],
-    [E, [ [while,T,$2,b]]],
+- E ->  $whileT\$2B \space|\space whileT\$2E \space|\space whileTE$
+- $E -> $whileT$2b $
 
 
 # function
