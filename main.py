@@ -107,10 +107,11 @@ if not Error:
     
     my_list = tokens
         
-    print(my_list)
+    #print(my_list)
     
     gd_token= GRAMATIC_DEFINITION.traslator(my_list)
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -130,6 +131,9 @@ if not Error:
 =======
     print(gd_token)
 >>>>>>> f002039 (F added to productions)
+=======
+    #print(gd_token)
+>>>>>>> 4ce08ad (parser criteria)
 
     gp = GP.GrammarParser(GRAMATIC_DEFINITION.gramar,gd_token)
     

@@ -43,8 +43,8 @@ import GRAMATIC_DEFINITION as GD
 
 class GrammarParser(IRegEx,IShiftReduceParser):
     """
-    clase encargada de parsear una gramatica
-    
+    GRAMMATIC PARSING
+
     """
     operator_procedence =[
         
@@ -293,6 +293,7 @@ class GrammarParser(IRegEx,IShiftReduceParser):
         ->  1: grater procedence
         -> -1: lower procedence        
         '''
+        
         if pivote == "(" : return 0
         if pivote == "{" : return 0
         if pivote == "[" : return 0
@@ -331,8 +332,8 @@ class GrammarParser(IRegEx,IShiftReduceParser):
         
         return False
     
-    # the pointer has the structure ( "index" in code , operator "item" )
-    pointer=[( 0 ,"$1")]
+    # the stack_pointer has the structure ( "index" in code , operator "item" )
+    stack_pointer=[( 0 ,"$1")]
     best_match = 0
     
     def match(self , target:list , derivation:list ):
@@ -364,16 +365,16 @@ class GrammarParser(IRegEx,IShiftReduceParser):
         return shift if not an operator (True)
         
         '''    
-        if len(self.pointer) == 0:
+        if len(self.stack_pointer) == 0:
             return True
         
         if self.is_operator(pivot):
             
-            result = self.compare_procedence( pivot , self.pointer[next_point][1] )
+            result = self.compare_procedence( pivot , self.stack_pointer[next_point][1] )
 
             if result == 0 or result == 1 :
 
-                self.pointer.append((index_pointer,pivot))
+                self.stack_pointer.append((index_pointer,pivot))
 
                 return True
             
@@ -397,7 +398,7 @@ class GrammarParser(IRegEx,IShiftReduceParser):
             
         self.best_match =0
         
-        sub_stack = stack[ self.pointer[next_point][0] : ]
+        sub_stack = stack[ self.stack_pointer[next_point][0] : ]
         
         best_match=[]
         
@@ -449,6 +450,10 @@ class GrammarParser(IRegEx,IShiftReduceParser):
         
         return stack,new_pointer
     
+    def parsed_code(self,stack):
+            
+        return len(stack) == 3 and (stack[1] == "E" or stack[1] == "b" )
+    
     def gradient_parser(self,gramar,stack:list , code ):        
         '''
         parse the string using gradient parser
@@ -460,26 +465,26 @@ class GrammarParser(IRegEx,IShiftReduceParser):
         
         while index_pointer <  len(code) :
             
-            next_point =- 1
+            next_pointer =- 1
             
             shift = self._shift_reduce( pivot= code[index_pointer] ,index_pointer= len(stack) ,next_point= -1 ) # determines action | shift or reduce
                     
             while not shift:
                 
-                stack , modified = self.reduce_stack(stack ,gramar , next_point ) # try to reduce 
+                stack , modified = self.reduce_stack(stack ,gramar , next_pointer ) # try to reduce 
         
                 if not modified: # verify any change in the stack
                     
-                    next_point -=1 # check agin for reduction but using another pointer in the stack pointer
-                    shift = self._shift_reduce( pivot= code[index_pointer] ,index_pointer = len(stack) , next_point= next_point ) 
+                    next_pointer -=1 # check agin for reduction but using another pointer in the stack pointer
+                    shift = self._shift_reduce( pivot= code[index_pointer] ,index_pointer = len(stack) , next_point= next_pointer ) 
                 
                 else: 
                     
-                    next_point =- 1 # if reduction was made , restart pointer in the stack pointer
+                    next_pointer =- 1 # if reduction was made , restart pointer in the stack pointer
 
-                    stack,self.pointer = self.reduce_pointer( self.pointer ,stack) # reduce the stack pointer
+                    stack,self.stack_pointer = self.reduce_pointer( self.stack_pointer ,stack) # reduce the stack pointer
                     
-                    shift = shift = self._shift_reduce( pivot= code[index_pointer] ,index_pointer = len(stack) , next_point= next_point ) # check again | shift or reduce
+                    shift = shift = self._shift_reduce( pivot= code[index_pointer] ,index_pointer = len(stack) , next_point= next_pointer ) # check again | shift or reduce
                 
 <<<<<<< HEAD
                 else: shift = False
@@ -510,7 +515,7 @@ class GrammarParser(IRegEx,IShiftReduceParser):
 >>>>>>> 9249b2b (comment added)
             index_pointer += 1
     
-        return stack
+        return self.parsed_code(stack)
     
     def Reduce_AST(self):
         
