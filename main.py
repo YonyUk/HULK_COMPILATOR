@@ -135,7 +135,7 @@ if not Error:
     #print(gd_token)
 >>>>>>> 4ce08ad (parser criteria)
 
-    gp = GP.GrammarParser(GRAMATIC_DEFINITION.gramar,gd_token)
+    gp = GP.GrammarParser(GRAMATIC_DEFINITION.gramar,gd_token, my_list )
     
     
 #_________________________SEMANTIC CHEKING__________________________________

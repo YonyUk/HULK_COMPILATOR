@@ -15,6 +15,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 10+20*(4+e);
 =======
 let a: number = 10 as Hola in print(Hola);
@@ -158,3 +159,7 @@ let squares = [x^2 || x in range(1,10)] in print(x);
 =======
 };
 >>>>>>> 4ce08ad (parser criteria)
+=======
+
+print(42);
+>>>>>>> ae2415e (assembling ast structure to parser)

@@ -93,13 +93,19 @@
     
     [E,[[elif,else,E],[elif,else,b],[elif,else,B]]],
     
-    [T,[[elif,else,T],[if, else, T]]],
+- $T -> elif \space else \space T | if \space else \space T$
     
 
 # While
 
+<<<<<<< HEAD
 - E ->  $whileT\$2B \space|\space whileT\$2E \space|\space whileTE$
 - $E -> $whileT$2b $
+=======
+    
+- $E -> while \space T \space \$2 \space B | while \space T \space \$2 \space E \space | \space while \space T \space E \space$
+- $E -> while \space T \space \$2 \space b$
+>>>>>>> ae2415e (assembling ast structure to parser)
 
 
 # function

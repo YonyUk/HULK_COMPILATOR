@@ -39,7 +39,11 @@ class GrammarParser(IRegEx,IShiftReduceParser):
 >>>>>>> 6da4297 (translator moved from GrammarParser)
 =======
 import GRAMATIC_DEFINITION as GD
+<<<<<<< HEAD
 >>>>>>> 49a3f4f (grammar modified extensifly)
+=======
+import DerivationTree
+>>>>>>> ae2415e (assembling ast structure to parser)
 
 class GrammarParser(IRegEx,IShiftReduceParser):
     """
@@ -74,16 +78,17 @@ class GrammarParser(IRegEx,IShiftReduceParser):
         ["$1","$3"],
     ]
     
-    def __init__(self,grammar,code):
+    def __init__(self,grammar,code, code_in_token ):
 
         self._grammar = grammar
         self._error = None
         self._match = False
         self._stack = []
         
-        result = self.gradient_parser(grammar,self._stack,code)
+        parsed_code = self.gradient_parser(grammar,self._stack,code)
         
-        print(result)
+        if not parsed_code:
+            self.Error = True
         
         pass
     
@@ -173,6 +178,7 @@ class GrammarParser(IRegEx,IShiftReduceParser):
     def Restart(self):        
         pass
     
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> 849d64d (translator moved from GrammarParser)
@@ -284,6 +290,14 @@ class GrammarParser(IRegEx,IShiftReduceParser):
     def compare_procedence(self , operator1 , operator2):
 >>>>>>> 6da4297 (translator moved from GrammarParser)
 =======
+=======
+    @property
+    def check_point(self,last_reduction):
+        self.last_reduction = last_reduction
+        
+        return self.last_reduction
+    
+>>>>>>> ae2415e (assembling ast structure to parser)
     def compare_procedence(self , pivote , pointer):
 >>>>>>> b8678ef (parser almost finished)
         
@@ -426,7 +440,7 @@ class GrammarParser(IRegEx,IShiftReduceParser):
             index += 1
             
         if len(best_match) > 0:
-
+            
             new_stack = self.remove_item_stack(stack=stack , pop_number= pop_number )
             
             new_stack.append(best_match)
@@ -517,7 +531,15 @@ class GrammarParser(IRegEx,IShiftReduceParser):
     
         return self.parsed_code(stack)
     
-    def Reduce_AST(self):
+    @property
+    def derivation_tree(self,new_node_info):
+        
+        '''
+        pattern to follow -> existing tree is child of the new node
+        '''
+        
+        new_node = DerivationTree()
+        
         
         
         pass

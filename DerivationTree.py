@@ -1,6 +1,7 @@
 from EnumsTokensDefinition import TokenType,Type
 from HULK_LANGUAGE_DEFINITION import KEYWORD_VALUES,SIMBOL_VALUES,OPERATOR_VALUES
 from enum import Enum
+from TokensDefinition import SimbolToken,OperatorToken,LiteralToken
 
 class NodeType(Enum):
 
@@ -16,7 +17,7 @@ class NodeType(Enum):
 
 class DerivationTree:
     """
-    Clase que define al arbol de derivacion de una gramatica
+        Clase que define al arbol de derivacion de una gramatica
         token: Token
         childs: list(DerivationTree)
         builder: constructor de la clase de nodo AST que devolvera
@@ -196,3 +197,29 @@ class ASTNode:
         return t
     
     pass
+
+class builder:
+    
+    
+    pass
+
+# a = LiteralToken('5',Type.Number)
+# b = LiteralToken('10',Type.Number)
+# c = LiteralToken('20',Type.Number)
+# lp = SimbolToken('(')
+# rp = SimbolToken(')')
+
+# plus = OperatorToken('+')
+# minus = OperatorToken('-')
+
+# A = DerivationTree(a,[],lambda token: ASTNode(int(token.Text)))
+# B = DerivationTree(b,[],lambda token: ASTNode(int(token.Text)))
+# Plus = DerivationTree(plus,[A,B],lambda token: token)
+
+# LP = DerivationTree(lp,[],lambda token: token)
+# RP = DerivationTree(rp,[],lambda token: token)
+# E = DerivationTree('e',[LP,Plus,RP],lambda token: token)
+# C = DerivationTree(c,[],lambda token: ASTNode(int(token.Text)))
+# Minus = DerivationTree(minus,[C,E],lambda token: token)
+
+# ast = Minus.AST
