@@ -412,7 +412,7 @@ class GrammarParser(IRegEx,IShiftReduceParser):
                 
                 for sub_production in productions:
                     
-                    for derivation in sub_production[1]: # walk for each derivation and try to reduce
+                    for derivation in sub_production[1]: # walk through each derivation and stay with the longer prefix that matches
                         
                         new_best_match = self.match(target,derivation)
                         
@@ -434,7 +434,7 @@ class GrammarParser(IRegEx,IShiftReduceParser):
         
         return stack , False
     
-    def reduce_pointer( self , pointer:list , stack:list ):
+    def reduce_pointer( self , pointer:list , stack:list ): # pop all pointer which where reduced
         
         pointer.reverse()
         
@@ -461,27 +461,25 @@ class GrammarParser(IRegEx,IShiftReduceParser):
         while index_pointer <  len(code) :
             
             next_point =- 1
-                
-            shift = self._shift_reduce( pivot= code[index_pointer] ,index_pointer= len(stack) ,next_point= -1 )
+            
+            shift = self._shift_reduce( pivot= code[index_pointer] ,index_pointer= len(stack) ,next_point= -1 ) # determines action | shift or reduce
                     
             while not shift:
                 
-                stack , modified = self.reduce_stack(stack ,gramar , next_point )
+                stack , modified = self.reduce_stack(stack ,gramar , next_point ) # try to reduce 
         
-                if not modified:
+                if not modified: # verify any change in the stack
                     
-                    next_point -=1
-                    shift = self._shift_reduce( pivot= code[index_pointer] ,index_pointer = len(stack) , next_point= next_point )
+                    next_point -=1 # check agin for reduction but using another pointer in the stack pointer
+                    shift = self._shift_reduce( pivot= code[index_pointer] ,index_pointer = len(stack) , next_point= next_point ) 
                 
                 else: 
                     
-                    next_point =- 1
+                    next_point =- 1 # if reduction was made , restart pointer in the stack pointer
 
-                    stack,self.pointer = self.reduce_pointer( self.pointer ,stack)
+                    stack,self.pointer = self.reduce_pointer( self.pointer ,stack) # reduce the stack pointer
                     
-                    print(stack)
-                    
-                    shift = shift = self._shift_reduce( pivot= code[index_pointer] ,index_pointer = len(stack) , next_point= next_point )
+                    shift = shift = self._shift_reduce( pivot= code[index_pointer] ,index_pointer = len(stack) , next_point= next_point ) # check again | shift or reduce
                 
 <<<<<<< HEAD
                 else: shift = False
@@ -504,8 +502,12 @@ class GrammarParser(IRegEx,IShiftReduceParser):
             
 =======
             stack.append( code[index_pointer] )
+<<<<<<< HEAD
             print(stack)
 >>>>>>> b8678ef (parser almost finished)
+=======
+            
+>>>>>>> 9249b2b (comment added)
             index_pointer += 1
     
         return stack
