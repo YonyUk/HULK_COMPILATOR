@@ -136,7 +136,8 @@ class ASTNode:
         Checker debe recibir por parametros al valor de este nodo, sus hijos y
         un diccionario con el contexto hasta el
         Ambos, el Resolver y el Checker deben devolver una tupla donde el primer
-        valor es el resultado y el segundo el erro en caso de ocurrir
+        valor es el resultado y el segundo el error en caso de ocurrir
+        
     """
     
     Childs = []
@@ -169,7 +170,9 @@ class ASTNode:
         returna true si esta correcta, false,Error en otro caso donde Error es el error lanzado
         si no se paso ningun checker como parametro retornara true siempre
         el checker debe devolver una tupla donde el primer valor es el resultado y el segundo el error en caso de existir
+        
         """
+        
         if self.Checker == None:
             return True,None
         return self.Checker(self.Value,self.Childs,self.Context)
@@ -178,9 +181,11 @@ class ASTNode:
     def Result(self):
         """
         ejecuta la orden almacenada en este nodo y devuelve el resultado
-        si no se paso ningun resolver como parametro retornara el valor asociado al nodo
-        el resolver debe devolver una tupla donde el primer valor es el resultado, el segundo es el error en caso de existir
+        si no se paso ningun "resolver" como parametro , retornara el valor asociado al nodo.
+        El resolver debe devolver una tupla donde el primer valor es el resultado, el segundo es el error en caso de existir
+        
         """
+        
         if self.Resolver == None:
             return self.Value
         return self.Resolver(self.Value,self.Childs,self.Context)
@@ -200,26 +205,47 @@ class ASTNode:
 
 class builder:
     
+    '''
+    -> This class has to return the AST for each kw ,literal and symbol 
+    
+    -> This is useful for AST contruction from parser.
+    
+    -> The "builder feature" is the function that know how to return a feature AST
+    
+    e.j:
+    
+    a = LiteralToken('5',Type.Number)
+    b = LiteralToken('10',Type.Number)
+    c = LiteralToken('20',Type.Number)
+    lp = SimbolToken('(')
+    rp = SimbolToken(')')
+
+    plus = OperatorToken('+')
+    minus = OperatorToken('-')
+
+    A = DerivationTree(a,[],lambda token: ASTNode(int(token.Text)))
+    B = DerivationTree(b,[],lambda token: ASTNode(int(token.Text)))
+    Plus = DerivationTree(plus,[A,B],lambda token: token)
+
+    LP = DerivationTree(lp,[],lambda token: token)
+    RP = DerivationTree(rp,[],lambda token: token)
+    E = DerivationTree('e',[LP,Plus,RP],lambda token: token)
+    C = DerivationTree(c,[],lambda token: ASTNode(int(token.Text)))
+    Minus = DerivationTree(minus,[C,E],lambda token: token)
+
+    ast = Minus.AST
+
+    In this case, this function : "lambda token: ASTNode(int(token.Text))"  
+    returns an ASTNode class of a literal, with no "resolver" and no checker , because it is just a literal,
+    as you can see it just has value specified in its "args" , and the same happend for the rest of the cases
+    
+    __YOUR TASK__:
+    
+    -> For features like blocks you need to implement its "checker" for "type inference", and it resolver in order to
+       minimize it nodes to build the final AST of its node.
+    
+    note: blocks type is infered from it "last operation".
+    
+    '''
     
     pass
-
-# a = LiteralToken('5',Type.Number)
-# b = LiteralToken('10',Type.Number)
-# c = LiteralToken('20',Type.Number)
-# lp = SimbolToken('(')
-# rp = SimbolToken(')')
-
-# plus = OperatorToken('+')
-# minus = OperatorToken('-')
-
-# A = DerivationTree(a,[],lambda token: ASTNode(int(token.Text)))
-# B = DerivationTree(b,[],lambda token: ASTNode(int(token.Text)))
-# Plus = DerivationTree(plus,[A,B],lambda token: token)
-
-# LP = DerivationTree(lp,[],lambda token: token)
-# RP = DerivationTree(rp,[],lambda token: token)
-# E = DerivationTree('e',[LP,Plus,RP],lambda token: token)
-# C = DerivationTree(c,[],lambda token: ASTNode(int(token.Text)))
-# Minus = DerivationTree(minus,[C,E],lambda token: token)
-
-# ast = Minus.AST

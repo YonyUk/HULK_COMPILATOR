@@ -1,6 +1,6 @@
 from Token import Token
 from Utils import isNumeric
-from TokenInterfaces import IKeywordToken,ILiteralToken,ISimbolToken,IOperatorToken,IVariableToken
+from TokenInterfaces import IKeywordToken,ILiteralToken,ISymbolToken,IOperatorToken,IVariableToken
 from EnumsTokensDefinition import Keyword,KeywordType,Type,Operator,OperatorType,TokenType,Simbol,SimbolType,OPERATORS_DICT,KEYWORDS_DICT,SIMBOLS_DICT
 from HULK_LANGUAGE_DEFINITION import KEYWORD_CONDITIONALS,KEYWORD_DECLARATORS,KEYWORD_FUNCTIONS,KEYWORD_LOOPS,KEYWORD_VALUES,OPERATORS_UNARY,OPERATORS_TERNARY,SIMBOL_AGRUPATORS,SIMBOL_ACCESORS,SIMBOL_DECLARATORS,SIMBOL_VALUES,OPERATOR_VALUES,OPERATOR_RESOLVERS
 
@@ -121,7 +121,7 @@ class OperatorToken(Token,IOperatorToken):
     
     pass
 
-class SimbolToken(Token,ISimbolToken):
+class SimbolToken(Token,ISymbolToken):
     
     def __init__(self,Text):
         super().__init__(Text)

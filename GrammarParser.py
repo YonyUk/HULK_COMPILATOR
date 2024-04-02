@@ -440,6 +440,8 @@ class GrammarParser(IRegEx,IShiftReduceParser):
             index += 1
             
         if len(best_match) > 0:
+
+            
             
             new_stack = self.remove_item_stack(stack=stack , pop_number= pop_number )
             
