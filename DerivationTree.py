@@ -290,6 +290,9 @@ class ASTNode:
 
 class builder:
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 0c73336 (working on builder)
     def __init__(self, token_list):
         """Recibimos la lista de tokens"""
         self._token_list = token_list
@@ -342,6 +345,11 @@ class builder:
             )
             pass
 
+<<<<<<< HEAD
+=======
+        # check for the rest of the childs of this node if they are of the same type
+
+>>>>>>> 0c73336 (working on builder)
         pass
 
     class ASTLabel:
@@ -370,6 +378,11 @@ class builder:
             )
             pass
 
+<<<<<<< HEAD
+=======
+    pass
+
+>>>>>>> 0c73336 (working on builder)
     class ASTProtocol:
         def __init__(self, protocol, label, body):
             self._protocol = protocol
@@ -383,6 +396,7 @@ class builder:
                 {"Resolve": self.Resolve(), "Type": Keyword.Protocol},
             )
 
+<<<<<<< HEAD
     pass
 
     """
@@ -391,6 +405,9 @@ class builder:
     '''
     
 >>>>>>> ba41d7d (hard-coded Parser-AST)
+=======
+    """
+>>>>>>> 0c73336 (working on builder)
     -> This class has to return the AST for each kw ,literal and symbol 
     
     -> This is useful for AST construction from parser.
@@ -432,6 +449,9 @@ class builder:
     note: blocks type is infered from it "last operation".
     
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 0c73336 (working on builder)
     """
 
     pass
