@@ -78,12 +78,13 @@ class GrammarParser(IRegEx,IShiftReduceParser):
         ["$1","$3"],
     ]
     
-    def __init__(self,grammar,code, code_in_token ):
+    def __init__(self,grammar,code ):
 
         self._grammar = grammar
         self._error = None
         self._match = False
         self._stack = []
+        self.derivation_Tree: DerivationTree.DerivationTree = None
         
         parsed_code = self.gradient_parser(grammar,self._stack,code)
         
@@ -359,7 +360,7 @@ class GrammarParser(IRegEx,IShiftReduceParser):
 
         while index < len(derivation) :
             
-            if target[index] != derivation[index]: return False
+            if target[index][0] != derivation[index]: return False
             
             index += 1
         
@@ -396,7 +397,7 @@ class GrammarParser(IRegEx,IShiftReduceParser):
                 return False
         
         return True
-
+    
     def remove_item_stack(self , stack:list ,pop_number):
         
         i=0
@@ -441,15 +442,31 @@ class GrammarParser(IRegEx,IShiftReduceParser):
             
         if len(best_match) > 0:
 
-            
+            token_list = self.match_derivation_token( best_match , stack[ len(stack)- pop_number :] )
+
+            new_derivation_tree = self.derivation_tree(best_match,token_list)
             
             new_stack = self.remove_item_stack(stack=stack , pop_number= pop_number )
             
-            new_stack.append(best_match)
+            new_stack.append(( best_match , new_derivation_tree ))
             
             return new_stack , True
         
         return stack , False
+    
+    def match_derivation_token(self, label ,reduced_token):
+        
+        token_list = []
+        
+        for item in reduced_token:
+            
+            
+            if item[0] == "$1" or item[0] == "$2" or item[0] == "$3":
+                continue
+    
+            token_list.append(item[1])
+        
+        return ( label, token_list )
     
     def reduce_pointer( self , pointer:list , stack:list ): # pop all pointer which where reduced
         
@@ -468,7 +485,7 @@ class GrammarParser(IRegEx,IShiftReduceParser):
     
     def parsed_code(self,stack):
             
-        return len(stack) == 3 and (stack[1] == "E" or stack[1] == "b" )
+        return len(stack) == 3 and (stack[1][0] == "E" or stack[1][0] == "b" )
     
     def gradient_parser(self,gramar,stack:list , code ):        
         '''
@@ -483,7 +500,7 @@ class GrammarParser(IRegEx,IShiftReduceParser):
             
             next_pointer =- 1
             
-            shift = self._shift_reduce( pivot= code[index_pointer] ,index_pointer= len(stack) ,next_point= -1 ) # determines action | shift or reduce
+            shift = self._shift_reduce( pivot= code[index_pointer][0] ,index_pointer= len(stack) ,next_point= -1 ) # determines action | shift or reduce
                     
             while not shift:
                 
@@ -492,7 +509,7 @@ class GrammarParser(IRegEx,IShiftReduceParser):
                 if not modified: # verify any change in the stack
                     
                     next_pointer -=1 # check agin for reduction but using another pointer in the stack pointer
-                    shift = self._shift_reduce( pivot= code[index_pointer] ,index_pointer = len(stack) , next_point= next_pointer ) 
+                    shift = self._shift_reduce( pivot= code[index_pointer][0] ,index_pointer = len(stack) , next_point= next_pointer ) 
                 
                 else: 
                     
@@ -500,7 +517,7 @@ class GrammarParser(IRegEx,IShiftReduceParser):
 
                     stack,self.stack_pointer = self.reduce_pointer( self.stack_pointer ,stack) # reduce the stack pointer
                     
-                    shift = shift = self._shift_reduce( pivot= code[index_pointer] ,index_pointer = len(stack) , next_point= next_pointer ) # check again | shift or reduce
+                    shift = shift = self._shift_reduce( pivot= code[index_pointer][0] ,index_pointer = len(stack) , next_point= next_pointer ) # check again | shift or reduce
                 
 <<<<<<< HEAD
                 else: shift = False
@@ -534,15 +551,19 @@ class GrammarParser(IRegEx,IShiftReduceParser):
         return self.parsed_code(stack)
     
     @property
-    def derivation_tree(self,new_node_info):
+    def derivation_tree(self, label , token_list):
         
         '''
         pattern to follow -> existing tree is child of the new node
         '''
         
+<<<<<<< HEAD
         new_node = DerivationTree()
         
         
         
         pass
 >>>>>>> 6da4297 (translator moved from GrammarParser)
+=======
+        return DerivationTree.builder( label , token_list )
+>>>>>>> ba41d7d (hard-coded Parser-AST)

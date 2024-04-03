@@ -18,11 +18,22 @@ class NodeType(Enum):
 
 
 class DerivationTree:
+    
     """
+<<<<<<< HEAD
     Clase que define al arbol de derivacion de una gramatica
     token: Token
     childs: list(DerivationTree)
     builder: constructor de la clase de nodo AST que devolvera
+=======
+        This class defines the derivation tree of a grammar
+
+        token: Token
+        childs: list(DerivationTree)
+        
+        builder: constructor of the AST node class that will return
+        
+>>>>>>> ba41d7d (hard-coded Parser-AST)
     """
 
     def __init__(self, token, childs):
@@ -30,14 +41,17 @@ class DerivationTree:
         self._token = token
         self._childs = childs
         self._builder = builder
+        
         pass
 
     @property
     def IsLeaf(self):
+        
         return len(self._childs) == 0
 
     @property
     def Childs(self):
+<<<<<<< HEAD
         return [
             child
             for child in self._childs
@@ -52,30 +66,51 @@ class DerivationTree:
             or OPERATOR_VALUES.count(self.Text) > 0
         )
 
+=======
+        
+        return [child for child in self._childs if not child.Type == TokenType.Simbol and not len(child.Text) == 0]
+    
+    @property
+    def IsRelevant(self):
+        
+        return KEYWORD_VALUES.count(self.Text) > 0 or SIMBOL_VALUES.count(self.Text) > 0 or OPERATOR_VALUES.count(self.Text) > 0
+    
+>>>>>>> ba41d7d (hard-coded Parser-AST)
     @property
     def Type(self):
+        
         try:
             return self._token.Type
+        
         except Exception:
             return Type.NONE
+<<<<<<< HEAD
         pass
 
+=======
+    
+>>>>>>> ba41d7d (hard-coded Parser-AST)
     @property
     def Text(self):
+
         try:
             return self._token.Text
+
         except Exception:
             return self._token
 
     @property
     def Token(self):
+
         return self._token
 
     @property
     def ASTNode(self):
+
         return self._builder(self._token)
 
     @property
+    
     def AST(self):
         """
         retorna el AST asociado
@@ -147,6 +182,7 @@ class DerivationTree:
 
 
 class ASTNode:
+
     """
     Clase que define los nodos del AST
         token: Token
@@ -200,14 +236,23 @@ class ASTNode:
     @property
     def Result(self):
         """
+<<<<<<< HEAD
         ejecuta la orden almacenada en este nodo y devuelve el resultado
         si no se paso ningun "resolver" como parametro , retornara el valor asociado al nodo.
         El resolver debe devolver una tupla donde el primer valor es el resultado, el segundo es el error en caso de existir
 
+=======
+        Execute the command stored in this node and return the result. 
+        If no "resolver" is passed as a parameter, it will return the value associated with the node.
+        The resolver must return a tuple where the first value is the result,
+        and the second is the error in case it exists.
+        
+>>>>>>> ba41d7d (hard-coded Parser-AST)
         """
 
         if self.Resolver == None:
             return self.Value
+<<<<<<< HEAD
         return self.Resolver(self.Value, self.Childs, self.Context)
 
     @property
@@ -219,13 +264,32 @@ class ASTNode:
         for i in range(1, len(self.Childs)):
             if not self.Childs[i].Type == t:
                 return Type.NONE
+=======
+
+        return self.Resolver(self.Value,self.Childs,self.Context) # return type -> ( value , error )
+    
+    @property
+    def Type(self):
+        
+        if len(self.Childs) == 0:   # if no node , return value type
+            return type(self.Value)
+        
+        t = type(self.Childs[0]) # if at least one node, return the type of the first node
+        
+        for i in range(1,len(self.Childs)):   # check for the rest of the childs of this node if they are of the same type
+        
+            if not self.Childs[i].Type == t: return Type.NONE
+        
+>>>>>>> ba41d7d (hard-coded Parser-AST)
             pass
+        
         return t
 
     pass
 
 
 class builder:
+<<<<<<< HEAD
     def __init__(self, token_list):
         """Recibimos la lista de tokens"""
         self._token_list = token_list
@@ -322,6 +386,11 @@ class builder:
     pass
 
     """
+=======
+    
+    '''
+    
+>>>>>>> ba41d7d (hard-coded Parser-AST)
     -> This class has to return the AST for each kw ,literal and symbol 
     
     -> This is useful for AST construction from parser.
@@ -362,6 +431,13 @@ class builder:
     
     note: blocks type is infered from it "last operation".
     
+<<<<<<< HEAD
     """
 
     pass
+=======
+    '''
+    def __init__(self, label , token_list):
+        pass
+    pass
+>>>>>>> ba41d7d (hard-coded Parser-AST)

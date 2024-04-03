@@ -1,5 +1,6 @@
 import HULK_LANGUAGE_DEFINITION as HK
 
+
 gramar =[
 
 
@@ -151,24 +152,27 @@ gramar =[
 
 ]
 
-
 def traslator(token_list):
     
-    parse_list=["$1"]
-    parse_list.append("$2")
+    import DerivationTree as DT
+    
+    parse_list=[("$1",None)]
+    parse_list.append(("$2",None))
     
     index=0
     while index < len(token_list ):
         
-        if token_list[index] =="'" or token_list[index] == "\"" : 
+        if token_list[index].Text =="'" or token_list[index].Text == "\"" : 
             
             index1 = index + 1
             while index1 < len(token_list):
                 
                 if token_list[index1] == "'" or token_list[index1] == "\"" :
-                    parse_list.append("T")
+                
+                    parse_list.append(("T", DT.builder(token_list[index1],None) ) )
                     index = index1
                     index += 1
+                
                     break
                 
                 index1 +=1
@@ -176,27 +180,27 @@ def traslator(token_list):
         kw = False                    
         for arg in HK.SYMBOLS_and_OPERATORS_parser:            
             
-            if token_list[index] == arg:
+            if token_list[index].Text == arg:
             
                 if arg == "in":
-                    parse_list.append("$2")
+                    parse_list.append(("$2",None))
                     
-                parse_list.append(token_list[index])
+                parse_list.append((token_list[index],DT.builder(token_list[index1],None)))
                 
                 if arg == ";" or arg == ")" or arg == "}" or arg == "]" or arg == "," or arg == "=>":
-                    parse_list.append("$2")
+                    parse_list.append(("$2",None))
                 
                 kw =True
                 break
             
         if not kw:
-            if index + 1 < len(token_list) and token_list[index + 1 ] == "(" :
-                parse_list.append("c")
+            if index + 1 < len(token_list) and token_list[index + 1 ].Text == "(" :
+                parse_list.append(("c", DT.builder(token_list[index1],None)))
             
             else:
-                parse_list.append("T")
+                parse_list.append(("T", DT.builder(token_list[index1],None)))
         index += 1
     
-    parse_list.append("$3")
+    parse_list.append(("$3",None))
     
     return parse_list

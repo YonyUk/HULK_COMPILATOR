@@ -103,7 +103,7 @@ print(gd_token)
 # go to parse
 if not Error:
     
-    tokens = [str(token) for token in my_list if token.Text != '\n' and token.Text != ' ']
+    tokens = [token for token in my_list if token.Text != '\n' and token.Text != ' ']
     
     my_list = tokens
         
@@ -135,7 +135,7 @@ if not Error:
     #print(gd_token)
 >>>>>>> 4ce08ad (parser criteria)
 
-    gp = GP.GrammarParser(GRAMATIC_DEFINITION.gramar,gd_token, my_list )
+    gp = GP.GrammarParser(GRAMATIC_DEFINITION.gramar,gd_token )
     
     
 #_________________________SEMANTIC CHEKING__________________________________

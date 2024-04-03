@@ -130,11 +130,13 @@ def AskOperatorResolver(boolean,a,b):
     """
     Si se cumple la condicion \'boolean\' se retorna a, en otro caso se retorna b
     """
+    
     if not type(boolean) == bool: raise Exception(f'{boolean} debe ser un valor booleano')
     if boolean: return a
     return b
 
 def ConcatOperatorResolver(a,b):
+
     return str(a) + ' ' + str(b)
 
 def IsOperatorResolver(a,b):

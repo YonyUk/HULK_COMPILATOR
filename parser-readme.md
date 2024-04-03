@@ -55,10 +55,21 @@
 
 # numbers
 
+<<<<<<< HEAD
 - $T ->  T+T \space|\space T+T \space|\space T-T \space|\space  T*T \space|\space T/T \space|\space T/T \space|\space T^T \space|\space T\%T \space|\space T**T$
 - $T ->  T\$2+T \space|\space T\$2+T \space|\space T\$2-T \space|\space  T\$2*T \space|\space T\$2/T \space|\space T\$2/T \space|\space T\$2^T \space|\space T\$2\%T \space|\space T\$2**T$
 - $E ->  T\$2+E \space|\space T\$2+E \space|\space T\$2-E \space|\space  T\$2*E \space|\space T\$2/E \space|\space T\$2/E \space|\space T\$2^E \space|\space T\$2\%E \space|\space T\$2**E$
 - $E ->  T+E \space|\space F+E \space|\space T-E \space|\space  T*E \space|\space T/E \space|\space T/E \space|\space T^E \space|\space TE$
+=======
+- $T ->  T+T \space | \space T+T \space|\space T-T \space|\space  T*T \space|\space T/T \space|\space T/T \space|\space T^T \space|\space T\%T \space| \space T**T$
+- $T ->  T\$2+T \space|\space T\$2+T \space|\space T\$2-T \space|\space  T\$2*T \space|\space T\$2/T \space|\space T\$2/T \space|\space T\$2^T \space|\space T\$2\%T \space|\space T\$2**T$
+- $E ->  T\$2+E \space|\space T\$2+E \space|\space T\$2-E \space|\space  T\$2*E \space|\space T\$2/E \space|\space T\$2/E \space|\space T\$2^E \space|\space T\$2\%E \space|\space T\$2**E$
+- E -> $ T+E \space|\space F+E \space|\space T-E \space|\space  T*E \space|\space T/E \space|\space T/E \space|\space T^E \space|\space TE$
+    
+- T -> $ T-=T \space|\space T+=T \space|\space T \space /= \space T \space | T \space *= \space T  | T \space --  | T \space ++$
+- T -> $ T-=T \space|\space T+=T \space|\space T/=T \space|\space T*=T \space|\space T-- \space|\space T++$
+- E -> $ T-=E \space|\space T+=E \space|\space T/=E \space|\space T*=E \space|\space E-- \space|\space E++ \space|\space E** \space|\space E**E$
+>>>>>>> aa6bc11 (hard-coded Parser-AST)
 
 - $T ->  T-=T \space|\space T+=T \space|\space T/=T [T,*=,T] , [T,--]  , [T,++]]]$
 - $T ->  T-=T \space|\space T+=T \space|\space T/=T \space|\space T*=T \space|\space T-- \space|\space T++$

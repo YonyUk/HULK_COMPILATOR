@@ -6,9 +6,12 @@ from EnumIntermediateCodeDefinitions import IntermediateCodeType, ExpressionType
 class DataNode(IDataCodeGenerator):
     
     def __init__(self,data,name):
+        
         if not type(data) == str:
             raise Exception('los datos almacenados solo pueden ser de tipo string')
+        
         self._data = data
+        
         if not type(name) == str:
             raise Exception('La propiedad "name" debe ser string')
         self._name = name
@@ -88,7 +91,9 @@ class BinaryExpressionNode(IExpressionCodeGenerator):
     
     @property
     def Value(self):
+        
         Id = hex(hash(f'{self._left.Value}_{self._operator}_{self._right.Value}'))
+        
         return Id.split('x')[1]
     
     @property
