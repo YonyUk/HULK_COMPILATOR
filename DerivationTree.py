@@ -1,7 +1,8 @@
-from EnumsTokensDefinition import TokenType,Type
-from HULK_LANGUAGE_DEFINITION import KEYWORD_VALUES,SIMBOL_VALUES,OPERATOR_VALUES
+from EnumsTokensDefinition import TokenType, Type, Keyword
+from HULK_LANGUAGE_DEFINITION import KEYWORD_VALUES, SIMBOL_VALUES, OPERATOR_VALUES
 from enum import Enum
-from TokensDefinition import SimbolToken,OperatorToken,LiteralToken
+from TokensDefinition import SimbolToken, OperatorToken, LiteralToken
+
 
 class NodeType(Enum):
 
@@ -15,33 +16,42 @@ class NodeType(Enum):
 
     pass
 
+
 class DerivationTree:
     """
-        Clase que define al arbol de derivacion de una gramatica
-        token: Token
-        childs: list(DerivationTree)
-        builder: constructor de la clase de nodo AST que devolvera
+    Clase que define al arbol de derivacion de una gramatica
+    token: Token
+    childs: list(DerivationTree)
+    builder: constructor de la clase de nodo AST que devolvera
     """
-    
-    def __init__(self,token,childs,builder):
+
+    def __init__(self, token, childs):
 
         self._token = token
         self._childs = childs
         self._builder = builder
         pass
-    
+
     @property
     def IsLeaf(self):
         return len(self._childs) == 0
-    
+
     @property
     def Childs(self):
-        return [child for child in self._childs if not child.Type == TokenType.Simbol and not len(child.Text) == 0]
-    
+        return [
+            child
+            for child in self._childs
+            if not child.Type == TokenType.Simbol and not len(child.Text) == 0
+        ]
+
     @property
     def IsRelevant(self):
-        return KEYWORD_VALUES.count(self.Text) > 0 or SIMBOL_VALUES.count(self.Text) > 0 or OPERATOR_VALUES.count(self.Text) > 0
-    
+        return (
+            KEYWORD_VALUES.count(self.Text) > 0
+            or SIMBOL_VALUES.count(self.Text) > 0
+            or OPERATOR_VALUES.count(self.Text) > 0
+        )
+
     @property
     def Type(self):
         try:
@@ -49,22 +59,22 @@ class DerivationTree:
         except Exception:
             return Type.NONE
         pass
-    
+
     @property
     def Text(self):
         try:
             return self._token.Text
         except Exception:
             return self._token
-    
+
     @property
     def Token(self):
         return self._token
-    
+
     @property
     def ASTNode(self):
         return self._builder(self._token)
-    
+
     @property
     def AST(self):
         """
@@ -89,13 +99,22 @@ class DerivationTree:
             node.Childs = ASTChilds
             return node
         # si el nodo no ofrece ninguna informacion
-        if not self.Type == TokenType.Operator and not self.Type == TokenType.Keyword and not self.Type == TokenType.Variable:
+        if (
+            not self.Type == TokenType.Operator
+            and not self.Type == TokenType.Keyword
+            and not self.Type == TokenType.Variable
+        ):
             # buscamos por algun hijo que si nos ofrezca informacion
             childs = self.Childs
             position = 0
             for i in range(len(childs)):
                 # encontramos el nodo deseado, un operador, una variable, un literal o una palabra clave
-                if childs[i].Type == TokenType.Operator or childs[i].Type == TokenType.Keyword or childs[i].Type == TokenType.Variable or childs[i].Type == TokenType.Literal:
+                if (
+                    childs[i].Type == TokenType.Operator
+                    or childs[i].Type == TokenType.Keyword
+                    or childs[i].Type == TokenType.Variable
+                    or childs[i].Type == TokenType.Literal
+                ):
                     position = i
                     break
                 pass
@@ -123,8 +142,9 @@ class DerivationTree:
         # agregamos la referencia y retornamos
         ASTNode.Childs = ASTChilds
         return ASTNode
-    
+
     pass
+
 
 class ASTNode:
     """
@@ -137,32 +157,32 @@ class ASTNode:
         un diccionario con el contexto hasta el
         Ambos, el Resolver y el Checker deben devolver una tupla donde el primer
         valor es el resultado y el segundo el error en caso de ocurrir
-        
+
     """
-    
+
     Childs = []
     Resolver = None
     Checker = None
     Context = {}
     ASTType = NodeType.Undefined
-    
-    def __init__(self,token,**kwargs):
-        
+
+    def __init__(self, token, **kwargs):
+
         self.Value = token
-        if list(kwargs.keys()).count('Type') > 0:
-            self.ASTType = kwargs['Type']
+        if list(kwargs.keys()).count("Type") > 0:
+            self.ASTType = kwargs["Type"]
             pass
-        if list(kwargs.keys()).count('Checker') > 0:
-            self.Checker = kwargs['Checker']
+        if list(kwargs.keys()).count("Checker") > 0:
+            self.Checker = kwargs["Checker"]
             pass
-        if list(kwargs.keys()).count('Resolver') > 0:
-            self.Resolver = kwargs['Resolver']
+        if list(kwargs.keys()).count("Resolver") > 0:
+            self.Resolver = kwargs["Resolver"]
             pass
-        if list(kwargs.keys()).count('Context') > 0:
-            self.Context = kwargs['Context']
+        if list(kwargs.keys()).count("Context") > 0:
+            self.Context = kwargs["Context"]
             pass
         pass
-    
+
     @property
     def Check(self):
         """
@@ -170,45 +190,141 @@ class ASTNode:
         returna true si esta correcta, false,Error en otro caso donde Error es el error lanzado
         si no se paso ningun checker como parametro retornara true siempre
         el checker debe devolver una tupla donde el primer valor es el resultado y el segundo el error en caso de existir
-        
+
         """
-        
+
         if self.Checker == None:
-            return True,None
-        return self.Checker(self.Value,self.Childs,self.Context)
-    
+            return True, None
+        return self.Checker(self.Value, self.Childs, self.Context)
+
     @property
     def Result(self):
         """
         ejecuta la orden almacenada en este nodo y devuelve el resultado
         si no se paso ningun "resolver" como parametro , retornara el valor asociado al nodo.
         El resolver debe devolver una tupla donde el primer valor es el resultado, el segundo es el error en caso de existir
-        
+
         """
-        
+
         if self.Resolver == None:
             return self.Value
-        return self.Resolver(self.Value,self.Childs,self.Context)
-    
+        return self.Resolver(self.Value, self.Childs, self.Context)
+
     @property
     def Type(self):
-        
+
         if len(self.Childs) == 0:
             return type(self.Value)
         t = type(self.Childs[0])
-        for i in range(1,len(self.Childs)):
-            if not self.Childs[i].Type == t: return Type.NONE
+        for i in range(1, len(self.Childs)):
+            if not self.Childs[i].Type == t:
+                return Type.NONE
             pass
         return t
-    
+
     pass
 
+
 class builder:
-    
-    '''
+    def __init__(self, token_list):
+        """Recibimos la lista de tokens"""
+        self._token_list = token_list
+        pass
+
+    """En esta funcion procesamos la lista de tokens para saber que nodo construir"""
+
+    def Proccess(self):
+        if len(self._token_list) == 1:
+            builder.ASTLiteral(self._token_list[0])
+
+        if len(
+            self._token_list == 3 and self._token_list[1].Type == TokenType.Operator
+        ):
+            builder.ASTBinOp(
+                self._token_list[0], self._token_list[1], self._token_list[2]
+            )
+        if len(self._token_list == 3 and self._token_list[0] == KEYWORD_VALUES[0]):
+            builder.ASTNew(
+                self._token_list[0], self._token_list[1], self._token_list[2]
+            )
+        if len(self._token_list == 3 and self._token_list[0] == KEYWORD_VALUES[5]):
+            builder.ASTProtocol(
+                self._token_list[0], self._token_list[1], self._token_list[2]
+            )
+        pass
+        """Cada uno es un Nodo en el AST"""
+
+    class ASTLiteral:
+        def __init__(self, token):
+            self._token = token
+
+        def Resolve(self):
+            return ASTNode(self._token)
+
+    pass
+
+    class ASTNew:
+        def __init__(self, new, label, body):
+            self._new = new
+            self._label = label
+            self._body = body
+            pass
+
+        def Resolve(self):
+            return ASTNode(
+                self._new,
+                [self._label, self._body],
+                {"Resolve": self.Resolve(), "Type": Keyword.New},
+            )
+            pass
+
+        pass
+
+    class ASTLabel:
+        def __init__(self, label, token):
+            self._label = label
+            self._token = token
+            pass
+
+        def Resolve(self):
+            return ASTNode(self._token, [], {"Resolve": self.Resolve()})
+            pass
+
+        pass
+
+    class ASTBinOp:
+        def __init__(self, left, operator, rigth):
+            self._left = left
+            self._operator = operator
+            self._rigth = rigth
+
+        def Resolve(self):
+            return ASTNode(
+                self._operator,
+                [self._left, self._rigth],
+                {"Resolver": self.Resolve(), "Type": TokenType.Operator},
+            )
+            pass
+
+    class ASTProtocol:
+        def __init__(self, protocol, label, body):
+            self._protocol = protocol
+            self._label = label
+            self._body = body
+
+        def Resolve(self):
+            return ASTNode(
+                self._protocol,
+                [self._label, self._body],
+                {"Resolve": self.Resolve(), "Type": Keyword.Protocol},
+            )
+
+    pass
+
+    """
     -> This class has to return the AST for each kw ,literal and symbol 
     
-    -> This is useful for AST contruction from parser.
+    -> This is useful for AST construction from parser.
     
     -> The "builder feature" is the function that know how to return a feature AST
     
@@ -223,7 +339,7 @@ class builder:
     plus = OperatorToken('+')
     minus = OperatorToken('-')
 
-    A = DerivationTree(a,[],lambda token: ASTNode(int(token.Text)))
+    A = DerivationTree(a,[],ASTLiteral())
     B = DerivationTree(b,[],lambda token: ASTNode(int(token.Text)))
     Plus = DerivationTree(plus,[A,B],lambda token: token)
 
@@ -246,6 +362,6 @@ class builder:
     
     note: blocks type is infered from it "last operation".
     
-    '''
-    
+    """
+
     pass
