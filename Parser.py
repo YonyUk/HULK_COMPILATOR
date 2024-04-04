@@ -1,7 +1,7 @@
 from RegExDefinitions import TokenFinitRegEx
 from RegExInterface import State,IRegEx
 from ParserInterface import IShiftReduceParser
-import GRAMATIC_DEFINITION as GD
+import GRAMMAR_PRODUCTIONS as GD
 import DerivationTree
 
 class GrammarParser(IRegEx,IShiftReduceParser):
@@ -128,7 +128,7 @@ class GrammarParser(IRegEx,IShiftReduceParser):
         
         return False
     
-    # the stack_pointer has the structure ( "index" in code , operator "item" )
+    # the stack_pointer has the structure ( "index" in "code" , "operator item" )
     stack_pointer=[( 0 ,"$1")]
     best_match = 0
     

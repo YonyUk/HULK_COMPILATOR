@@ -152,12 +152,15 @@ gramar =[
 
 ]
 
-def traslator(token_list):
+def traslator(token_list:list):
     
     import DerivationTree as DT
     
     parse_list=[("$1",None)]
     parse_list.append(("$2",None))
+    
+    token_list.insert(0,"{")
+    token_list.insert(-1,"}")
     
     index=0
     while index < len(token_list ):
@@ -169,7 +172,9 @@ def traslator(token_list):
                 
                 if token_list[index1] == "'" or token_list[index1] == "\"" :
                 
-                    parse_list.append(("T", DT.builder( "T", token_list[index1]) ) )
+                    builder = DT.builder( "T", token_list[index1])
+                    
+                    parse_list.append(("T", DT.DerivationTree( token_list[index1] , None ,builder) ) )
                     index = index1
                     index += 1
                 
@@ -185,20 +190,29 @@ def traslator(token_list):
                 if arg == "in":
                     parse_list.append(("$2",None))
                     
-                parse_list.append((token_list[index],DT.builder(token_list[index1],None)))
+                parse_list.append((token_list[index],None))
                 
                 if arg == ";" or arg == ")" or arg == "}" or arg == "]" or arg == "," or arg == "=>":
+                    
                     parse_list.append(("$2",None))
                 
                 kw =True
                 break
             
         if not kw:
+            
             if index + 1 < len(token_list) and token_list[index + 1 ].Text == "(" :
-                parse_list.append(("c", DT.builder( 'c' ,token_list[index1])))
+                
+                builder = DT.builder( "c", token_list[index])
+                
+                parse_list.append(("c", DT.DerivationTree( token_list[index] , None ,builder) ) )
             
             else:
-                parse_list.append(("T", DT.builder( 'T', token_list[index1])))
+                
+                builder = DT.builder( "T", token_list[index])
+                
+                parse_list.append(("T", DT.DerivationTree( token_list[index] , None ,builder) ) )
+                
         index += 1
     
     parse_list.append(("$3",None))

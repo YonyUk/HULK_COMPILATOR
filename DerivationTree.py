@@ -28,9 +28,9 @@ class DerivationTree:
 
     """
 
-    def __init__(self, token, childs, builder):
+    def __init__(self, label, childs, builder):
 
-        self._token = token
+        self._token = label
         self._childs = childs
         self._builder = builder
 
@@ -180,9 +180,11 @@ class ASTNode:
 
     Context_Builder = None
     
-    def __init__(self,token, token_list ,**kwargs):
+    def __init__(self, label , token_list , **kwargs ):
         
-        self.Value = token
+        self.Value = label
+        self.toke_list=token_list
+        
         if list(kwargs.keys()).count("Type") > 0:
             self.ASTType = kwargs["Type"]
             pass
@@ -195,9 +197,7 @@ class ASTNode:
         if list(kwargs.keys()).count("Context") > 0:
             self.Context = kwargs["Context"]
             pass
-        if list(kwargs.keys()).count('Context_Builder') > 0:
-            self.Context = kwargs['Context_Builder']
-            pass
+        
         pass
     
     def get_context(self):
@@ -236,26 +236,6 @@ class ASTNode:
             return self.Value
 
         return self.Resolver(self.Value, self.Childs, self.Context)
-
-    @property
-    def Type(self): # tries to infer types
-        
-        if len(self.Childs) == 0:   # if no node , return value typereturn type(self.Value)
-
-            t = type(
-                self.Childs[0]
-            )  # if at least one node, return the type of the first node
-
-        for i in range(
-            1, len(self.Childs)
-        ):  # check for the rest of the childs of this node if they are of the same type
-
-            if not self.Childs[i].Type == t:
-                return Type.NONE
-
-            pass
-
-        return t
 
     pass
 
