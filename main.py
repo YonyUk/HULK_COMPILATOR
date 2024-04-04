@@ -6,21 +6,36 @@ from Rules import LiteralBooleanRule,LiteralNumericRule,LiteralStringRule,NameVa
 from ExpressionDefinitions import NumberExpression,StringExpression,BooleanExpression
 from VariableDefinitions import NumberVariable,StringVariable,BooleanVariable
 from LiteralDefinitions import NumberLiteral,StringLiteral,BooleanLiteral
+import GRAMATIC_DEFINITION
+import GrammarParser as GP
+from os import system
+
 
 def FiltToken(token):
     return len(token.Text) > 0
 
-# creamos cada uno de los automatas que reconoceran nuestro lenguaje
+#_____________________________LEXER___________________________________________________
+
+# build automaton to recognice language
+
 keyword_token_recognizer = TokenFinitRegEx(KEYWORD_VALUES,KeywordToken)
+
 simbol_token_recognizer = TokenFinitRegEx(SIMBOL_VALUES,SimbolToken)
+
 operator_token_recognizer = TokenFinitRegEx(OPERATOR_VALUES,OperatorToken)
+
 variable_token_recognizer = TokenConstrainedRegEx([NameVariableRule()],VariableToken)
+
 boolean_literal_token_recognizer = TokenConstrainedRegEx([LiteralBooleanRule()],LiteralToken,Type.Boolean)
+
 numeric_literal_token_recognizer = TokenConstrainedRegEx([LiteralNumericRule()],LiteralToken,Type.Number)
+
 string_literal_token_recognizer = TokenConstrainedRegEx([LiteralStringRule()],LiteralToken,Type.String)
 
-print('+++++++++++++++++++++ Tokenizando ++++++++++++++++++++++++++++++')
-# los guardamos en el diccionario de prioridades
+print('+++++++++++++++++++++ TokeniZING ++++++++++++++++++++++++++++++')
+
+# save to priority dictionary
+
 recognizers = {
     0: keyword_token_recognizer,
     1: simbol_token_recognizer,
@@ -31,36 +46,54 @@ recognizers = {
     6: variable_token_recognizer
 }
 
-# instanciamos el lexer con las reglas definidas
+# start lexer with defined rules
+
 lexer = Lexer(recognizers)
 
-# cargamos el codigo
+system("cls")
+
+# load code
 reader = open('TestCode.hk','r')
 code = reader.read()
 lexer.LoadCode(code)
 
-# extraemos los tokens del codigo
-# for state in lexer.LexicalAnalisys(lexer.Tokenize(),FiltToken):
-#     print(state)
-#     pass
-
-for token in lexer.Tokenize():
-    print(token,token.Type)
+# check for lexical errors
+Error = False
+my_list =[]
+for state in lexer.LexicalAnalisys(lexer.Tokenize(),FiltToken):
+    
+    my_list = my_list.__add__(state.TokensSequence)
+    
+    if state.Error != None:
+        
+        Error =True
+        print(state)
+        
+        break
     pass
 
+#__________________PARSER__________________________________________
+# go to parse
+if not Error:
+    
+    tokens = [token for token in my_list if token.Text != '\n' and token.Text != ' ']
+    
+    my_list = tokens
+        
+    #print(my_list)
+    
+    gd_token= GRAMATIC_DEFINITION.traslator(my_list)
 
-print('++++++++++++++++++++++ Computando +++++++++++++++++++++++')
-# Ejemplos de como usar las expresiones
-# Numericas
-a = NumberLiteral(10)
-b = NumberLiteral(5)
+    #print(gd_token)
 
-c = NumberVariable('Suma',(a - b).Value)
+    gp = GP.GrammarParser(GRAMATIC_DEFINITION.gramar,gd_token )
+    
+    
+#_________________________SEMANTIC CHEKING__________________________________
 
-exp = NumberExpression([c ** b,a / c],[OperatorToken('^')])
-print(exp.Value)
+    # YOUR CODE GOES HERE
+#_________________________CODE GENERATION__________________________________
 
-exp = a + b * (c ** b) - c + b/a
-print(exp.Value)
+    # YOUR CODE GOES HERE
 
-# Mismos ejemplos para los demas tipos
+#________________________END_____________________________________________
