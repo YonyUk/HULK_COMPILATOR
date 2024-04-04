@@ -112,15 +112,7 @@ class Lexer(IRegEx):
                 self._state = State.FINAL
                 self._match = True
                 pass
-<<<<<<< HEAD
-<<<<<<< HEAD
             
-=======
-        
->>>>>>> cbcf627 (first commit)
-=======
-            
->>>>>>> 849d64d (translator moved from GrammarParser)
             pass
         
         if not forward or fault:
@@ -152,18 +144,9 @@ class Lexer(IRegEx):
             if self.LastState == State.FINAL:
                 # retornamos el token encontrado
                 
-<<<<<<< HEAD
-<<<<<<< HEAD
                 if self.Token.Text == 'e':
                     yield KeywordToken('e')
                 
-=======
->>>>>>> cbcf627 (first commit)
-=======
-                if self.Token.Text == 'e':
-                    yield KeywordToken('e')
-                
->>>>>>> 2fa0417 (many marges)
                 yield self.Token
                 # comprabmos si estamos leyendo un string
                 if self._text_readed == '"' and not self._reading_string:
@@ -181,16 +164,7 @@ class Lexer(IRegEx):
             
             pass
             
-<<<<<<< HEAD
-<<<<<<< HEAD
         yield EndToken('')
-=======
-            yield EndToken('')
-        
->>>>>>> cbcf627 (first commit)
-=======
-        yield EndToken('')
->>>>>>> 849d64d (translator moved from GrammarParser)
         pass
     
     def LexicalAnalisys(self,tokens,filter):
@@ -240,7 +214,7 @@ class Lexer(IRegEx):
                 pass
             
             pass
-        yield CompilationStateOK(instruction)
+        
         pass
     
     pass

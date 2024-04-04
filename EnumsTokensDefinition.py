@@ -174,8 +174,8 @@ SIMBOLS_DICT = {
     'self' : Simbol.Self,
     '\n' : Simbol.JumpLine,
     '❌' : Simbol.NONE,
-    "[" : Simbol.LeftC,
-    "]" : Simbol.RightC
+    '[' : Simbol.LeftC,
+    ']' : Simbol.RightC
 }
 
 OPERATORS_DICT = {

@@ -75,7 +75,6 @@ class CilTree:
     @property
     def DataDefinitions(self):
         definition = '.DATA\n\n'
-        
         for data in self.Data:
             definition += data.Template['DATA'] + '\n'
             pass
@@ -83,9 +82,7 @@ class CilTree:
     
     @property
     def TypesDefinitions(self):
-        
         definition = '.TYPES\n\n'
-        
         for t in self.Types:
             d = t.Template['TEMPLATE'].split(';')
             definition += d[0] + '\n'

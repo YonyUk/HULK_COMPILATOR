@@ -176,20 +176,10 @@ class TokenConstrainedRegEx(IRegEx):
                 self._state = State.FAULT
                 self._error = LexicalError(constrain.Description,self._column,self._line)
                 self._text_readed += character
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 849d64d (translator moved from GrammarParser)
                 return False
             if constrain.Final(self._text_readed + character):
                 self._state = State.FINAL
                 pass
-<<<<<<< HEAD
-=======
-                return True
->>>>>>> cbcf627 (first commit)
-=======
->>>>>>> 849d64d (translator moved from GrammarParser)
             pass
         
         # if self._state == State.FAULT:
@@ -197,20 +187,10 @@ class TokenConstrainedRegEx(IRegEx):
                 
         self._text_readed += character
         self._match = True
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 849d64d (translator moved from GrammarParser)
         if not self._state == State.FINAL:
             self._state = State.ONWORK
             pass
         
-<<<<<<< HEAD
-=======
-        self._state = State.FINAL
->>>>>>> cbcf627 (first commit)
-=======
->>>>>>> 849d64d (translator moved from GrammarParser)
         return True
     
     pass

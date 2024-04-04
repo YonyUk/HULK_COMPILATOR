@@ -108,15 +108,7 @@ KEYWORD_VALUES = [
     'sin',
     'tan',
     'log',
-<<<<<<< HEAD
-<<<<<<< HEAD
     'e',
-=======
-    'E',
->>>>>>> cbcf627 (first commit)
-=======
-    'e',
->>>>>>> 849d64d (translator moved from GrammarParser)
     'PI',
     'exp',
     'sqrt',
@@ -142,15 +134,7 @@ KEYWORD_DICT = {
     'sin' : Keyword.Sin,
     'tan' : Keyword.Tan,
     'log' : Keyword.Log,
-<<<<<<< HEAD
-<<<<<<< HEAD
     'e' : Keyword.Euler,
-=======
-    'E' : Keyword.Euler,
->>>>>>> cbcf627 (first commit)
-=======
-    'e' : Keyword.Euler,
->>>>>>> 2fa0417 (many marges)
     'PI' : Keyword.PI,
     'exp' : Keyword.Exp,
     'sqrt' : Keyword.Sqrt,
@@ -192,15 +176,7 @@ KEYWORD_LOOPS = [
 
 KEYWORD_CONSTS = [
     'PI',
-<<<<<<< HEAD
-<<<<<<< HEAD
     'e'    
-=======
-    'E'    
->>>>>>> cbcf627 (first commit)
-=======
-    'e'    
->>>>>>> 849d64d (translator moved from GrammarParser)
 ]
 
 OPERATOR_VALUES = [

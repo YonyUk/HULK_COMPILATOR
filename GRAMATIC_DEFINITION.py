@@ -160,7 +160,7 @@ def traslator(token_list):
     parse_list.append(("$2",None))
     
     index=0
-    while index < len( token_list ):
+    while index < len(token_list ):
         
         if token_list[index].Text =="'" or token_list[index].Text == "\"" : 
             
@@ -169,7 +169,7 @@ def traslator(token_list):
                 
                 if token_list[index1] == "'" or token_list[index1] == "\"" :
                 
-                    parse_list.append(("T", ( "T", token_list[index1]) ) )
+                    parse_list.append(("T", DT.builder( "T", token_list[index1]) ) )
                     index = index1
                     index += 1
                 
@@ -178,13 +178,13 @@ def traslator(token_list):
                 index1 +=1
                     
         kw = False                    
-        for arg in HK.SYMBOLS_and_OPERATORS_parser:
+        for arg in HK.SYMBOLS_and_OPERATORS_parser:            
             
             if token_list[index].Text == arg:
             
                 if arg == "in":
                     parse_list.append(("$2",None))
-                
+                    
                 parse_list.append((token_list[index],DT.builder(token_list[index1],None)))
                 
                 if arg == ";" or arg == ")" or arg == "}" or arg == "]" or arg == "," or arg == "=>":

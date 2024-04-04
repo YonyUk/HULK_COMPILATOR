@@ -5,13 +5,6 @@ def PlusOperatorResolver(a,b):
         pass
     raise Exception(f'Los valores de {a} y de {b} deben ser valores numericos')
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> cbcf627 (first commit)
-=======
->>>>>>> 2fa0417 (many marges)
 def PPlusOperatorResolver(a):
     if type(a) == int or type(a) == float: return a + 1
     raise Exception(f'El valor de {a} debe ser un valor numerico')
@@ -23,13 +16,6 @@ def MinusOperatorResolver(a,b):
         pass
     raise Exception(f'Los valores de {a} y de {b} deben ser valores numericos')
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> cbcf627 (first commit)
-=======
->>>>>>> 2fa0417 (many marges)
 def MMinusOperatorResolver(a):
     if type(a) == int or type(a) == float: return a - 1
     raise Exception(f'El valor de {a} debe ser un valor numerico')
@@ -41,13 +27,6 @@ def MulOperatorResolver(a,b):
         pass
     raise Exception(f'Los valores de {a} y de {b} deben ser valores numericos')
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> cbcf627 (first commit)
-=======
->>>>>>> 2fa0417 (many marges)
 def DivOperatorResolver(a,b):
     if type(a) == int or type(a) == float:
         if type(b) == int or type(b) == float:
@@ -55,13 +34,6 @@ def DivOperatorResolver(a,b):
         pass
     raise Exception(f'Los valores de {a} y de {b} deben ser valores numericos')
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> cbcf627 (first commit)
-=======
->>>>>>> 2fa0417 (many marges)
 def ExpOperatorResolver(a,b):
     if type(a) == int or type(a) == float:
         if type(b) == int or type(b) == float:
@@ -130,13 +102,11 @@ def AskOperatorResolver(boolean,a,b):
     """
     Si se cumple la condicion \'boolean\' se retorna a, en otro caso se retorna b
     """
-    
     if not type(boolean) == bool: raise Exception(f'{boolean} debe ser un valor booleano')
     if boolean: return a
     return b
 
 def ConcatOperatorResolver(a,b):
-
     return str(a) + ' ' + str(b)
 
 def IsOperatorResolver(a,b):

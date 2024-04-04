@@ -7,10 +7,6 @@ class IExpressionParser:
         """
         raise NotImplementedError()
     
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 849d64d (translator moved from GrammarParser)
     pass
 
 class IShiftReduceParser(IExpressionParser):
@@ -27,9 +23,4 @@ class IShiftReduceParser(IExpressionParser):
         """
         raise NotImplementedError()
     
-<<<<<<< HEAD
-=======
->>>>>>> cbcf627 (first commit)
-=======
->>>>>>> 849d64d (translator moved from GrammarParser)
     pass

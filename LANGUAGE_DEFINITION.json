@@ -25,32 +25,21 @@
 
     ],
     "simbols":[
-        "[",
-        "]",
-        "{",
-        "}"
+        
     ],
     "simbol_accesors":[
 
     ],
     "simbol_agrupators":[
-        "[",
-        "]",
-        "{",
-        "}"
+
     ],
     "simbol_separators":[
-        
+
     ],
     "simbol_declarators":[
 
     ],
     "operators":[
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 2fa0417 (many marges)
         "*=",
         "/=",
         "+=",
@@ -58,44 +47,10 @@
         "%=",
         "^=",
         "@=",
-<<<<<<< HEAD
         "!",
         "!=",
         "&=",
-<<<<<<< HEAD
         "|="
-=======
-
->>>>>>> cbcf627 (first commit)
-=======
-        "!",
-        "!=",
-        "*=",
-        "+="
->>>>>>> 6da4297 (translator moved from GrammarParser)
-=======
-        "!",
-        "!=",
-        "&=",
-<<<<<<< HEAD
-        "|=",
-        "[",
-        "]"
->>>>>>> 2fa0417 (many marges)
-=======
-        "|="
-=======
-        "|=",
-        "||",
-<<<<<<< HEAD
-        "@@"
->>>>>>> f002039 (F added to productions)
-=======
-        "@@",
-        "**"
->>>>>>> a7bc99e (parser arleady finished)
-        
->>>>>>> 036b011 (lexer error fixed)
     ],
     "operators_unary":[
 

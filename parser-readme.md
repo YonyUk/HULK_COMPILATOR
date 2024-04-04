@@ -99,24 +99,11 @@
 
 # While
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-- E ->  $whileT\$2B \space|\space whileT\$2E \space|\space whileTE$
-- $E -> $whileT$2b $
-=======
-    
-=======
-- E ->  $while \space T\$2B \space|\space while \space T\$2E \space|\space while\space T\space E$
-=======
 - $E ->  while \space T\$2B \space|\space while \space T\$2E \space|\space while\space T\space E$
->>>>>>> 43a3d19 (readme)
 - $E -> while \space T\$2b $
 
->>>>>>> eeb8b70 (readme)
 - $E -> while \space T \space \$2 \space B | while \space T \space \$2 \space E \space | \space while \space T \space E \space$
 - $E -> while \space T \space \$2 \space b$
->>>>>>> ae2415e (assembling ast structure to parser)
 
 # function
 
