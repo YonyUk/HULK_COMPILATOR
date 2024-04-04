@@ -1,8 +1,7 @@
-from EnumsTokensDefinition import TokenType, Type, Keyword
-from HULK_LANGUAGE_DEFINITION import KEYWORD_VALUES, SIMBOL_VALUES, OPERATOR_VALUES
+from EnumsTokensDefinition import TokenType,Type
+from HULK_LANGUAGE_DEFINITION import KEYWORD_VALUES,SIMBOL_VALUES,OPERATOR_VALUES
 from enum import Enum
-from TokensDefinition import SimbolToken, OperatorToken, LiteralToken
-
+from TokensDefinition import SimbolToken,OperatorToken,LiteralToken
 
 class NodeType(Enum):
 
@@ -16,9 +15,9 @@ class NodeType(Enum):
 
     pass
 
-
 class DerivationTree:
     
+<<<<<<< HEAD
     """
 <<<<<<< HEAD
     Clase que define al arbol de derivacion de una gramatica
@@ -26,6 +25,10 @@ class DerivationTree:
     childs: list(DerivationTree)
     builder: constructor de la clase de nodo AST que devolvera
 =======
+=======
+    
+    """
+>>>>>>> daca7b9 (warfare)
         This class defines the derivation tree of a grammar
 
         token: Token
@@ -33,24 +36,28 @@ class DerivationTree:
         
         builder: constructor of the AST node class that will return
         
+<<<<<<< HEAD
 >>>>>>> ba41d7d (hard-coded Parser-AST)
+=======
+>>>>>>> daca7b9 (warfare)
     """
-
-    def __init__(self, token, childs):
+    
+    def __init__(self,token,childs,builder):
 
         self._token = token
         self._childs = childs
         self._builder = builder
         
         pass
-
+    
     @property
     def IsLeaf(self):
         
         return len(self._childs) == 0
-
+    
     @property
     def Childs(self):
+<<<<<<< HEAD
 <<<<<<< HEAD
         return [
             child
@@ -76,6 +83,16 @@ class DerivationTree:
         return KEYWORD_VALUES.count(self.Text) > 0 or SIMBOL_VALUES.count(self.Text) > 0 or OPERATOR_VALUES.count(self.Text) > 0
     
 >>>>>>> ba41d7d (hard-coded Parser-AST)
+=======
+        
+        return [child for child in self._childs if not child.Type == TokenType.Simbol and not len(child.Text) == 0]
+    
+    @property
+    def IsRelevant(self):
+        
+        return KEYWORD_VALUES.count(self.Text) > 0 or SIMBOL_VALUES.count(self.Text) > 0 or OPERATOR_VALUES.count(self.Text) > 0
+    
+>>>>>>> daca7b9 (warfare)
     @property
     def Type(self):
         
@@ -85,11 +102,15 @@ class DerivationTree:
         except Exception:
             return Type.NONE
 <<<<<<< HEAD
+<<<<<<< HEAD
         pass
 
 =======
     
 >>>>>>> ba41d7d (hard-coded Parser-AST)
+=======
+    
+>>>>>>> daca7b9 (warfare)
     @property
     def Text(self):
 
@@ -108,9 +129,14 @@ class DerivationTree:
     def ASTNode(self):
 
         return self._builder(self._token)
+<<<<<<< HEAD
 
     @property
     
+=======
+    
+    @property 
+>>>>>>> daca7b9 (warfare)
     def AST(self):
         """
         retorna el AST asociado
@@ -134,22 +160,13 @@ class DerivationTree:
             node.Childs = ASTChilds
             return node
         # si el nodo no ofrece ninguna informacion
-        if (
-            not self.Type == TokenType.Operator
-            and not self.Type == TokenType.Keyword
-            and not self.Type == TokenType.Variable
-        ):
+        if not self.Type == TokenType.Operator and not self.Type == TokenType.Keyword and not self.Type == TokenType.Variable:
             # buscamos por algun hijo que si nos ofrezca informacion
             childs = self.Childs
             position = 0
             for i in range(len(childs)):
                 # encontramos el nodo deseado, un operador, una variable, un literal o una palabra clave
-                if (
-                    childs[i].Type == TokenType.Operator
-                    or childs[i].Type == TokenType.Keyword
-                    or childs[i].Type == TokenType.Variable
-                    or childs[i].Type == TokenType.Literal
-                ):
+                if childs[i].Type == TokenType.Operator or childs[i].Type == TokenType.Keyword or childs[i].Type == TokenType.Variable or childs[i].Type == TokenType.Literal:
                     position = i
                     break
                 pass
@@ -177,9 +194,8 @@ class DerivationTree:
         # agregamos la referencia y retornamos
         ASTNode.Childs = ASTChilds
         return ASTNode
-
+    
     pass
-
 
 class ASTNode:
 
@@ -193,32 +209,32 @@ class ASTNode:
         un diccionario con el contexto hasta el
         Ambos, el Resolver y el Checker deben devolver una tupla donde el primer
         valor es el resultado y el segundo el error en caso de ocurrir
-
+        
     """
-
+    
     Childs = []
     Resolver = None
     Checker = None
     Context = {}
     ASTType = NodeType.Undefined
-
-    def __init__(self, token, **kwargs):
-
+    
+    def __init__(self,token,**kwargs):
+        
         self.Value = token
-        if list(kwargs.keys()).count("Type") > 0:
-            self.ASTType = kwargs["Type"]
+        if list(kwargs.keys()).count('Type') > 0:
+            self.ASTType = kwargs['Type']
             pass
-        if list(kwargs.keys()).count("Checker") > 0:
-            self.Checker = kwargs["Checker"]
+        if list(kwargs.keys()).count('Checker') > 0:
+            self.Checker = kwargs['Checker']
             pass
-        if list(kwargs.keys()).count("Resolver") > 0:
-            self.Resolver = kwargs["Resolver"]
+        if list(kwargs.keys()).count('Resolver') > 0:
+            self.Resolver = kwargs['Resolver']
             pass
-        if list(kwargs.keys()).count("Context") > 0:
-            self.Context = kwargs["Context"]
+        if list(kwargs.keys()).count('Context') > 0:
+            self.Context = kwargs['Context']
             pass
         pass
-
+    
     @property
     def Check(self):
         """
@@ -226,32 +242,39 @@ class ASTNode:
         returna true si esta correcta, false,Error en otro caso donde Error es el error lanzado
         si no se paso ningun checker como parametro retornara true siempre
         el checker debe devolver una tupla donde el primer valor es el resultado y el segundo el error en caso de existir
-
+        
         """
-
+        
         if self.Checker == None:
-            return True, None
-        return self.Checker(self.Value, self.Childs, self.Context)
-
+            return True,None
+        return self.Checker(self.Value,self.Childs,self.Context)
+    
     @property
     def Result(self):
         """
+<<<<<<< HEAD
 <<<<<<< HEAD
         ejecuta la orden almacenada en este nodo y devuelve el resultado
         si no se paso ningun "resolver" como parametro , retornara el valor asociado al nodo.
         El resolver debe devolver una tupla donde el primer valor es el resultado, el segundo es el error en caso de existir
 
 =======
+=======
+>>>>>>> daca7b9 (warfare)
         Execute the command stored in this node and return the result. 
         If no "resolver" is passed as a parameter, it will return the value associated with the node.
         The resolver must return a tuple where the first value is the result,
         and the second is the error in case it exists.
         
+<<<<<<< HEAD
 >>>>>>> ba41d7d (hard-coded Parser-AST)
+=======
+>>>>>>> daca7b9 (warfare)
         """
-
+        
         if self.Resolver == None:
             return self.Value
+<<<<<<< HEAD
 <<<<<<< HEAD
         return self.Resolver(self.Value, self.Childs, self.Context)
 
@@ -273,6 +296,16 @@ class ASTNode:
         
         if len(self.Childs) == 0:   # if no node , return value type
             return type(self.Value)
+=======
+
+        return self.Resolver(self.Value,self.Childs,self.Context) # return type -> ( value , error )
+    
+    @property
+    def Type(self):
+        
+        if len(self.Childs) == 0:   # if no node , return value type
+            return type(self.Value)
+>>>>>>> daca7b9 (warfare)
         
         t = type(self.Childs[0]) # if at least one node, return the type of the first node
         
@@ -280,15 +313,18 @@ class ASTNode:
         
             if not self.Childs[i].Type == t: return Type.NONE
         
+<<<<<<< HEAD
 >>>>>>> ba41d7d (hard-coded Parser-AST)
+=======
+>>>>>>> daca7b9 (warfare)
             pass
         
         return t
-
+    
     pass
 
-
 class builder:
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -408,9 +444,14 @@ class builder:
 =======
     """
 >>>>>>> 0c73336 (working on builder)
+=======
+    
+    '''
+    
+>>>>>>> daca7b9 (warfare)
     -> This class has to return the AST for each kw ,literal and symbol 
     
-    -> This is useful for AST construction from parser.
+    -> This is useful for AST contruction from parser.
     
     -> The "builder feature" is the function that know how to return a feature AST
     
@@ -425,7 +466,7 @@ class builder:
     plus = OperatorToken('+')
     minus = OperatorToken('-')
 
-    A = DerivationTree(a,[],ASTLiteral())
+    A = DerivationTree(a,[],lambda token: ASTNode(int(token.Text)))
     B = DerivationTree(b,[],lambda token: ASTNode(int(token.Text)))
     Plus = DerivationTree(plus,[A,B],lambda token: token)
 
@@ -450,6 +491,7 @@ class builder:
     
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 0c73336 (working on builder)
     """
@@ -461,3 +503,12 @@ class builder:
         pass
     pass
 >>>>>>> ba41d7d (hard-coded Parser-AST)
+=======
+    '''
+    def __init__(self, label , token_list):
+        
+        self.label = label
+    
+        pass
+    pass
+>>>>>>> daca7b9 (warfare)

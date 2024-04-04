@@ -161,5 +161,10 @@ let squares = [x^2 || x in range(1,10)] in print(x);
 >>>>>>> 4ce08ad (parser criteria)
 =======
 
+42;
 print(42);
+<<<<<<< HEAD
 >>>>>>> ae2415e (assembling ast structure to parser)
+=======
+print((((1 + 2) ^ 3) * 4) / 5)
+>>>>>>> daca7b9 (warfare)
