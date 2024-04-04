@@ -215,11 +215,24 @@ class ASTNode:
     Childs = []
     Resolver = None
     Checker = None
-    Context = {}
+    Context = None
     ASTType = NodeType.Undefined
+<<<<<<< HEAD
     
     def __init__(self,token,**kwargs):
         
+=======
+<<<<<<< HEAD
+
+    def __init__(self, token, **kwargs):
+
+=======
+    Context_Builder = None
+    
+    def __init__(self,token, token_list ,**kwargs):
+        
+>>>>>>> 4ef7a89 (restructuring AST)
+>>>>>>> 41d7805 (restructuring AST)
         self.Value = token
         if list(kwargs.keys()).count('Type') > 0:
             self.ASTType = kwargs['Type']
@@ -233,10 +246,24 @@ class ASTNode:
         if list(kwargs.keys()).count('Context') > 0:
             self.Context = kwargs['Context']
             pass
+        if list(kwargs.keys()).count('Context_Builder') > 0:
+            self.Context = kwargs['Context_Builder']
+            pass
+        pass
+    
+    def get_context(self):
+        
+        # work with the Contex_Builder to return a context
+        
+        pass
+    
+    def context_check(self):
+        
         pass
     
     @property
-    def Check(self):
+    def type_checking(self):
+        
         """
         checkea la semantica del nodo
         returna true si esta correcta, false,Error en otro caso donde Error es el error lanzado
@@ -283,9 +310,19 @@ class ASTNode:
         return self.Resolver(self.Value, self.Childs, self.Context)
 
     @property
+<<<<<<< HEAD
     def Type(self):
 
+<<<<<<< HEAD
         if len(self.Childs) == 0:
+=======
+        if len(self.Childs) == 0:  # if no node , return value type
+=======
+    def Type(self): # tries to infer types
+        
+        if len(self.Childs) == 0:   # if no node , return value type
+>>>>>>> 4ef7a89 (restructuring AST)
+>>>>>>> 41d7805 (restructuring AST)
             return type(self.Value)
         t = type(self.Childs[0])
         for i in range(1, len(self.Childs)):
@@ -327,6 +364,18 @@ class ASTNode:
     
     pass
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+class context:
+    
+    def __init__(self, derivation_tree):
+        
+        return derivation_tree_with_context
+>>>>>>> 4ef7a89 (restructuring AST)
+
+>>>>>>> 41d7805 (restructuring AST)
 class builder:
 <<<<<<< HEAD
 <<<<<<< HEAD

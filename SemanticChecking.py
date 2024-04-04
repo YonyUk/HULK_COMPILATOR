@@ -262,15 +262,6 @@ context = {
     }
 }
 
-print()
-print()
-print()
-print()
-print()
-print()
-print()
-print()
-
 a = ASTNode('a',Type=NodeType.Variable,Context=context,Resolver=lambda operator,childs,context: (context['values']['a'],None))
 b = ASTNode('b',Type=NodeType.Variable,Context=context,Resolver=lambda operator,childs,context: (context['values']['b'],None))
 c = ASTNode(5,Resolver=lambda operator,childs,context: (5,None))
