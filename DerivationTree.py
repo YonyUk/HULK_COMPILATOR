@@ -157,7 +157,6 @@ class DerivationTree:
 
     pass
 
-
 class ASTNode:
     """
     Clase que define los nodos del AST
@@ -237,13 +236,6 @@ class ASTNode:
 
         return self.Resolver(self.Value, self.Childs, self.Context)
 
-    pass
-
-class context:
-    
-    # def __init__(self, derivation_tree):
-        
-    #     return derivation_tree_with_context
     pass
 
 class builder:

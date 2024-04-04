@@ -312,5 +312,8 @@ class Parser():
         '''
         pattern to follow -> existing tree is child of the new node
         '''
+        builder = DerivationTree.builder( label , token_list ) # pick the builder
         
-        return DerivationTree.builder( label , token_list )
+        tree = DerivationTree( label , token_list ,builder) # build derivation tree
+        
+        return tree
