@@ -331,8 +331,8 @@ class builder:
     pass
 
     class ASTNew:
-        def __init__(self, new, label, body):
-            self._new = new
+        def __init__(self, label, body):
+            self.value = "new"
             self._label = label
             self._body = body
             pass
