@@ -158,17 +158,17 @@ class DerivationTree:
     pass
 
 class ASTNode:
+    
     """
-    Clase que define los nodos del AST
-        token: Token
-        token -> token correspondiente al nodo
-        kwargs -> debe contener las funciones 'Resolver', 'Checker' y Type
-        Resolver debe recibir por parametros al valor de este nodo y sus hijos
-        Checker debe recibir por parametros al valor de este nodo, sus hijos y
-        un diccionario con el contexto hasta el
-        Ambos, el Resolver y el Checker deben devolver una tupla donde el primer
-        valor es el resultado y el segundo el error en caso de ocurrir
+    defines the nodes of the AST
 
+    > token: Token
+    > token -> token corresponding to the node
+    > kwargs -> must contain the functions 'Resolver', 'Checker', and Type
+    > Resolver must receive as parameters the value of this node and its children
+    > Checker must receive as parameters the value of this node, its children, and a dictionary with the context up to the
+    > Both, the Resolver and the Checker must return a tuple where the first value is the result and the second the error in case of occurrence
+    
     """
 
     Childs = []
@@ -240,137 +240,62 @@ class ASTNode:
 
 class builder:
 
-    '''
-    ATENCION:
+    def __init__(self, label ):
+        
+        builders = [
+                    self.F , self.P , self.T , self.N , self.O , self.b , self.B ,
+                    self.p , self.if_ , self.elif_ , self.M , self.Q
+                ]
+        
+        feature = self.filter_feature(label,builders)
+        
+        return feature
 
-    AST debe poder identificar si , es de tipo "function" ,  de tipo "type" , de tipo "protocolo" o tipo "bloque"
-    y dado el tipo de nodo las propiedades de este, ejemplo si es funcion , cuales son sus parametros , su nombre , y su bloque
+    def filter_feature(self,label,builders):
+        
+        features = [ 'F' , 'P' , 'T' , 'N' , 'O' , 'b' , 'B' , 'p' , 'if' , 'elif' , 'M' , 'Q' ]
+        
+        for index,item in enumerate( features , start=0 ):
+            
+            if label == item:
+                return builders[index]
+        
     
-    '''
+    def F(self,toke_list):
+        pass    
+        
+    def P(self,toke_list):
+        pass    
     
-
-    def __init__(self, label, token_list):
-        """Recibimos la lista de tokens"""
-
-        self._token_list = token_list
-
-        pass
-
-    """En esta funcion procesamos la lista de tokens para saber que nodo construir"""
-
-    def Proccess(self):
-        if len(self._token_list) == 1:
-            builder.ASTLiteral(self._token_list[0])
-
-        if len(
-            self._token_list == 3 and self._token_list[1].Type == TokenType.Operator
-        ):
-            return builder.ASTBinOp.Resolve
-        if len(self._token_list == 3 and self._token_list[0] == KEYWORD_VALUES[0]):
-            return builder.ASTNew.Resolve
-        if len(self._token_list == 3 and self._token_list[0] == KEYWORD_VALUES[5]):
-            return builder.ASTProtocol.Resolve
-        pass
-
-        """Cada uno es un Nodo en el AST"""
-
-    class ASTLiteral:
-
-        def __init__(self, token):
-            self._token = token
-
-        def Resolve(self):
-            return ASTNode(self._token,[])
-
-    pass
-
-    class ASTNew:
-
-        def __init__(self, label, body):
-
-            self.value = "new"
-            self._label = label
-            self._body = body
-            pass
-
-        def Resolve(self):
-
-            return ASTNode(
-                self.value,
-                [self._label, self._body],
-                Type=self._label
-            )
-            pass
-
-        pass
-
-    class ASTLabel:
-        def __init__(self, label, token):
-
-            self._label = label
-            self._token = token
-            pass
-
-        def Resolve(self):
-
-            return ASTNode(
-                self._token, [], Type=self._label
-            )
-
-        pass
-
-    class ASTBinOp:
-        def __init__(self, left, operator, rigth):
-            self._left = left
-            self._operator = operator
-            self._rigth = rigth
-
-        def Resolve(self):
-            return ASTNode(
-                self._operator,
-                [self._left, self._rigth],
-                Type=TokenType.Operator,
-            )
-
-    pass
-
-    class ASTFunction:
-        def __init__(self, label, parameters, body):
-            self.value = "function"
-            self._label = label
-            self._parameters = parameters
-            self._body = body
-            pass
-
-        def Resolve(self):
-            return ASTNode(self.value, [self._label, self._parameters, self._body])
-
-        pass
-
-    class ASTProtocol:
-        def __init__(self, label, body):
-            self.value = "protocol"
-            self._label = label
-            self._body = body
-
-        def Resolve(self):
-            return ASTNode(
-                self.value,
-                [self._label, self._body],
-                Type=self._label
-            )
-
-    """
+    def T(self,toke_list):
+        pass    
     
-    e.j:
+    def N(self,toke_list):
+        pass    
     
-    a = LiteralToken('5',Type.Number)
-    b = LiteralToken('10',Type.Number)
-    c = LiteralToken('20',Type.Number)
-	
-    ast = Minus.AST
+    def O(self,toke_list):
+        pass    
     
-    """
-
+    def b(self,toke_list):
+        pass    
+    
+    def B(self,toke_list):
+        pass    
+    
+    def p(self,toke_list):
+        pass    
+    
+    def if_(self,toke_list):
+        pass    
+    
+    def elif_(self,toke_list):
+        pass    
+    
+    def M(self,toke_list):
+        pass    
+    
+    def Q(self,toke_list):
+        pass    
+    
     pass
 

@@ -39,17 +39,17 @@ gramar =[
 # literals
 [
 
-["T" , [ ["let","T"] , ["T",":","T"]]],
-["E" , [ ["let","E"] , ["T",":","E"]]],
-["p" , [ ["T", ",","$2" ,"T" ] , ["T",",","$2","p"] ]],
-["T" , [ ["T",":=","T"] ]],
-["E" , [ ["T",":=","E"] ]],
-["T" , [ ["T","=","T"]  ]],
-["E" , [  ["T","=","E"] ]],
-["T" , [ ["T","as","T"] , ["F","as","T"] , ["T","as","E"] ]],
-["E" , [ ["T","as","E"] ]],
-["E", [["T",";","$2"]]],
-["T", [["(","T",")"]]],
+    ["T" , [ ["let","T"] , ["T",":","T"]]],
+    ["E" , [ ["let","E"] , ["T",":","E"]]],
+    ["p" , [ ["T", ",","$2" ,"T" ] , ["T",",","$2","p"] ]],
+    ["T" , [ ["T",":=","T"] ]],
+    ["E" , [ ["T",":=","E"] ]],
+    ["T" , [ ["T","=","T"]  ]],
+    ["E" , [  ["T","=","E"] ]],
+    ["T" , [ ["T","as","T"] , ["F","as","T"] , ["T","as","E"] ]],
+    ["E" , [ ["T","as","E"] ]],
+    ["E", [["T",";","$2"]]],
+    ["T", [["(","T",")"]]],
 
 ],
 
@@ -172,7 +172,7 @@ def traslator(token_list:list):
                 
                 if token_list[index1] == "'" or token_list[index1] == "\"" :
                 
-                    builder = DT.builder( "T", token_list[index1])
+                    builder = DT.builder( "T")
                     
                     parse_list.append(("T", DT.DerivationTree( token_list[index1] , None ,builder) ) )
                     index = index1
@@ -203,13 +203,13 @@ def traslator(token_list:list):
             
             if index + 1 < len(token_list) and token_list[index + 1 ].Text == "(" :
                 
-                builder = DT.builder( "c", token_list[index])
+                builder = DT.builder( "c")
                 
                 parse_list.append(("c", DT.DerivationTree( token_list[index] , None ,builder) ) )
             
             else:
                 
-                builder = DT.builder( "T", token_list[index])
+                builder = DT.builder( "T")
                 
                 parse_list.append(("T", DT.DerivationTree( token_list[index] , None ,builder) ) )
                 
