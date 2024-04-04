@@ -18,7 +18,7 @@
 - $O -> EE  \space | \space O \$ 2O \space|\space T\$2 O \space|\space OE \space|\space OB \space|\space O \$2 b | b \$2 E \space|\space ME \space|\space EM \space|\space OM \space|\space MO \space|\space OQ \space|\space Q\$2$
 - $O -> E \$2 M \space|\space M \$2 O$
 - $O -> O \$2 E \space|\space E \$2 b  \space|\space E \$2 O \space|\space O \$2 | O; | E \$2 E | b \$2 b | O \$2 M$
-- $b -> \{ O \} \space|\space \{ E \} \space|\space \{ B \} \space|\space \{ \} \space|\space b \$2 \space| \space \{ b \} \space|\space \{ T \} $
+- $b -> \{ O \} \space|\space \{ E \} \space|\space \{ B \} \space|\space \{ \} \space|\space b \$2 \space| \space \{ b \} \space|\space \{ T \}$
 - $B -> b;$
 - $T -> T \$2 $
 - $E -> E \$2 \space|\space B$
@@ -46,30 +46,19 @@
 
 - $T -> T \& T \space | \space  F \& T \space | \space  T | T \space| \space F | T \space | \space  T != T  \space | \space  F != T  \space | \space T>T \space|\space  F>T  \space|\space T<T \space|\space F<T \space|\space  T<=T \space|\space F<=T \space|\space
             T>=T \space|\space F>=T \space|\space T==T \space|\space F==T \space|\space
-            TisT \space|\space F\space is\space T $
+            TisT \space|\space F\space is\space T$
 
 - $E -> T\&E \space|\space T|E \space|\space T!=E \space|\space
             T>E  \space|\space T<E \space|\space T<=E \space|\space
             T>=E \space|\space T==E \space|\space
-            T\space is\space E $
+            T\space is\space E$
 
 # numbers
 
-<<<<<<< HEAD
 - $T ->  T+T \space|\space T+T \space|\space T-T \space|\space  T*T \space|\space T/T \space|\space T/T \space|\space T^T \space|\space T\%T \space|\space T**T$
 - $T ->  T\$2+T \space|\space T\$2+T \space|\space T\$2-T \space|\space  T\$2*T \space|\space T\$2/T \space|\space T\$2/T \space|\space T\$2^T \space|\space T\$2\%T \space|\space T\$2**T$
 - $E ->  T\$2+E \space|\space T\$2+E \space|\space T\$2-E \space|\space  T\$2*E \space|\space T\$2/E \space|\space T\$2/E \space|\space T\$2^E \space|\space T\$2\%E \space|\space T\$2**E$
 - $E ->  T+E \space|\space F+E \space|\space T-E \space|\space  T*E \space|\space T/E \space|\space T/E \space|\space T^E \space|\space TE$
-=======
-- $T ->  T+T \space | \space T+T \space|\space T-T \space|\space  T*T \space|\space T/T \space|\space T/T \space|\space T^T \space|\space T\%T \space| \space T**T$
-- $T ->  T\$2+T \space|\space T\$2+T \space|\space T\$2-T \space|\space  T\$2*T \space|\space T\$2/T \space|\space T\$2/T \space|\space T\$2^T \space|\space T\$2\%T \space|\space T\$2**T$
-- $E ->  T\$2+E \space|\space T\$2+E \space|\space T\$2-E \space|\space  T\$2*E \space|\space T\$2/E \space|\space T\$2/E \space|\space T\$2^E \space|\space T\$2\%E \space|\space T\$2**E$
-- E -> $ T+E \space|\space F+E \space|\space T-E \space|\space  T*E \space|\space T/E \space|\space T/E \space|\space T^E \space|\space TE$
-    
-- T -> $ T-=T \space|\space T+=T \space|\space T \space /= \space T \space | T \space *= \space T  | T \space --  | T \space ++$
-- T -> $ T-=T \space|\space T+=T \space|\space T/=T \space|\space T*=T \space|\space T-- \space|\space T++$
-- E -> $ T-=E \space|\space T+=E \space|\space T/=E \space|\space T*=E \space|\space E-- \space|\space E++ \space|\space E** \space|\space E**E$
->>>>>>> aa6bc11 (hard-coded Parser-AST)
 
 - $T ->  T-=T \space|\space T+=T \space|\space T/=T [T,*=,T] , [T,--]  , [T,++]]]$
 - $T ->  T-=T \space|\space T+=T \space|\space T/=T \space|\space T*=T \space|\space T-- \space|\space T++$
@@ -78,20 +67,20 @@
 # IN
 
 - $p -> p\$2$
-- $T ->  T\space in\space T \space|\space T\$2\space in\space T \space|\space p\$2inT \space|\space p\$2\space in\space p \space|\space p\space in\space T \space|\space p\space inp\space $
+- $T ->  T\space in\space T \space|\space T\$2\space in\space T \space|\space p\$2inT \space|\space p\$2\space in\space p \space|\space p\space in\space T \space|\space p\space inp\space$
 - $T ->  T\$2$
-- $E ->  T\space in\space E \space|\space T\$2\space in\space E \space|\space T\space in\space b \space|\space T\$2inb \space|\space p\$2\space in\space E \space|\space pinE \space|\space p\space in\space b \space|\space p\$2\space in\space b $
+- $E ->  T\space in\space E \space|\space T\$2\space in\space E \space|\space T\space in\space b \space|\space T\$2inb \space|\space p\$2\space in\space E \space|\space pinE \space|\space p\space in\space b \space|\space p\$2\space in\space b$
 
 # For
 
 - $E ->  for\space T\$2B \space|\space for\space T\$2E \space|\space forTE$
-- $E ->  for\space T\$2b $
+- $E ->  for\space T\$2b$
 
 # conditional
 
-- $if -> if\space T\$2E \space|\space if\space T\$2b \space|\space if\space T\$2B \space|\space if\$2 \space|\space if T $2 T$
+- $if -> if\space T\$2E \space|\space if\space T\$2b \space|\space if\space T\$2B \space|\space if\$2 \space|\space if T \$2 T$
 - $elif -> if\space elif\space T\$2E \space|\space if\space elif\space T\$2b \space|\space if\space elif\space T\$2B \space|\space elif\$2 \space|\space if\space elif\space  T \$2 T$
-- $E -> if\space else\space E \space|\space ifelseb \space|\space ifelseB $
+- $E -> if\space else\space E \space|\space ifelseb \space|\space ifelseB$
     
 - $E -> elif\space else\space E \space|\space elif\space else\space b \space|\space elif\space else\space B$
 
