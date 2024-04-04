@@ -16,8 +16,12 @@ class NodeType(Enum):
     pass
 
 class DerivationTree:
+<<<<<<< HEAD
     
 <<<<<<< HEAD
+=======
+
+>>>>>>> c86b73e (changes to yonyUK)
     """
 <<<<<<< HEAD
     Clase que define al arbol de derivacion de una gramatica
@@ -31,6 +35,7 @@ class DerivationTree:
 >>>>>>> daca7b9 (warfare)
         This class defines the derivation tree of a grammar
 
+<<<<<<< HEAD
         token: Token
         childs: list(DerivationTree)
         
@@ -43,6 +48,9 @@ class DerivationTree:
     """
     
     def __init__(self,token,childs,builder):
+=======
+    def __init__(self, token, childs, builder): # childs is the token_list
+>>>>>>> c86b73e (changes to yonyUK)
 
         self._token = token
         self._childs = childs
@@ -218,6 +226,7 @@ class ASTNode:
     Context = None
     ASTType = NodeType.Undefined
 <<<<<<< HEAD
+<<<<<<< HEAD
     
     def __init__(self,token,**kwargs):
         
@@ -233,6 +242,11 @@ class ASTNode:
         
 >>>>>>> 4ef7a89 (restructuring AST)
 >>>>>>> 41d7805 (restructuring AST)
+=======
+
+    def __init__(self, token, **kwargs):
+
+>>>>>>> c86b73e (changes to yonyUK)
         self.Value = token
         if list(kwargs.keys()).count('Type') > 0:
             self.ASTType = kwargs['Type']
@@ -310,19 +324,21 @@ class ASTNode:
         return self.Resolver(self.Value, self.Childs, self.Context)
 
     @property
-<<<<<<< HEAD
     def Type(self):
 
 <<<<<<< HEAD
         if len(self.Childs) == 0:
 =======
         if len(self.Childs) == 0:  # if no node , return value type
+<<<<<<< HEAD
 =======
     def Type(self): # tries to infer types
         
         if len(self.Childs) == 0:   # if no node , return value type
 >>>>>>> 4ef7a89 (restructuring AST)
 >>>>>>> 41d7805 (restructuring AST)
+=======
+>>>>>>> c86b73e (changes to yonyUK)
             return type(self.Value)
         t = type(self.Childs[0])
         for i in range(1, len(self.Childs)):
@@ -365,6 +381,7 @@ class ASTNode:
     pass
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 =======
@@ -374,6 +391,8 @@ class context:
         
         return derivation_tree_with_context
 >>>>>>> 4ef7a89 (restructuring AST)
+=======
+>>>>>>> c86b73e (changes to yonyUK)
 
 >>>>>>> 41d7805 (restructuring AST)
 class builder:
