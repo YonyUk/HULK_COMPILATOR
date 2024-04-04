@@ -250,8 +250,9 @@ class ASTNode:
         return self.Checker(self.Value,self.Childs,self.Context)
     
     @property
-    def Result(self):
+    def cil_node_code(self):
         """
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         ejecuta la orden almacenada en este nodo y devuelve el resultado
@@ -265,6 +266,9 @@ class ASTNode:
         If no "resolver" is passed as a parameter, it will return the value associated with the node.
         The resolver must return a tuple where the first value is the result,
         and the second is the error in case it exists.
+=======
+        return CIL codes
+>>>>>>> b38b5f6 (abdel titanic)
         
 <<<<<<< HEAD
 >>>>>>> ba41d7d (hard-coded Parser-AST)
@@ -289,7 +293,7 @@ class ASTNode:
                 return Type.NONE
 =======
 
-        return self.Resolver(self.Value,self.Childs,self.Context) # return type -> ( value , error )
+        return self.Resolver(self.Value,self.Childs,self.Context)
     
     @property
     def Type(self):
@@ -328,14 +332,24 @@ class builder:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 0c73336 (working on builder)
     def __init__(self, token_list):
 =======
     def __init__(self, label ,token_list):
 >>>>>>> e34ffbc (another warfare)
+=======
+    
+    # '4' '+' '(' '5' '+' '6' ')' ';'
+    
+    def __init__(self, label ,token_list):
+    
+>>>>>>> b38b5f6 (abdel titanic)
         """Recibimos la lista de tokens"""
+    
         self._token_list = token_list
+    
         pass
 
     """En esta funcion procesamos la lista de tokens para saber que nodo construir"""
@@ -359,9 +373,11 @@ class builder:
                 self._token_list[0], self._token_list[1], self._token_list[2]
             )
         pass
+    
         """Cada uno es un Nodo en el AST"""
 
     class ASTLiteral:
+        
         def __init__(self, token):
             self._token = token
 
@@ -372,21 +388,31 @@ class builder:
 
     class ASTNew:
 <<<<<<< HEAD
+<<<<<<< HEAD
         def __init__(self, label, body):
             self.value = "new"
 =======
         def __init__(self, new, label, body):
             self._new = new
 >>>>>>> e34ffbc (another warfare)
+=======
+        
+        def __init__(self, label, body):
+            
+            self.value='new'
+>>>>>>> b38b5f6 (abdel titanic)
             self._label = label
             self._body = body
             pass
 
         def Resolve(self):
+            
             return ASTNode(
-                self._new,
+                self.value,
                 [self._label, self._body],
-                {"Resolve": self.Resolve(), "Type": Keyword.New},
+                {
+                    "cil_code_node": self.Resolver(), "Type": self._label ## check this wrong
+                },
             )
             pass
 
@@ -404,13 +430,15 @@ class builder:
 
     class ASTLabel:
         def __init__(self, label, token):
+            
             self._label = label
             self._token = token
             pass
 
         def Resolve(self):
+            
             return ASTNode(self._token, [], {"Resolve": self.Resolve()})
-            pass
+            
 
         pass
 
@@ -426,7 +454,7 @@ class builder:
                 [self._left, self._rigth],
                 {"Resolver": self.Resolve(), "Type": TokenType.Operator},
             )
-            pass
+            
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -456,6 +484,7 @@ class builder:
     pass
 
     """
+<<<<<<< HEAD
 =======
     
     '''
@@ -477,24 +506,16 @@ class builder:
     -> This is useful for AST construction from parser.
     
     -> The "builder feature" is the function that know how to return a feature AST
+=======
+>>>>>>> b38b5f6 (abdel titanic)
     
     e.j:
     
     a = LiteralToken('5',Type.Number)
     b = LiteralToken('10',Type.Number)
     c = LiteralToken('20',Type.Number)
-	@@ -282,20 +378,17 @@ class builder:
+	
     ast = Minus.AST
-    In this case, this function : "lambda token: ASTNode(int(token.Text))"  
-    returns an ASTNode class of a literal, with no "resolver" and no checker , because it is just a literal,
-    as you can see it just has value specified in its "args" , and the same happend for the rest of the cases
-    
-    __YOUR TASK__:
-    
-    -> For features like blocks you need to implement its "checker" for "type inference", and it resolver in order to
-       minimize it nodes to build the final AST of its node.
-    
-    note: blocks type is infered from it "last operation".
     
 <<<<<<< HEAD
 <<<<<<< HEAD

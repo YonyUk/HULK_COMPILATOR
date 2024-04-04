@@ -444,7 +444,7 @@ class GrammarParser(IRegEx,IShiftReduceParser):
 
             token_list = self.match_derivation_token( best_match , stack[ len(stack)- pop_number :] )
 
-            new_derivation_tree = self.derivation_tree(best_match,token_list)
+            new_derivation_tree = self.derivation_tree( best_match , token_list )
             
             new_stack = self.remove_item_stack(stack=stack , pop_number= pop_number )
             

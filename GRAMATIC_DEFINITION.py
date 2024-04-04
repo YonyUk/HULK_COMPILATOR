@@ -169,7 +169,7 @@ def traslator(token_list):
                 
                 if token_list[index1] == "'" or token_list[index1] == "\"" :
                 
-                    parse_list.append(("T", DT.builder(token_list[index1],None) ) )
+                    parse_list.append(("T", DT.builder( "T", token_list[index1]) ) )
                     index = index1
                     index += 1
                 
@@ -195,10 +195,10 @@ def traslator(token_list):
             
         if not kw:
             if index + 1 < len(token_list) and token_list[index + 1 ].Text == "(" :
-                parse_list.append(("c", DT.builder(token_list[index1],None)))
+                parse_list.append(("c", DT.builder( 'c' ,token_list[index1])))
             
             else:
-                parse_list.append(("T", DT.builder(token_list[index1],None)))
+                parse_list.append(("T", DT.builder( 'T', token_list[index1])))
         index += 1
     
     parse_list.append(("$3",None))
