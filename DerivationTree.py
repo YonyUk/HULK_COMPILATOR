@@ -248,7 +248,14 @@ class context:
 
 class builder:
 
-    # '4' '+' '(' '5' '+' '6' ')' ';'
+    '''
+    ATENCION:
+
+    AST debe poder identificar si , es de tipo "function" ,  de tipo "type" , de tipo "protocolo" o tipo "bloque"
+    y dado el tipo de nodo las propiedades de este, ejemplo si es funcion , cuales son sus parametros , su nombre , y su bloque
+    
+    '''
+    
 
     def __init__(self, label, token_list):
         """Recibimos la lista de tokens"""
@@ -374,3 +381,4 @@ class builder:
     """
 
     pass
+
