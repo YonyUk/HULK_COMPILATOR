@@ -6,8 +6,8 @@ from Rules import LiteralBooleanRule,LiteralNumericRule,LiteralStringRule,NameVa
 from ExpressionDefinitions import NumberExpression,StringExpression,BooleanExpression
 from VariableDefinitions import NumberVariable,StringVariable,BooleanVariable
 from LiteralDefinitions import NumberLiteral,StringLiteral,BooleanLiteral
-import GRAMATIC_DEFINITION
-import GrammarParser as GP
+import GRAMMAR_PRODUCTIONS
+import Parser
 from os import system
 
 
@@ -82,11 +82,11 @@ if not Error:
         
     #print(my_list)
     
-    gd_token= GRAMATIC_DEFINITION.traslator(my_list)
+    gd_token= GRAMMAR_PRODUCTIONS.traslator(my_list)
 
     #print(gd_token)
 
-    gp = GP.GrammarParser(GRAMATIC_DEFINITION.gramar,gd_token )
+    gp = Parser(GRAMMAR_PRODUCTIONS.gramar,gd_token )
     
     
 #_________________________SEMANTIC CHEKING__________________________________

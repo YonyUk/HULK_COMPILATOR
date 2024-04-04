@@ -1,10 +1,10 @@
 from RegExDefinitions import TokenFinitRegEx
 from RegExInterface import State,IRegEx
-from ParserInterface import IShiftReduceParser
 import GRAMMAR_PRODUCTIONS as GD
 import DerivationTree
 
-class GrammarParser(IRegEx,IShiftReduceParser):
+class Parser():
+    
     """
     GRAMMATIC PARSING
 
