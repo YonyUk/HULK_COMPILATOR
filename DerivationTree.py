@@ -1,4 +1,4 @@
-from EnumsTokensDefinition import TokenType,Type
+from EnumsTokensDefinition import TokenType,Type,Keyword
 from HULK_LANGUAGE_DEFINITION import KEYWORD_VALUES,SIMBOL_VALUES,OPERATOR_VALUES
 from enum import Enum
 from TokensDefinition import SimbolToken,OperatorToken,LiteralToken
@@ -327,9 +327,13 @@ class builder:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 0c73336 (working on builder)
     def __init__(self, token_list):
+=======
+    def __init__(self, label ,token_list):
+>>>>>>> e34ffbc (another warfare)
         """Recibimos la lista de tokens"""
         self._token_list = token_list
         pass
@@ -367,8 +371,13 @@ class builder:
     pass
 
     class ASTNew:
+<<<<<<< HEAD
         def __init__(self, label, body):
             self.value = "new"
+=======
+        def __init__(self, new, label, body):
+            self._new = new
+>>>>>>> e34ffbc (another warfare)
             self._label = label
             self._body = body
             pass
@@ -382,10 +391,15 @@ class builder:
             pass
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         # check for the rest of the childs of this node if they are of the same type
 
 >>>>>>> 0c73336 (working on builder)
+=======
+        # check for the rest of the childs of this node if they are of the same type
+
+>>>>>>> e34ffbc (another warfare)
         pass
 
     class ASTLabel:
@@ -415,10 +429,15 @@ class builder:
             pass
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     pass
 
 >>>>>>> 0c73336 (working on builder)
+=======
+    pass
+
+>>>>>>> e34ffbc (another warfare)
     class ASTProtocol:
         def __init__(self, protocol, label, body):
             self._protocol = protocol
@@ -432,6 +451,7 @@ class builder:
                 {"Resolve": self.Resolve(), "Type": Keyword.Protocol},
             )
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     pass
 
@@ -449,9 +469,12 @@ class builder:
     '''
     
 >>>>>>> daca7b9 (warfare)
+=======
+    """
+>>>>>>> e34ffbc (another warfare)
     -> This class has to return the AST for each kw ,literal and symbol 
     
-    -> This is useful for AST contruction from parser.
+    -> This is useful for AST construction from parser.
     
     -> The "builder feature" is the function that know how to return a feature AST
     
@@ -460,24 +483,8 @@ class builder:
     a = LiteralToken('5',Type.Number)
     b = LiteralToken('10',Type.Number)
     c = LiteralToken('20',Type.Number)
-    lp = SimbolToken('(')
-    rp = SimbolToken(')')
-
-    plus = OperatorToken('+')
-    minus = OperatorToken('-')
-
-    A = DerivationTree(a,[],lambda token: ASTNode(int(token.Text)))
-    B = DerivationTree(b,[],lambda token: ASTNode(int(token.Text)))
-    Plus = DerivationTree(plus,[A,B],lambda token: token)
-
-    LP = DerivationTree(lp,[],lambda token: token)
-    RP = DerivationTree(rp,[],lambda token: token)
-    E = DerivationTree('e',[LP,Plus,RP],lambda token: token)
-    C = DerivationTree(c,[],lambda token: ASTNode(int(token.Text)))
-    Minus = DerivationTree(minus,[C,E],lambda token: token)
-
+	@@ -282,20 +378,17 @@ class builder:
     ast = Minus.AST
-
     In this case, this function : "lambda token: ASTNode(int(token.Text))"  
     returns an ASTNode class of a literal, with no "resolver" and no checker , because it is just a literal,
     as you can see it just has value specified in its "args" , and the same happend for the rest of the cases
@@ -489,6 +496,7 @@ class builder:
     
     note: blocks type is infered from it "last operation".
     
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -512,3 +520,8 @@ class builder:
         pass
     pass
 >>>>>>> daca7b9 (warfare)
+=======
+    """
+
+    pass
+>>>>>>> e34ffbc (another warfare)
