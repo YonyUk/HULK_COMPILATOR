@@ -177,10 +177,11 @@ class ASTNode:
     Checker = None
     Context = None
     ASTType = NodeType.Undefined
+
     Context_Builder = None
-
-    def __init__(self, token, token_list, **kwargs):
-
+    
+    def __init__(self,token, token_list ,**kwargs):
+        
         self.Value = token
         if list(kwargs.keys()).count("Type") > 0:
             self.ASTType = kwargs["Type"]
@@ -194,23 +195,24 @@ class ASTNode:
         if list(kwargs.keys()).count("Context") > 0:
             self.Context = kwargs["Context"]
             pass
-        if list(kwargs.keys()).count("Context_Builder") > 0:
-            self.Context = kwargs["Context_Builder"]
+        if list(kwargs.keys()).count('Context_Builder') > 0:
+            self.Context = kwargs['Context_Builder']
             pass
         pass
-
+    
     def get_context(self):
-
+        
         # work with the Contex_Builder to return a context
-
+        
         pass
-
+    
     def context_check(self):
-
+        
         pass
 
     @property
     def type_checking(self):
+        
         """
         checkea la semantica del nodo
         returna true si esta correcta, false,Error en otro caso donde Error es el error lanzado
@@ -236,14 +238,13 @@ class ASTNode:
         return self.Resolver(self.Value, self.Childs, self.Context)
 
     @property
-    def Type(self):  # tries to infer types
+    def Type(self): # tries to infer types
+        
+        if len(self.Childs) == 0:   # if no node , return value typereturn type(self.Value)
 
-        if len(self.Childs) == 0:  # if no node , return value type
-            return type(self.Value)
-
-        t = type(
-            self.Childs[0]
-        )  # if at least one node, return the type of the first node
+            t = type(
+                self.Childs[0]
+            )  # if at least one node, return the type of the first node
 
         for i in range(
             1, len(self.Childs)
@@ -258,14 +259,12 @@ class ASTNode:
 
     pass
 
-
 class context:
-
-    def __init__(self, derivation_tree):
-        pass
-
-    # return derivation_tree_with_context
-
+    
+    # def __init__(self, derivation_tree):
+        
+    #     return derivation_tree_with_context
+    pass
 
 class builder:
 
@@ -290,40 +289,8 @@ class builder:
             return builder.ASTBinOp.Resolve
         if len(self._token_list == 3 and self._token_list[0] == KEYWORD_VALUES[0]):
             return builder.ASTNew.Resolve
-        if len(self._token_list == 2 and self._token_list[0] == KEYWORD_VALUES[1]):
-            return builder.ASTPrint.Resolve
-        if len(self._token_list == 4 and self._token_list[0] == KEYWORD_VALUES[2]):
-            return builder.ASTFunction.Resolve
-        if len(self._token_list == 2 and self._token_list[0] == KEYWORD_VALUES[3]):
-            return builder.ASTLet.Resolve
-        if len(self._token_list == 3 and self._token_list[1] == KEYWORD_VALUES[4]):
-            return builder.ASTIn.Resolve
         if len(self._token_list == 3 and self._token_list[0] == KEYWORD_VALUES[5]):
             return builder.ASTProtocol.Resolve
-        if len(
-            self._token_list == 4
-            and self._token_list[0] == KEYWORD_VALUES[5]
-            and self._token_list[2] == "extends"
-        ):
-            return builder.ASTProtocolExtend.Resolve
-        if len(self._token_list == 3 and self._token_list[0] == KEYWORD_VALUES[6]):
-            return builder.ASTType.Resolve
-        if len(
-            self._token_list == 3
-            and self._token_list[0] == KEYWORD_VALUES[6]
-            and self._token_list[2] == "inherits"
-        ):
-            return builder.ASTType.Resolve
-        if len(self._token_list == 3 and self._token_list[0] == KEYWORD_VALUES[7]):
-            return builder.ASTWhile.Resolve
-        if len(self._token_list == 3 and self._token_list[0] == KEYWORD_VALUES[8]):
-            return builder.ASTFor.Resolve
-        if len(self._token_list == 3 and self._token_list[0] == KEYWORD_VALUES[9]):
-            return builder.ASTIf.Resolve
-        if len(self._token_list == 2 and self._token_list[0] == KEYWORD_VALUES[10]):
-            return builder.ASTElse.Resolve
-        if len(self._token_list == 3 and self._token_list[0] == KEYWORD_VALUES[11]):
-            return builder.ASTElif.Resolve
         pass
 
         """Cada uno es un Nodo en el AST"""
@@ -334,7 +301,7 @@ class builder:
             self._token = token
 
         def Resolve(self):
-            return ASTNode(self._token)
+            return ASTNode(self._token,[])
 
     pass
 
@@ -352,6 +319,7 @@ class builder:
             return ASTNode(
                 self.value,
                 [self._label, self._body],
+                Type=self._label
             )
             pass
 
@@ -366,7 +334,9 @@ class builder:
 
         def Resolve(self):
 
-            return ASTNode(self._token, [])
+            return ASTNode(
+                self._token, [], Type=self._label
+            )
 
         pass
 
@@ -380,19 +350,7 @@ class builder:
             return ASTNode(
                 self._operator,
                 [self._left, self._rigth],
-            )
-
-    pass
-
-    class ASTUnaryOp:
-        def __init__(self, left, operator):
-            self._left = left
-            self._operator = operator
-
-        def Resolve(self):
-            return ASTNode(
-                self._operator,
-                [self._left],
+                Type=TokenType.Operator,
             )
 
     pass
@@ -407,7 +365,6 @@ class builder:
 
         def Resolve(self):
             return ASTNode(self.value, [self._label, self._parameters, self._body])
-            pass
 
         pass
 
@@ -418,159 +375,22 @@ class builder:
             self._body = body
 
         def Resolve(self):
-            return ASTNode(self.value, [self._label, self._body])
-
-        pass
-
-    pass
-
-    class ASTProtocolExtend:
-        def __init__(self, label1, label2, body):
-            self.value = "protocol"
-            self._label1 = label1
-            self._label2 = label2
-            self._body = body
-            pass
-
-        def Resolve(self):
-            return ASTNode(self.value, [self._label1, self._label2, self._body])
-            pass
-
-        pass
-
-    class ASTType:
-        def __init__(self, label, body):
-            self.value = "type"
-            self._label = label
-            self._body = body
-
-        def Resolve(self):
             return ASTNode(
                 self.value,
                 [self._label, self._body],
-                {"Resolve": self.Resolve(), "Type": self._label},
+                Type=self._label
             )
 
-        pass
-
-    pass
-
-    class ASTTypeInherit:
-        def __init__(self, label1, label2, body):
-            self.value = "type"
-            self._label1 = label1
-            self._label2 = label2
-            self._body = body
-            pass
-
-        def Resolve(self):
-            return ASTNode(self.value, [self._label1, self._label2, self._body])
-            pass
-
-        pass
-
-    class ASTIn:
-        def __init__(self, left, rigth):
-            self.value = "In"
-            self._left = left
-            self._rigth = rigth
-            pass
-
-        def Resolve(self):
-            return ASTNode(self.value, [self._left, self._rigth])
-            pass
-
-        pass
-
-    class ASTLet:
-        def __init__(self, t):
-            self._t = t
-            self.value = "let"
-            pass
-
-        def Resolve(self):
-            return ASTNode(self.value, [self._t])
-            pass
-
-        pass
-
-    class ASTFor:
-        def __init__(self, T, E):
-            self.value = "for"
-            self._T = T
-            self._E = E
-            pass
-
-        def Resolve(self):
-            return ASTNode(self.value, [self._T, self._E])
-            pass
-
-        pass
-
-    class ASTWhile:
-        def __init__(self, T, E):
-            self.value = "while"
-            self._T = T
-            self._E = E
-            pass
-
-        def Resolve(self):
-            return ASTNode(self.value, [self._T, self._E])
-            pass
-
-        pass
-
-    class ASTIf:
-        def __init__(self, T, E):
-            self.value = "if"
-            self._T = T
-            self._E = E
-
-            pass
-
-        def Resolve(self):
-            return ASTNode(self.value, [self._T, self._E])
-            pass
-
-        pass
-
-    class ASTElIf:
-        def __init__(self, T, E):
-            self.value = "elif"
-            self._T = T
-            self._E = E
-
-            pass
-
-        def Resolve(self):
-            return ASTNode(self.value, [self._T, self._E])
-            pass
-
-        pass
-
-    class ASTElse:
-        def __init__(self, T):
-            self.value = "else"
-            self._T = T
-
-            pass
-
-        def Resolve(self):
-            return ASTNode(self.value, [self._T])
-            pass
-
-        pass
-
-    class ASTPrint:
-        def __init__(self, body):
-            self.value = "print"
-            self._body = body
-            pass
-
-        def Resolve(self):
-            return ASTNode(self.value, [self._body])
-            pass
-
-        pass
+    """
+    
+    e.j:
+    
+    a = LiteralToken('5',Type.Number)
+    b = LiteralToken('10',Type.Number)
+    c = LiteralToken('20',Type.Number)
+	
+    ast = Minus.AST
+    
+    """
 
     pass

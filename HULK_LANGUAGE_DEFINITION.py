@@ -303,7 +303,9 @@ SIMBOL_DICT = {
     "\n" : Simbol.JumpLine,
     "self" : Simbol.Self,
     ":" : Simbol.DoublePoint,
-    "" : Simbol.End
+    "" : Simbol.End,
+    "[" : Simbol.LeftC,
+    "]" : Simbol.RightC,
 }
 
 SIMBOL_TEXTUALS = [
@@ -319,7 +321,9 @@ SIMBOL_AGRUPATORS = [
     '(',
     ')',
     '{',
-    '}'
+    '}',
+    "[",
+    "]",
 ]
 
 SIMBOL_DECLARATORS = [
@@ -340,5 +344,59 @@ TYPES_DEFINED = [
     'boolean',
     'string'
 ]
-
+SYMBOLS_and_OPERATORS_parser=[
+    
+    'new',
+    'function',
+    'let',
+    'in',
+    'protocol',
+    'type',
+    'while',
+    'for',
+    'if',
+    'else',
+    'elif',
+    'inherits',
+    'extends',
+    ',',
+    '\n',
+    ';',
+    '=>',
+    ':',
+    '(',
+    ')',
+    '{',
+    '}',
+    '.',
+    '!',
+    '++',
+    '*=',
+    '!=',
+    '--',
+    'is',
+    'as',
+    '+',
+    '-',
+    '*',
+    '/',
+    '^',
+    '%',
+    '<',
+    '>',
+    '<=',
+    '>=',
+    '=',
+    '==',
+    '@',
+    ':=',
+    '!',
+    '&',
+    '|',
+    "||",
+    "[",
+    "]",
+    "@@",
+    '**'
+]
 LoadDefinition()

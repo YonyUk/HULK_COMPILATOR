@@ -68,6 +68,8 @@ class Simbol(Enum):
     Self = 14
     JumpLine = 15
     NONE = 16
+    LeftC = 17
+    RightC = 18
 
     pass
 
@@ -171,7 +173,9 @@ SIMBOLS_DICT = {
     '' : Simbol.End,
     'self' : Simbol.Self,
     '\n' : Simbol.JumpLine,
-    '❌' : Simbol.NONE
+    '❌' : Simbol.NONE,
+    '[' : Simbol.LeftC,
+    ']' : Simbol.RightC
 }
 
 OPERATORS_DICT = {
