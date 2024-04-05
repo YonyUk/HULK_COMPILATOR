@@ -16,7 +16,6 @@ class NodeType(Enum):
 
     pass
 
-
 class DerivationTree:
     """
     This class defines the derivation tree of a grammar
@@ -236,45 +235,32 @@ class builder:
         return 
     
     def N(self,toke_list):
-        pass    
+        return  
     
     def O(self,toke_list):
-        pass    
+        return  
     
     def b(self,toke_list):
-        pass    
+        return  
     
     def B(self,toke_list):
-        pass    
+        return  
     
     def p(self,toke_list):
         
-        class params(ASTNode):
-            
-            def __init__(self,toke_params):
-                
-                self.set_identifier("params")
-                
-                
-                pass
-            
-            pass
-        
-        pass    
+        return
     
     def if_(self,toke_list):
-        pass    
+        return  
     
     def elif_(self,toke_list):
-        pass    
+        return  
     
     def M(self,toke_list):
-        pass    
+        return  
     
     def Q(self,toke_list):
-        pass    
+        return  
     
     pass
-
-
 

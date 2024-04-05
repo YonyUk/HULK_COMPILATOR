@@ -1,21 +1,21 @@
 import importing_file as impF
 
 class function_call( impF.dt.ASTNode):
-            
+
     def __init__( self, token_list ):
         
         self.set_identifier('FunctionCall')
-        self.name = token_list[0]
-        self.args = token_list[1]
+        self.name = token_list[0][1].name
+        self.args = token_list[1][1]
         
         pass
-    
+
 class function_name(impF.dt.ASTNode):
         
         def __init__(self,token_list):
 
             self.set_identifier("function_name")
-            self.name = token_list[0]
+            self.name = token_list[0][1].name
     
             pass
             
@@ -23,12 +23,31 @@ class function_name(impF.dt.ASTNode):
 
 class params( impF.dt.ASTNode):
     
+    parameters = []
+    
     def __init__(self,token_list):
         
         self.set_identifier('params')
-        self.param = token_list[1]
+        param1 = token_list[0][1]
         
+        self.parameters.append(param1)
+        
+        if token_list[1][0] == 'p': # unbox param "p"
+            
+            for item in token_list[1][1].parameters:
+                self.parameters.append(item)
+            
+        else: 
+            try:
+                
+                param2 = token_list[1][1]
+                self.parameters.append(param2)
+            
+            except:
+                pass
+                
         pass    
+    
     pass
 
 class binary_expression:
@@ -47,32 +66,57 @@ class binary_expression:
                             ('=', self.assign(token_list), ('|',self.or_(token_list))),
                             ('&', self.and_(token_list), ('!=',self.different(token_list))),
                             ('/=', self.divide_and_assign(token_list), ('*=',self.multiply_and_assign(token_list))),
-                            ('+=', self.plus_and_assign(token_list), ('-=',self.minus_and_assign(token_list))), ]
-        
+                            ('+=', self.plus_and_assign(token_list), ('-=',self.minus_and_assign(token_list))),
+                            ('in', self.in_(token_list)) , ('.', self.in_(token_list))
+                            ]
+    
         for item in binary_expresion:
-        
+    
             if item[0] == token_list[1]:
     
                 return item[1]
     
-    
+    class dot(impF.dt.ASTNode):
+        
+        def __init__(self,token_list):
+            
+            self.set_identifier('.')
+            self.left = token_list[0][1]
+            self.right = token_list[2][1]
+            
+            pass
+        
+        pass
+        
+    class in_(impF.dt.ASTNode):
+        
+        def __init__(self,token_list):
+            
+            self.set_identifier('in')
+            self.left = token_list[0][1]
+            self.right = token_list[2][1]
+        
+            pass
+        
+        pass
+
     class plus(impF.dt.ASTNode):
             
             def __init__(self,token_list):
               
                 self.set_identifier('+')
-                self.left = token_list[0]
-                self.right = token_list[2]
+                self.left = token_list[0][1]
+                self.right = token_list[2][1]
                 
-            pass
-        
+            pass      
+  
     class minus(impF.dt.ASTNode):
         
         def __init__(self,token_list):
             
             self.set_identifier('-')
-            self.left = token_list[0]
-            self.right = token_list[2]
+            self.left = token_list[0][1]
+            self.right = token_list[2][1]
 
         pass
     
@@ -81,8 +125,8 @@ class binary_expression:
         def __init__(self,token_list):
             
             self.set_identifier('*')
-            self.left = token_list[0]
-            self.right = token_list[2]
+            self.left = token_list[0][1]
+            self.right = token_list[2][1]
 
         pass
     
@@ -91,8 +135,8 @@ class binary_expression:
         def __init__(self,token_list):
             
             self.set_identifier('/')
-            self.left = token_list[0]
-            self.right = token_list[2]
+            self.left = token_list[0][1]
+            self.right = token_list[2][1]
 
         pass
     
@@ -101,8 +145,8 @@ class binary_expression:
         def __init__(self,token_list):
             
             self.set_identifier('^')
-            self.left = token_list[0]
-            self.right = token_list[2]
+            self.left = token_list[0][1]
+            self.right = token_list[2][1]
 
         pass
     
@@ -111,8 +155,8 @@ class binary_expression:
         def __init__(self,token_list):
             
             self.set_identifier('%')
-            self.left = token_list[0]
-            self.right = token_list[2]
+            self.left = token_list[0][1]
+            self.right = token_list[2][1]
 
         pass
     
@@ -121,8 +165,8 @@ class binary_expression:
         def __init__(self,token_list):
             
             self.set_identifier('@')
-            self.left = token_list[0]
-            self.right = token_list[2]
+            self.left = token_list[0][1]
+            self.right = token_list[2][1]
 
         pass
     
@@ -131,20 +175,18 @@ class binary_expression:
         def __init__(self,token_list):
             
             self.set_identifier('@@')
-            self.left = token_list[0]
-            self.right = token_list[2]
+            self.left = token_list[0][1]
+            self.right = token_list[2][1]
 
         pass
-    
-   
    
     class double_dot(impF.dt.ASTNode):
         
         def __init__(self,token_list):
             
             self.set_identifier(':')
-            self.left = token_list[0]
-            self.right = token_list[2]
+            self.left = token_list[0][1]
+            self.right = token_list[2][1]
         
         pass
     
@@ -153,8 +195,8 @@ class binary_expression:
         def __init__(self,token_list):
             
             self.set_identifier(':=')
-            self.left = token_list[0]
-            self.right = token_list[2]
+            self.left = token_list[0][1]
+            self.right = token_list[2][1]
         
         pass
     
@@ -163,8 +205,8 @@ class binary_expression:
         def __init__(self,token_list):
             
             self.set_identifier('as')
-            self.left = token_list[0]
-            self.right = token_list[2]
+            self.left = token_list[0][1]
+            self.right = token_list[2][1]
             
         pass
     
@@ -173,8 +215,8 @@ class binary_expression:
         def __init__(self,token_list):
             
             self.set_identifier('is')
-            self.left = token_list[0]
-            self.right = token_list[2]
+            self.left = token_list[0][1]
+            self.right = token_list[2][1]
             
         pass
     
@@ -183,8 +225,8 @@ class binary_expression:
         def __init__(self,token_list):
             
             self.set_identifier('==')
-            self.left = token_list[0]
-            self.right = token_list[2]
+            self.left = token_list[0][1]
+            self.right = token_list[2][1]
         
         pass
     
@@ -193,8 +235,8 @@ class binary_expression:
         def __init__(self,token_list):
             
             self.set_identifier('>')
-            self.left = token_list[0]
-            self.right = token_list[2]
+            self.left = token_list[0][1]
+            self.right = token_list[2][1]
         
         pass
     
@@ -203,8 +245,8 @@ class binary_expression:
         def __init__(self,token_list):
             
             self.set_identifier('<')
-            self.left = token_list[0]
-            self.right = token_list[2]
+            self.left = token_list[0][1]
+            self.right = token_list[2][1]
         
         pass
     
@@ -213,8 +255,8 @@ class binary_expression:
         def __init__(self,token_list):
             
             self.set_identifier('>=')
-            self.left = token_list[0]
-            self.right = token_list[2]
+            self.left = token_list[0][1]
+            self.right = token_list[2][1]
         
         pass
     
@@ -223,8 +265,8 @@ class binary_expression:
         def __init__(self,token_list):
             
             self.set_identifier('<=')
-            self.left = token_list[0]
-            self.right = token_list[2]
+            self.left = token_list[0][1]
+            self.right = token_list[2][1]
         
         pass
     
@@ -233,8 +275,8 @@ class binary_expression:
         def __init__(self,token_list):
             
             self.set_identifier('=')
-            self.left = token_list[0]
-            self.right = token_list[2]
+            self.left = token_list[0][1]
+            self.right = token_list[2][1]
         
         pass
     
@@ -243,8 +285,8 @@ class binary_expression:
         def __init__(self,token_list):
             
             self.set_identifier('|')
-            self.left = token_list[0]
-            self.right = token_list[2]
+            self.left = token_list[0][1]
+            self.right = token_list[2][1]
         
         pass
     
@@ -253,8 +295,8 @@ class binary_expression:
         def __init__(self,token_list):
             
             self.set_identifier('&')
-            self.left = token_list[0]
-            self.right = token_list[2]
+            self.left = token_list[0][1]
+            self.right = token_list[2][1]
         
         pass
     
@@ -263,8 +305,8 @@ class binary_expression:
         def __init__(self,token_list):
             
             self.set_identifier('!=')
-            self.left = token_list[0]
-            self.right = token_list[2]
+            self.left = token_list[0][1]
+            self.right = token_list[2][1]
         
         pass
     
@@ -273,8 +315,8 @@ class binary_expression:
         def __init__(self,token_list):
             
             self.set_identifier('/=')
-            self.left = token_list[0]
-            self.right = token_list[2]
+            self.left = token_list[0][1]
+            self.right = token_list[2][1]
         
         pass
     
@@ -283,8 +325,8 @@ class binary_expression:
         def __init__(self,token_list):
             
             self.set_identifier('*=')
-            self.left = token_list[0]
-            self.right = token_list[2]
+            self.left = token_list[0][1]
+            self.right = token_list[2][1]
         
         pass
     
@@ -293,8 +335,8 @@ class binary_expression:
         def __init__(self,token_list):
             
             self.set_identifier('+=')
-            self.left = token_list[0]
-            self.right = token_list[2]
+            self.left = token_list[0][1]
+            self.right = token_list[2][1]
         
         pass
     
@@ -303,16 +345,64 @@ class binary_expression:
         def __init__(self,token_list):
             
             self.set_identifier('-=')
-            self.left = token_list[0]
-            self.right = token_list[2]
+            self.left = token_list[0][1]
+            self.right = token_list[2][1]
         
         pass
     
 class unary_expression:
     
     def __init__(self,token_list):
+    
+        unary = [ ('!',self.not_(token_list)),
+                   ('++',self.plus_plus(token_list)),
+                   ('--',self.minus_minus(token_list)),
+                   ('let',self.let(token_list))
+                 ]
         
+        for item in unary:
+            
+            if item[0] == token_list[0]:
+                
+                return item[1]
+    
+    class not_(impF.dt.ASTNode):
+        
+        def __init__(self,token_list):
+            
+            self.set_identifier('!')
+            self.right = token_list[1][1]
+            
+    class plus_plus(impF.dt.ASTNode):
+        
+        def __init__(self,token_list):
+            
+            self.set_identifier('++')
+            self.right = token_list[1][1]
+    
+    class minus_minus(impF.dt.ASTNode):
+        
+        def __init__(self,token_list):
+            
+            self.set_identifier('--')
+            self.right = token_list[1][1]
+    
+    class let(impF.dt.ASTNode):
+        
+        def __init__(self,token_list):
+            
+            self.set_identifier('let')
+            self.right = token_list[1][1]
+    
+class variable(impF.dt.ASTNode):
+    
+    def __init__(self,token_list):
+        
+        self.set_identifier('var')
+        self.name=token_list[0]
         
         pass
+
+    
     
     
