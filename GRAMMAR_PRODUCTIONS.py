@@ -1,8 +1,6 @@
 import HULK_LANGUAGE_DEFINITION as HK
 
-
 gramar =[
-
 
 # function_caLL
 [

@@ -2,7 +2,7 @@ from EnumsTokensDefinition import TokenType, Type, Keyword
 from HULK_LANGUAGE_DEFINITION import KEYWORD_VALUES, SIMBOL_VALUES, OPERATOR_VALUES
 from enum import Enum
 from TokensDefinition import SimbolToken, OperatorToken, LiteralToken
-
+import importing_file as impF
 
 class NodeType(Enum):
 
@@ -169,35 +169,13 @@ class ASTNode:
     > Checker must receive as parameters the value of this node, its children, and a dictionary with the context up to the
     > Both, the Resolver and the Checker must return a tuple where the first value is the result and the second the error in case of occurrence
     
-    """
-
-    Childs = []
-    Resolver = None
-    Checker = None
-    Context = None
-    ASTType = NodeType.Undefined
-
-    Context_Builder = None
-    
-    def __init__(self , token_list , **kwargs ):
+    """   
+    @property
+    def set_identifier(self,id):  
         
-
-        self.toke_list=token_list
+        self.id = id
         
-        if list(kwargs.keys()).count("Type") > 0:
-            self.ASTType = kwargs["Type"]
-            pass
-        if list(kwargs.keys()).count("Checker") > 0:
-            self.Checker = kwargs["Checker"]
-            pass
-        if list(kwargs.keys()).count("Resolver") > 0:
-            self.Resolver = kwargs["Resolver"]
-            pass
-        if list(kwargs.keys()).count("Context") > 0:
-            self.Context = kwargs["Context"]
-            pass
-        
-        pass
+        return self.id
     
     def get_context(self):
         
@@ -209,35 +187,16 @@ class ASTNode:
         
         pass
 
-    @property
     def type_checking(self):
-        
-        """
-        checkea la semantica del nodo
-        returna true si esta correcta, false,Error en otro caso donde Error es el error lanzado
-        si no se paso ningun checker como parametro retornara true siempre
-        el checker debe devolver una tupla donde el primer valor es el resultado y el segundo el error en caso de existir
+        pass        
 
-        """
-
-        if self.Checker == None:
-            return True, None
-        return self.Checker(self.Value, self.Childs, self.Context)
-
-    @property
     def cil_node_code(self):
         """
         return CIL codes
 
         """
-
-        if self.Resolver == None:
-            return self.Value
-
-        return self.Resolver(self.Value, self.Childs, self.Context)
-
-    pass
-
+        pass
+    
 class builder:
 
     def __init__(self, label ):
@@ -260,32 +219,21 @@ class builder:
         
     def F(self ,toke_list:list):
         
-        class function_call(ASTNode):
-            
-            identifier = "call"
-            
-            def __init__( self, token_list ):
-                
-                self.name = toke_list[0]
-                self.args = toke_list[1]
-                
-                pass
-        # x( a + b , z ) -> c ( T , T ) -> c(p) -> c T
+        return impF.pdr.function_call(toke_list)
         
-        return function_call(toke_list)
+    def c(self,token_list):
         
-    def c():
-        pass
+        return impF.pdr.function_name(token_list)
     
     def P(self,toke_list):
         
-        class 
-        
-        
-        pass    
+        return impF.pdr.params(toke_list)
     
-    def T(self,toke_list):
-        pass    
+    def T(self,token_list):
+        
+        # detect the kind of expression it is
+        
+        return 
     
     def N(self,toke_list):
         pass    
@@ -300,6 +248,18 @@ class builder:
         pass    
     
     def p(self,toke_list):
+        
+        class params(ASTNode):
+            
+            def __init__(self,toke_params):
+                
+                self.set_identifier("params")
+                
+                
+                pass
+            
+            pass
+        
         pass    
     
     def if_(self,toke_list):
