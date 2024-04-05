@@ -28,7 +28,7 @@ gramar =[
     ["T",[["T","$2"]]],
     ["E",[["E","$2"],["B"]]],
     ["E",[["$2",";","$3"],["E",";"]]],
-    # add production the reduce codes with no block at the end of all reductions
+    
     ["b",[["{","M","}"],]],
     
     ["E" , [["T",";"]]],

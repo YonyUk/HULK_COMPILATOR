@@ -179,9 +179,9 @@ class ASTNode:
 
     Context_Builder = None
     
-    def __init__(self, label , token_list , **kwargs ):
+    def __init__(self , token_list , **kwargs ):
         
-        self.Value = label
+
         self.toke_list=token_list
         
         if list(kwargs.keys()).count("Type") > 0:
@@ -242,29 +242,46 @@ class builder:
 
     def __init__(self, label ):
         
-        builders = [
-                    self.F , self.P , self.T , self.N , self.O , self.b , self.B ,
-                    self.p , self.if_ , self.elif_ , self.M , self.Q
-                ]
-        
-        feature = self.filter_feature(label,builders)
+        feature = self.filter_feature(label)
         
         return feature
 
-    def filter_feature(self,label,builders):
+    def filter_feature(self,label):
         
-        features = [ 'F' , 'P' , 'T' , 'N' , 'O' , 'b' , 'B' , 'p' , 'if' , 'elif' , 'M' , 'Q' ]
+        features = [('F',self.F) , ('P',self.P) , ('T',self.T) , ('N',self.N) ,
+                    ('O',self.O) , ('b',self.b) , ('B',self.B) , ('p',self.p) , 
+                    ('if',self.if_) , ('elif',self.elif_) , ('M',self.M) , ('Q',self.Q) ,
+                    ('c',self.c) ]
         
-        for index,item in enumerate( features , start=0 ):
+        for item in features:
             
-            if label == item:
-                return builders[index]
+            if label == item[0]:
+                return item[1]
         
+    def F(self ,toke_list:list):
+        
+        class function_call(ASTNode):
+            
+            identifier = "call"
+            
+            def __init__( self, token_list ):
+                
+                self.name = toke_list[0]
+                self.args = toke_list[1]
+                
+                pass
+        # x( a + b , z ) -> c ( T , T ) -> c(p) -> c T
+        
+        return function_call(toke_list)
+        
+    def c():
+        pass
     
-    def F(self,toke_list):
-        pass    
-        
     def P(self,toke_list):
+        
+        class 
+        
+        
         pass    
     
     def T(self,toke_list):
@@ -298,4 +315,6 @@ class builder:
         pass    
     
     pass
+
+
 
